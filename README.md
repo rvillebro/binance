@@ -1,0 +1,3 @@
+# trap
+
+Binance investment strategy
