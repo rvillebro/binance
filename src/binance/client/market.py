@@ -20,7 +20,6 @@ class Market(object):
         params = utils.clean_params({
             'symbol': symbol,
             'limit': limit,
-            'fromId': from_id,
         })
 
         return await self._client._call(CallType.GET, '/fapi/v1/depth', params=params)
@@ -45,7 +44,7 @@ class Market(object):
     
     async def historical_trades(self, symbol, limit=None, from_id=None):
         """
-        Gets historical trades for a symbol.
+        Gets historical trades for a symbol. (*MARKET_DATA*)
 
         https://binance-docs.github.io/apidocs/futures/en/#old-trades-lookup-market_data
 
@@ -185,7 +184,7 @@ class Market(object):
 
         return await self._client._call(CallType.GET, '/fapi/v1/fundingRate', params=params)
 
-    async def ticker_price_change_statistics(symbol=None):
+    async def ticker_price_change_statistics(self, symbol=None):
         """
         Gets the 24 hour rolling window price change statistics for symbol or all symbols.
 
@@ -202,7 +201,7 @@ class Market(object):
 
         return await self._client._call(CallType.GET, '/fapi/v1/ticker/24hr', params=params)
     
-    async def ticker_price(symbol=None)
+    async def ticker_price(self, symbol=None):
         """
         Gets the latest price for a symbol or all symbols.
 
@@ -219,7 +218,7 @@ class Market(object):
 
         return await self._client._call(CallType.GET, '/fapi/v1/ticker/price', params=params)
 
-    async def ticker_order_book(symbol=None):
+    async def ticker_order_book(self, symbol=None):
         """
         Gets best price/quantity on the order book for a symbol or all symbols.
 
@@ -236,7 +235,7 @@ class Market(object):
 
         return await self._client._call(CallType.GET, '/fapi/v1/ticker/bookTicker', params=params)
     
-    async def liquidation_orders(symbol=None, start_time=None, end_time=None, limit=None):
+    async def liquidation_orders(self, symbol=None, start_time=None, end_time=None, limit=None):
         """
         Gets all liquidation orders for a symbol or all symbols.
 
@@ -252,14 +251,14 @@ class Market(object):
         """
         params = utils.clean_params({
             'symbol': symbol,
-            'start_time': start_time,
-            'end_time': end_time,
+            'startTime': start_time,
+            'endTime': end_time,
             'limit': limit,
         })
 
         return await self._client._call(CallType.GET, '/fapi/v1/allForceOrders', params=params)
 
-    async def open_interest(symbol):
+    async def open_interest(self, symbol):
         """
         Gets open interest for a symbol.
 
@@ -274,7 +273,7 @@ class Market(object):
 
         return await self._client._call(CallType.GET, '/fapi/v1/openInterest', params=params)
 
-    async def open_interest_statistics(symbol, period, start_time=None, end_time=None, limit=None):
+    async def open_interest_statistics(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
         Gets open interest statistics for a symbol.
 
@@ -294,15 +293,15 @@ class Market(object):
             'symbol': symbol,
             'period': period,
             'limit': limit,
-            'start_time': start_time,
-            'end_time': end_time,
+            'startTime': start_time,
+            'endTime': end_time,
         })
 
         return await self._client._call(CallType.GET, '/futures/data/openInterestHist', params=params)
     
-    async def top_long_short_ratio_accounts(symbol, period, start_time=None, end_time=None, limit=None):
+    async def top_long_short_ratio_accounts(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
-        Gets top trader long/short ratio of accounts for a symbol.
+        Gets top trader long/short ratio of accounts for a symbol. (*MARKET_DATA*)
 
         * If start time and end time are not sent, the most recent data is returned.
         * Only the data of the latest 30 days is available.
@@ -320,13 +319,13 @@ class Market(object):
             'symbol': symbol,
             'period': period,
             'limit': limit,
-            'start_time': start_time,
-            'end_time': end_time,
+            'startTime': start_time,
+            'endTime': end_time,
         })
 
-        return await self._client._call(CallType.GET, '/futures/data/topLongShortAccountRatio', params=params)
+        return await self._client._call(CallType.GET, '/futures/data/topLongShortAccountRatio', params=params, use_api_key=True)
     
-    async def top_long_short_ratio_positions(symbol, period, start_time=None, end_time=None, limit=None):
+    async def top_long_short_ratio_positions(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
         Gets top trader long/short ratio of accounts for a symbol.
 
@@ -346,13 +345,13 @@ class Market(object):
             'symbol': symbol,
             'period': period,
             'limit': limit,
-            'start_time': start_time,
-            'end_time': end_time,
+            'startTime': start_time,
+            'endTime': end_time,
         })
 
         return await self._client._call(CallType.GET, '/futures/data/topLongShortPositionRatio', params=params)
 
-    async def long_short_ratio_accounts(symbol, period, start_time=None, end_time=None, limit=None):
+    async def long_short_ratio_accounts(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
         Gets global long/short ratio of accounts for a symbol.
 
@@ -372,13 +371,13 @@ class Market(object):
             'symbol': symbol,
             'period': period,
             'limit': limit,
-            'start_time': start_time,
-            'end_time': end_time,
+            'startTime': start_time,
+            'endTime': end_time,
         })
 
         return await self._client._call(CallType.GET, '/futures/data/globalLongShortAccountRatio', params=params)
 
-    async def buy_sell_volume(symbol, period, start_time=None, end_time=None, limit=None):
+    async def buy_sell_volume(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
         Gets taker buy/sell volume statistics.
 

@@ -1,24 +1,43 @@
 #!/usr/bin/env python3.8
+import os
 import json
+import hmac
+import hashlib
 import aiohttp
 import asyncio
 
+from collections import OrderedDict
 from binance import enums
-from binance.constants import REST_API_URL
+from binance.constants import NETWORK
 
 from .general import General
 from .market import Market
+from .trade import Trade
+
+# load dot env environment variables (api key and secret)
+from dotenv import load_dotenv
+load_dotenv()
 
 class Client(object):
-    def __init__(self, api_key, api_secret, base_url = REST_API_URL.FUTURES_TEST):
-        self.base_url = base_url
+    def __init__(self, api_key=os.environ.get('BINANCE_API_KEY'),
+                 api_secret=os.environ.get('BINANCE_API_SECRET'),
+                 mode=NETWORK.TEST, rest=None, websocket=None):
+        if mode:
+            self._rest_base = mode['REST']
+
+        # overwrite base rest and websocket uri if defined
+        if rest:
+            self._rest_base = rest
+
         self.api_key = api_key
         self.api_secret = api_secret
+
         self.general = General(self)  # general API information
-        self.market = Market(self)
+        self.market = Market(self)  # market API information
+        self.trade = Trade(self)
 
         self.session = aiohttp.ClientSession()
-    
+
     async def __aenter__(self):
         return self
     
@@ -29,22 +48,22 @@ class Client(object):
         if self.session is not None:
             await self.session.close()
     
-    async def _call(self, call_type: enums.CallType, resource: str, data=None, params=None, headers=None, use_api_key=False, sign=False):
+    async def _call(self, call_type: enums.CallType, resource: str,
+                    params=None, headers=None, use_api_key=False, sign=False):
         if use_api_key:
+            headers = {} if headers is None else headers
             headers = self._add_api_key_to_headers(headers)
 
         if sign:
-            data = {} if data is None else data
-            params = {} if params is None else params
-            params['signature'] = self._get_signature(params, data)
+            params['signature'] = self._get_signature(params)
         
         if call_type not in enums.CallType:
             raise ValueError(f'Call type unknown: {call_type}')
-
+        
         call_function = getattr(self.session, call_type.function)
         if call_function:
-            call = call_function(self.base_url + resource, json = data, params = params, headers = headers)
-        
+            call = call_function(self._rest_base + resource, params = params, headers = headers)
+
         async with call as response:
             status_code = response.status
             response_body = await response.text()
@@ -59,21 +78,17 @@ class Client(object):
     
     def _add_api_key_to_headers(self, headers):
         headers.update({
-            'Accept': 'application/json',
             'X-MBX-APIKEY': self.api_key
         })
 
         return headers
     
-    def _get_signature(self, params : dict, data : dict) -> str:
+    def _get_signature(self, params : dict) -> str:
         params_string = ""
         data_string = ""
 
         if params:
             params_string = '&'.join([f"{key}={val}" for key, val in params.items()])
 
-        if data:
-            data_string = '&'.join(["{}={}".format(param[0], param[1]) for param in data])
-
-        m = hmac.new(self.api_secret.encode('utf-8'), (params_string+data_string).encode('utf-8'), hashlib.sha256)
-        return m.hexdigest()
+        signature = hmac.new(self.api_secret.encode(), params_string.encode(), hashlib.sha256).hexdigest()
+        return signature
