@@ -59,43 +59,36 @@ class MARKET(ORDER):
     Args:
         symbol (str):
         side (enum): BUY or SELL
-        #type (enum): LIMIT, MARKET, STOP, STOP_MARKET, TAKE_PROFIT, TAKE_PROFIT_MARKET, TRAILING_STOP_MARKET
         position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.
-        time_in_force (enum): GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)
         quantity (float): Cannot be sent with closePosition=true (Close-All)
         reduce_only (str): "true" or "false". default "false". Cannot be sent in Hedge Mode; cannot be sent with closePosition=true
         price (float): 
         new_client_order_id (str): A unique id among open orders. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$
-        stop_price (float): Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET orders.
         close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.
-        activation_price (float): Used with TRAILING_STOP_MARKET orders, default as the latest price (supporting different workingType)
-        callback_rate (float): Used with TRAILING_STOP_MARKET orders, min 0.1, max 5 where 1 for 1%
-        working_type (enum): stopPrice triggered by: "MARK_PRICE", "CONTRACT_PRICE". Default "CONTRACT_PRICE"
-        price_protect (str): "TRUE" or "FALSE", default "FALSE". Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET orders.
         new_order_resp_type (enum): "ACK", "RESULT", default "ACK"
     """
     def __init__(
             self,
             symbol,
-            type,
-            position_side=None,
-            time_in_force=None,
-            quantity=None,
-            reduce_only=None,
-            price=None,
-            new_client_order_id=None,
-            close_position=None,
-            new_order_resp_type=None,
+            side: order.OrderSide,
+            position_side: order.PositionSide = None,
+            quantity: float = None,
+            reduce_only: bool = None,
+            price: float = None,
+            new_client_order_id: str = None,
+            close_position: bool = None,
+            response_type: order.ResponseType = None,
         ):
+        self.type = order.OrderType.MARKET
+
         self.symbol = symbol
-        self.type = type
+        self.side = side        
         self.position_side = position_side
-        self.time_in_force = time_in_force
         self.quantity = quantity
         self.reduce_only = recude_only
         self.price = price
-        self.new_client_order_id = new_client_order_id
         self.close_position = close_position
+        self.new_client_order_id = new_client_order_id
         self.new_order_resp_type = new_order_resp_type
 
 
