@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/vin/env python3.8
 from enum import Enum
 
 class CallType(Enum):

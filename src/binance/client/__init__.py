@@ -7,9 +7,9 @@ import aiohttp
 import asyncio
 
 from collections import OrderedDict
-from binance import enums
-from binance.constants import NETWORK
 
+from binance.enums import http
+from binance.constants import NETWORK
 from .general import General
 from .market import Market
 from .trade import Trade
@@ -48,7 +48,7 @@ class Client(object):
         if self.session is not None:
             await self.session.close()
     
-    async def _call(self, call_type: enums.CallType, resource: str,
+    async def _call(self, call_type: http.CallType, resource: str,
                     params=None, headers=None, use_api_key=False, sign=False):
         if use_api_key:
             headers = {} if headers is None else headers
@@ -57,7 +57,7 @@ class Client(object):
         if sign:
             params['signature'] = self._get_signature(params)
         
-        if call_type not in enums.CallType:
+        if call_type not in http.CallType:
             raise ValueError(f'Call type unknown: {call_type}')
         
         call_function = getattr(self.session, call_type.function)
