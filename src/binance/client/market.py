@@ -1,7 +1,6 @@
 #!/usr/bin/env python3.8
-import binance.client.utils as utils
-
-from binance.enums import CallType
+from binance.client import utils
+from binance.enums import http
 
 class Market(object):
     def __init__(self, client):
@@ -22,7 +21,7 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/depth', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/depth', params=params)
 
     
     async def recent_trades(self, symbol, limit=None):
@@ -40,7 +39,7 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/trades', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/trades', params=params)
     
     async def historical_trades(self, symbol, limit=None, from_id=None):
         """
@@ -59,7 +58,7 @@ class Market(object):
             'fromId': from_id,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/historicalTrades', params=params, use_api_key=True)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/historicalTrades', params=params, use_api_key=True)
 
 
     async def aggregated_trades(self, symbol, from_id=None, start_time=None, end_time=None, limit=None):
@@ -86,7 +85,7 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/aggTrades', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/aggTrades', params=params)
     
     async def klines(self, symbol, interval, start_time=None, end_time=None, limit=None):
         """
@@ -111,7 +110,7 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/klines', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/klines', params=params)
 
     async def continues_klines(self, symbol, contract_type, interval, start_time=None, end_time=None, limit=None):
         """
@@ -140,7 +139,7 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/continuousKlines', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/continuousKlines', params=params)
 
     async def mark_price(self, symbol=None):
         """
@@ -155,7 +154,7 @@ class Market(object):
             'symbol': symbol,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/premiumIndex', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/premiumIndex', params=params)
     
     async def funding_rate_history(self, symbol, start_time=None, end_time=None, limit=None):
         """
@@ -182,7 +181,7 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/fundingRate', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/fundingRate', params=params)
 
     async def ticker_price_change_statistics(self, symbol=None):
         """
@@ -199,7 +198,7 @@ class Market(object):
             'symbol': symbol,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/ticker/24hr', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/ticker/24hr', params=params)
     
     async def ticker_price(self, symbol=None):
         """
@@ -216,7 +215,7 @@ class Market(object):
             'symbol': symbol,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/ticker/price', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/ticker/price', params=params)
 
     async def ticker_order_book(self, symbol=None):
         """
@@ -233,7 +232,7 @@ class Market(object):
             'symbol': symbol,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/ticker/bookTicker', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/ticker/bookTicker', params=params)
     
     async def liquidation_orders(self, symbol=None, start_time=None, end_time=None, limit=None):
         """
@@ -256,7 +255,7 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/allForceOrders', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/allForceOrders', params=params)
 
     async def open_interest(self, symbol):
         """
@@ -271,7 +270,7 @@ class Market(object):
             'symbol': symbol,
         })
 
-        return await self._client._call(CallType.GET, '/fapi/v1/openInterest', params=params)
+        return await self._client._call(http.CallType.GET, '/fapi/v1/openInterest', params=params)
 
     async def open_interest_statistics(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
@@ -297,7 +296,7 @@ class Market(object):
             'endTime': end_time,
         })
 
-        return await self._client._call(CallType.GET, '/futures/data/openInterestHist', params=params)
+        return await self._client._call(http.CallType.GET, '/futures/data/openInterestHist', params=params)
     
     async def top_long_short_ratio_accounts(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
@@ -323,7 +322,7 @@ class Market(object):
             'endTime': end_time,
         })
 
-        return await self._client._call(CallType.GET, '/futures/data/topLongShortAccountRatio', params=params, use_api_key=True)
+        return await self._client._call(http.CallType.GET, '/futures/data/topLongShortAccountRatio', params=params, use_api_key=True)
     
     async def top_long_short_ratio_positions(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
@@ -349,7 +348,7 @@ class Market(object):
             'endTime': end_time,
         })
 
-        return await self._client._call(CallType.GET, '/futures/data/topLongShortPositionRatio', params=params)
+        return await self._client._call(http.CallType.GET, '/futures/data/topLongShortPositionRatio', params=params)
 
     async def long_short_ratio_accounts(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
@@ -375,7 +374,7 @@ class Market(object):
             'endTime': end_time,
         })
 
-        return await self._client._call(CallType.GET, '/futures/data/globalLongShortAccountRatio', params=params)
+        return await self._client._call(http.CallType.GET, '/futures/data/globalLongShortAccountRatio', params=params)
 
     async def buy_sell_volume(self, symbol, period, start_time=None, end_time=None, limit=None):
         """
@@ -401,4 +400,4 @@ class Market(object):
             'limit': limit,
         })
 
-        return await self._client._call(CallType.GET, '/futures/data/globalLongShortAccountRatio', params=params)
+        return await self._client._call(http.CallType.GET, '/futures/data/globalLongShortAccountRatio', params=params)
