@@ -10,6 +10,7 @@ from collections import OrderedDict
 
 from binance.enums import http
 from binance.constants import NETWORK
+
 from .general import General
 from .market import Market
 from .trade import Trade
@@ -67,7 +68,7 @@ class Client(object):
         async with call as response:
             status_code = response.status
             response_body = await response.text()
-
+            print(response.url)
             if len(response_body) > 0:
                 response_body = json.loads(response_body)
 
@@ -85,7 +86,6 @@ class Client(object):
     
     def _get_signature(self, params : dict) -> str:
         params_string = ""
-        data_string = ""
 
         if params:
             params_string = '&'.join([f"{key}={val}" for key, val in params.items()])
