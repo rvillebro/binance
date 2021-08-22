@@ -5,9 +5,6 @@ class CallType(Enum):
     GET = 'get'
     POST = 'post'
 
-    @property
-    def function(self):
-        return self.value
 
 class ReturnCodes(Enum):
     MALFORMEDREQUEST = "4xx"
