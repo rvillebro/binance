@@ -1,5 +1,5 @@
 #!/usr/bin/env python3.8
-from binance.client import utils
+from binance import utils
 from binance.enums import http
 
 class Market(object):

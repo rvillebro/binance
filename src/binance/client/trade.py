@@ -1,4 +1,5 @@
 #!/usr/bin/env python3.8
+<<<<<<< HEAD
 import abc
 
 from binance.client import utils
@@ -91,6 +92,11 @@ class MARKET(ORDER):
         self.new_client_order_id = new_client_order_id
         self.new_order_resp_type = new_order_resp_type
 
+import json
+
+from binance import utils
+from binance.enums import http, binance
+from binance.order import Order
 
 class Trade(object):
     """
@@ -142,33 +148,54 @@ class Trade(object):
 
         return await self._client._call(http.CallType.GET, '/fapi/v1/positionSide/dual', params=params, sign=True, use_api_key=True)
     
-    async def new_order(order, timestamp=None, receive_window=None):
+    async def new_order(self, order, timestamp=None, receive_window=None):
         """
-        Send in a new order (*TRADE*)
+        Send in a new order (*TRADE*).
 
         https://binance-docs.github.io/apidocs/futures/en/#new-order-trade
 
         Args:
-            order (Order): order object
+            order (Order): a binance.order.Order object
             timestamp (int): timestamp
             receive_window (int): receive window
         """
+        if not isinstance(order, Order):
+            raise ValueError(f'order must be a binance.order.Order object')
+
         timestamp = timestamp if timestamp else utils.get_timestamp()
 
         params = order.params
         params['timestamp'] = timestamp
         params['recvWindow'] = receive_window
         params = utils.clean_params(params)
+        print(params)
 
-        return await self._client._call(http.CallType.GET, '/fapi/v1/order', params=params, sign=True, use_api_key=True)
+        return await self._client._call(http.CallType.POST, '/fapi/v1/order', params=params, sign=True, use_api_key=True)
 
-    async def batch_order(orders):
+    async def batch_order(self, orders, timestamp=None, receive_window=None):
         """
-        Send in a batch of orders
+        Send in a batch of orders (*TRADE*).
 
         https://binance-docs.github.io/apidocs/futures/en/#place-multiple-orders-trade
 
         Args:
-            orders (Sequence[Order]): a list of order objects
+            orders (Sequence[Order]): a list of binance.order.Order objects
         """
-        pass
+        if any([not isinstance(order, Order) for order in orders]):
+            raise ValueError(f'orders must be a list of binance.order.Order objects')
+
+        timestamp = timestamp if timestamp else utils.get_timestamp()
+
+        params = utils.clean_params({
+            'timestamp': timestamp,
+            'recvWindow': receive_window,
+        })
+        params['batchOrders'] = list()
+        for order in orders:
+            order = utils.clean_params(order.params)
+            params['batchOrders'].append(order)
+        
+        params['batchOrders'] = json.dumps(params['batchOrders'])
+        print(params)
+
+        #return await self._client._call(http.CallType.POST, '/fapi/v1/batchOrders', params=params, sign=True, use_api_key=True)
