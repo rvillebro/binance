@@ -5,7 +5,6 @@ class CallType(Enum):
     GET = 'get'
     POST = 'post'
 
-
 class ReturnCodes(Enum):
     MALFORMEDREQUEST = "4xx"
     RATELIMIT = "429"
