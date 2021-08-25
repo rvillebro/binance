@@ -4,16 +4,14 @@ import json
 import hmac
 import hashlib
 import aiohttp
-import asyncio
-
-from collections import OrderedDict
+from types import SimpleNamespace
 
 from binance.enums import http
 from binance.constants import NETWORK
+from .endpoints import general, market
 
-from .general import General
-from .market import Market
-from .trade import Trade
+#from .market import Market
+#from .trade import Trade
 
 # load dot env environment variables (api key and secret)
 from dotenv import load_dotenv
@@ -25,19 +23,28 @@ class Client(object):
                  mode=NETWORK.TEST, rest=None, websocket=None):
         if mode:
             self._rest_base = mode['REST']
+            self._websocket_base = mode['WEBSOCKET']
 
         # overwrite base rest and websocket uri if defined
         if rest:
             self._rest_base = rest
+        if websocket:
+            self._websocket_base = websocket
 
         self.api_key = api_key
         self.api_secret = api_secret
 
-        self.general = General(self)  # general API information
-        self.market = Market(self)  # market API information
-        self.trade = Trade(self)
+        self.general = self.register_endpoints(general.endpoints)  # general API information
+        self.market = self.register_endpoints(market.endpoints)  # market API information
+        #self.trade = Trade(self)  # trade API information
 
         self.session = aiohttp.ClientSession()
+
+    def register_endpoints(self, endpoints):
+        obj = SimpleNamespace()
+        for e in endpoints.list:
+            setattr(obj, e.func.__name__, e.wrap(self))
+        return obj
 
     async def __aenter__(self):
         return self
@@ -49,26 +56,25 @@ class Client(object):
         if self.session is not None:
             await self.session.close()
     
-    async def _call(self, call_type: http.CallType, resource: str,
-                    params=None, headers=None, use_api_key=False, sign=False):
-        if use_api_key:
+    async def _call(self, http_call: http.Call, route: str, /,
+                    params=None, headers=None, api_key=False, sign=False):
+        if api_key:
             headers = {} if headers is None else headers
-            headers = self._add_api_key_to_headers(headers)
+            headers = self.__add_api_key_to_headers(headers)
 
         if sign:
-            params['signature'] = self._get_signature(params)
+            params['signature'] = self.__get_signature(params.urlencode())
         
-        if call_type not in http.CallType:
-            raise ValueError(f'Call type unknown: {call_type}')
+        if http_call not in http.Call:
+            raise ValueError(f'Call type unknown: {http_call}')
         
-        call_function = getattr(self.session, call_type.function)
+        call_function = getattr(self.session, http_call.value)
         if call_function:
-            call = call_function(self._rest_base + resource, params = params, headers = headers)
+            call = call_function(self._rest_base + route, params=params.urlencode(), headers=headers)
 
         async with call as response:
             status_code = response.status
             response_body = await response.text()
-            print(response.url)
             if len(response_body) > 0:
                 response_body = json.loads(response_body)
 
@@ -77,18 +83,13 @@ class Client(object):
                     "response": response_body
                 }
     
-    def _add_api_key_to_headers(self, headers):
+    def __add_api_key_to_headers(self, headers):
         headers.update({
             'X-MBX-APIKEY': self.api_key
         })
 
         return headers
     
-    def _get_signature(self, params : dict) -> str:
-        params_string = ""
-
-        if params:
-            params_string = '&'.join([f"{key}={val}" for key, val in params.items()])
-
-        signature = hmac.new(self.api_secret.encode(), params_string.encode(), hashlib.sha256).hexdigest()
+    def __get_signature(self, params : str) -> str:
+        signature = hmac.new(self.api_secret.encode(), params.encode(), hashlib.sha256).hexdigest()
         return signature

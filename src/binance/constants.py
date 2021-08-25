@@ -8,6 +8,6 @@ NETWORK = SimpleNamespace(
     },
     TEST = {
         'REST': 'https://testnet.binancefuture.com',
-        'WEBSOCKET': 'https://testnet.binancefuture.com',
+        'WEBSOCKET': 'wss://stream.binancefuture.com',
     },
 )

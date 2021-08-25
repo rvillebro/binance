@@ -1,14 +1,8 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3
+from binance.utils import EnumStringMixin
 from enum import Enum
 
-class ReturnCodes(Enum):
-    MALFORMEDREQUEST = "4xx"
-    RATELIMIT = "429"
-    IPBAN = "418"
-    INTERNALERROR = "5xx"
-    TIMEOUT = "503"  # might still be successful, it must be checked
-
-class OrderType(Enum):
+class OrderType(EnumStringMixin, Enum):
     LIMIT = 'LIMIT'
     MARKET = 'MARKET'
     STOP = 'STOP'
@@ -17,37 +11,30 @@ class OrderType(Enum):
     TAKE_PROFIT_MARKET = 'TAKE_PROFIT_MARKET'
     TRAILING_STOP_MARKET = 'TRAILING_STOP_MARKET'
 
-    def __str__(self):
-        return self.value
 
-class OrderSide(Enum):
+class OrderSide(EnumStringMixin, Enum):
     BUY = 'BUY'
     SELL = 'SELL'
 
-    def __str__(self):
-        return self.value
 
-class PositionSide(Enum):
+class PositionSide(EnumStringMixin, Enum):
     BOTH = 'BOTH'
     LONG = 'LONG'
     SHORT = 'SHORT'
 
-    def __str__(self):
-        return self.value
 
-class WorkingType(Enum):
+class WorkingType(EnumStringMixin, Enum):
     MARK_PRICE = 'MARK_PRICE'
     CONTRACT_PRICE = 'CONTRACT_PRICE'
 
-class TimeInForce(Enum):
+
+class TimeInForce(EnumStringMixin, Enum):
     GOOD_TILL_CANCEL = 'GTC'
     IMMEDIATE_OR_CANCEL = 'IOC'
     FILL_OR_KILL = 'FOK'
     GOOD_TILL_CROSSING = 'GTX'
 
-class ResponseType(Enum):
+
+class ResponseType(EnumStringMixin, Enum):
     ACK = 'ACK'
     RESULTS = 'RESULT'
-
-    def __str__(self):
-        return self.value
