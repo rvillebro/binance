@@ -1,5 +1,5 @@
 #!/usr/bin/env python3.8
-from binance.enums import order
+from binance.enums import binance
 
 class Order(object):
     PARAM_NAMES = {
@@ -57,17 +57,17 @@ class Limit(Order):
     def __init__(
             self,
             symbol,
-            side: order.OrderSide,
+            side: binance.OrderSide,
             quantity: float,
             price: float,
-            time_in_force: order.TimeInForce,
-            position_side: order.PositionSide = None,
+            time_in_force: binance.TimeInForce,
+            position_side: binance.PositionSide = None,
             reduce_only: bool = None,
             client_order_id: str = None,
             close_position: bool = None,
-            response_type: order.ResponseType = None,
+            response_type: binance.ResponseType = None,
         ):
-        self.type = order.OrderType.LIMIT
+        self.type = binance.OrderType.LIMIT
 
         self.symbol = symbol
         self.side = side
@@ -100,26 +100,26 @@ class Market(Order):
     def __init__(
             self,
             symbol,
-            side: order.OrderSide,
+            side: binance.OrderSide,
             quantity: float,
-            position_side: order.PositionSide = None,
+            position_side: binance.PositionSide = None,
             reduce_only: bool = None,
             close_position: bool = None,
             client_order_id: str = None,
-            response_type: order.ResponseType = None,
+            response_type: binance.ResponseType = None,
         ):
-        self.type = order.OrderType.MARKET
+        self.type = binance.OrderType.MARKET
 
         # check enums
-        if isinstance(side, order.OrderSide):
+        if isinstance(side, binance.OrderSide):
             self.side = side
         else:
             raise ValueError(f'{side} is not a valid binance OrderSide.')
-        if isinstance(position_side, order.PositionSide) or position_side is None:
+        if isinstance(position_side, binance.PositionSide) or position_side is None:
             self.position_side = position_side
         else:
             raise ValueError(f'{position_side} is not a valid binance PositionSide.')
-        if isinstance(response_type, order.ResponseType) or response_type is None:
+        if isinstance(response_type, binance.ResponseType) or response_type is None:
             self.response_type = response_type
         else:
             raise ValueError(f'{response_type} is not a valid binance ResponseType.')
@@ -153,20 +153,20 @@ class Stop(Order):
     def __init__(
             self,
             symbol,
-            side: order.OrderSide,
+            side: binance.OrderSide,
             quantity: float,
             price: float,
             stop_price: float,
-            position_side: order.PositionSide = None,
+            position_side: binance.PositionSide = None,
             price_protect: bool = None,
-            working_type: order.WorkingType = None,
-            time_in_force: order.TimeInForce = None,
+            working_type: binance.WorkingType = None,
+            time_in_force: binance.TimeInForce = None,
             reduce_only: bool = None,
             close_position: bool = None,
             client_order_id: str = None,
-            response_type: order.ResponseType = None,
+            response_type: binance.ResponseType = None,
         ):
-        self.type = order.OrderType.STOP
+        self.type = binance.OrderType.STOP
 
         self.symbol = symbol
         self.side = side
@@ -204,19 +204,19 @@ class StopMarket(Order):
     def __init__(
             self,
             symbol,
-            side: order.OrderSide,
+            side: binance.OrderSide,
             stop_price: float,
             quantity: float = None,
-            position_side: order.PositionSide = None,
+            position_side: binance.PositionSide = None,
             price_protect: bool = None,
-            working_type: order.WorkingType = None,
-            time_in_force: order.TimeInForce = None,
+            working_type: binance.WorkingType = None,
+            time_in_force: binance.TimeInForce = None,
             reduce_only: bool = None,
             close_position: bool = None,
             client_order_id: str = None,
-            response_type: order.ResponseType = None,
+            response_type: binance.ResponseType = None,
         ):
-        self.type = order.OrderType.STOP_MARKET
+        self.type = binance.OrderType.STOP_MARKET
 
         self.symbol = symbol
         self.side = side
@@ -253,20 +253,20 @@ class TakeProfit(Order):
     def __init__(
             self,
             symbol,
-            side: order.OrderSide,
+            side: binance.OrderSide,
             quantity: float,
             price: float,
             stop_price: float,
-            position_side: order.PositionSide = None,
+            position_side: binance.PositionSide = None,
             price_protect: bool = None,
-            working_type: order.WorkingType = None,
-            time_in_force: order.TimeInForce = None,
+            working_type: binance.WorkingType = None,
+            time_in_force: binance.TimeInForce = None,
             reduce_only: bool = None,
             close_position: bool = None,
             client_order_id: str = None,
-            response_type: order.ResponseType = None,
+            response_type: binance.ResponseType = None,
         ):
-        self.type = order.OrderType.TAKE_PROFIT
+        self.type = binance.OrderType.TAKE_PROFIT
 
         self.symbol = symbol
         self.side = side
@@ -304,19 +304,19 @@ class TakeProfitMarket(Order):
     def __init__(
             self,
             symbol,
-            side: order.OrderSide,
+            side: binance.OrderSide,
             stop_price: float,
             quantity: float = None,
-            position_side: order.PositionSide = None,
+            position_side: binance.PositionSide = None,
             price_protect: bool = None,
-            working_type: order.WorkingType = None,
-            time_in_force: order.TimeInForce = None,
+            working_type: binance.WorkingType = None,
+            time_in_force: binance.TimeInForce = None,
             reduce_only: bool = None,
             close_position: bool = None,
             client_order_id: str = None,
-            response_type: order.ResponseType = None,
+            response_type: binance.ResponseType = None,
         ):
-        self.type = order.OrderType.TAKE_PROFIT_MARKET
+        self.type = binance.OrderType.TAKE_PROFIT_MARKET
 
         self.symbol = symbol
         self.side = side

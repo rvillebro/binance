@@ -1,23 +1,37 @@
+#!/usr/bin/make -f
 PYTHON	?= python3.9
 VENV	?= .venv
+
+.PHONY: install install_test install_doc test html latex latexpdf
 
 
 $(VENV):
 	@echo "=== creating virtual environment ==="
-	@$(PYTHON) -m venv $(VENV)
+	$(PYTHON) -m venv $(VENV)
 	@echo "=== updating pip wheel and setuptools ==="
-	@$(VENV)/bin/pip install --upgrade pip wheel setuptools
+	$(VENV)/bin/pip install --upgrade pip wheel setuptools
 
-
-.PHONY: install
 
 install: $(VENV)
 	@echo "=== installing src requirements ==="
-	@$(VENV)/bin/pip install -r requirements.txt
+	$(VENV)/bin/pip install -r requirements.txt
 
 
-.PHONY: install_docs
+install_doc: install
+	@echo "=== installing doc requirements ==="
+	$(VENV)/bin/pip install -r doc/requirements.txt
 
-install_docs: install
-	@echo "=== installing docs requirements ==="
-	@$(VENV)/bin/pip install -r docs/requirements.txt
+install_test: install
+	@echo "=== installing test requirements ==="
+	$(VENV)/bin/pip install -r src/tests/requirements.txt
+
+
+html latex latexpdf: install_doc
+	@echo "=== making $@ documentation ==="
+	@cd doc && $(MAKE) $@
+
+
+test: install_test
+	@echo "=== running test ==="
+	pytest src/tests
+
