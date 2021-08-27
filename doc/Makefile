@@ -1,5 +1,5 @@
 # Makefile for Sphinx documentation
-#
+# https://github.com/mapnik/sphinx-docs/blob/master/Makefile
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
