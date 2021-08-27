@@ -1,19 +1,14 @@
-import os
+#!/usr/bin/env python3
 import re
-from setuptools import setup, find_packages
+import pathlib
 
-# Utility function to read the README file.
-# Used for the long_description.  It's nice, because now 1) we have a top level
-# README file and 2) it's easier to type in the README file than to put a raw
-# string in below ...
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+from setuptools import setup, find_packages
 
 # Utility function to read version
 def get_version():
     fname = 'src/binance/version.py'
+    string = pathlib.Path(fname).read_text()
     version_regex = "__version__ = (?P<version>.*)"
-    string = read(fname)
     match = re.search(version_regex, string)
     version = match.group('version')
 
@@ -30,10 +25,10 @@ setup(
     description = 'A binance asynchronious API package',
     license = "MIT",
     keywords = "binance api",
-    url = "https://git.villebros.com/rvillebro/binance",
+    url = "https://github.com/rvillebro/binance",
     package_dir = {'': 'src'},
     packages = find_packages("src", exclude=['*tests*']),
-    long_description=read('README.md'),
+    long_description=pathlib.Path('README.md').read_text(),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Utilities",
