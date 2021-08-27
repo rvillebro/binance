@@ -1,3 +1,3 @@
-# trap
+# Binance futures API
 
-Binance investment strategy
+Binance futures asyncio based API by Rasmus Villebro
