@@ -39,6 +39,7 @@ html latex latexpdf: install_doc
 	@echo "=== making $@ documentation ==="
 	@cd doc && $(MAKE) $@
 
+
 clean:
 	@echo "=== cleaning documentation ==="
 	@cd doc && $(MAKE) clean
