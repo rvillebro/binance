@@ -8,10 +8,7 @@ from types import SimpleNamespace
 
 from binance.enums import http
 from binance.constants import NETWORK
-from .endpoints import general, market
-
-#from .market import Market
-#from .trade import Trade
+from .endpoints import market, trade
 
 # load dot env environment variables (api key and secret)
 from dotenv import load_dotenv
@@ -34,16 +31,15 @@ class Client(object):
         self.api_key = api_key
         self.api_secret = api_secret
 
-        self.general = self.register_endpoints(general.endpoints)  # general API information
         self.market = self.register_endpoints(market.endpoints)  # market API information
-        #self.trade = Trade(self)  # trade API information
+        self.trade = self.register_endpoints(trade.endpoints)  # trade API information
 
         self.session = aiohttp.ClientSession()
 
     def register_endpoints(self, endpoints):
         obj = SimpleNamespace()
-        for e in endpoints.list:
-            setattr(obj, e.func.__name__, e.wrap(self))
+        for endpoint in endpoints.list:
+            setattr(obj, endpoint.func.__name__, endpoint.wrap(self))
         return obj
 
     async def __aenter__(self):

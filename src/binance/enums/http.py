@@ -1,12 +1,12 @@
 #!/usr/vin/env python3.8
-from binance.utils import EnumStringMixin
-from enum import Enum
+from .base import EnumString
 
-class Call(EnumStringMixin, Enum):
+class Call(EnumString):
     GET = 'get'
     POST = 'post'
 
-class ReturnCodes(EnumStringMixin, Enum):
+
+class ReturnCodes(EnumString):
     MALFORMEDREQUEST = "4xx"
     RATELIMIT = "429"
     IPBAN = "418"
