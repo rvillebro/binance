@@ -1,4 +1,7 @@
 #!/usr/vin/env python3.8
+"""
+HTTP enums
+"""
 from .base import EnumString
 
 class Call(EnumString):

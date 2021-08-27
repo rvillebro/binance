@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3
 from types import SimpleNamespace
 
 NETWORK = SimpleNamespace(
