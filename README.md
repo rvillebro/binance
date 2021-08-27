@@ -1,3 +1,3 @@
-# Binance futures API
+#  Binance futures  asynchronious API
 
-Binance futures asyncio based API by Rasmus Villebro
+A Binance futures asynchronious API package by Rasmus Villebro
