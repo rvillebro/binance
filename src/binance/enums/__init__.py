@@ -1,5 +1,5 @@
-#!/usr/bin/env python3.8
-from binance.enums import binance
-from binance.enums import http
+#!/usr/bin/env python3
+from binance.enums import http, binance
+
 
 __all__ = ['http', 'binance']

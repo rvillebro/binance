@@ -4,11 +4,14 @@ import pathlib
 
 from setuptools import setup, find_packages
 
-# Utility function to read version
+
 def get_version():
-    fname = 'src/binance/version.py'
-    string = pathlib.Path(fname).read_text()
-    version_regex = "__version__ = (?P<version>.*)"
+    """
+    Utility function to read version
+    """
+    filepath = 'src/binance/version.py'
+    string = pathlib.Path(filepath).read_text()
+    version_regex = r'__version__ = "(?P<version>.*)"'
     match = re.search(version_regex, string)
     version = match.group('version')
 
@@ -16,6 +19,17 @@ def get_version():
         return version
     else:
         raise ValueError('Version not found!')
+
+
+def get_requirements():
+    """
+    Utility function to read requirements
+    """
+    filepath = 'requirements.txt'
+    string = pathlib.Path(filepath).read_text()
+    requirements_list = string.split('\n')
+    return requirements_list
+
 
 setup(
     name = "binance",
@@ -34,4 +48,5 @@ setup(
         "Topic :: Utilities",
         "License :: OSI Approved :: BSD License",
     ],
+    install_requires=get_requirements(),
 )

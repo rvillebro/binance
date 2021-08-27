@@ -2,7 +2,7 @@
 PYTHON	?= python3.9
 VENV	?= .venv
 
-.PHONY: install install_test install_doc dev test html latex latexpdf
+.PHONY: install_binance install_test install_doc dev test html latex latexpdf
 
 
 $(VENV):
@@ -12,24 +12,22 @@ $(VENV):
 	$(VENV)/bin/pip install --upgrade pip wheel setuptools
 
 
-install: $(VENV)
-	@echo "=== installing src requirements ==="
-	$(VENV)/bin/pip install -r requirements.txt
+install_binance: $(VENV)
+	@echo "=== installing binance package as editable ==="
+	$(VENV)/bin/pip install -e .
 
 
-install_doc: install
-	@echo "=== installing doc requirements ==="
-	$(VENV)/bin/pip install -r doc/requirements.txt
-
-
-install_test: install
+install_test: install_binance
 	@echo "=== installing test requirements ==="
 	$(VENV)/bin/pip install -r src/tests/requirements.txt
 
 
-dev: install_doc install_test
-	@echo "=== installing binance package as editable ==="
-	$(VENV)/bin/pip install -e .
+install_doc: install_binance
+	@echo "=== installing doc requirements ==="
+	$(VENV)/bin/pip install -r doc/requirements.txt
+
+
+dev: install_test install_doc 
 
 
 test: install_test
@@ -40,3 +38,9 @@ test: install_test
 html latex latexpdf: install_doc
 	@echo "=== making $@ documentation ==="
 	@cd doc && $(MAKE) $@
+
+clean:
+	@echo "=== cleaning documentation ==="
+	@cd doc && $(MAKE) clean
+	@echo "=== removing $(VENV) ==="
+	rm -rf $(VENV)
