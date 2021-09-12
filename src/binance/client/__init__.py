@@ -54,11 +54,15 @@ class Client(object):
     
     async def _call(self, http_call: http.Call, route: str, /,
                     params=None, headers=None, api_key=False, sign=False):
-        if api_key:
+        if api_key is True:
+            if self.api_key is None:
+                raise ValueError('Binance futures api key is missing!')
             headers = {} if headers is None else headers
             headers = self.__add_api_key_to_headers(headers)
 
-        if sign:
+        if sign is True:
+            if self.api_secret is None:
+                raise ValueError('Binance futures api secret is missing!')
             params['signature'] = self.__get_signature(params.urlencode())
         
         if http_call not in http.Call:

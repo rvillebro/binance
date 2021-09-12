@@ -32,16 +32,16 @@ dev: install_test install_doc
 
 test: install_test
 	@echo "=== running test ==="
-	pytest src/tests
+	$(VENV)/bin/pytest src/tests
 
 
 html latex latexpdf: install_doc
 	@echo "=== making $@ documentation ==="
-	@cd doc && $(MAKE) $@
+	@. $(VENV)/bin/activate && cd doc && $(MAKE) $@
 
 
 clean:
 	@echo "=== cleaning documentation ==="
-	@cd doc && $(MAKE) clean
+	@. $(VENV)/bin/activate && cd doc && $(MAKE) clean
 	@echo "=== removing $(VENV) ==="
 	rm -rf $(VENV)
