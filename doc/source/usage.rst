@@ -1,5 +1,0 @@
-
-Usage
-=====
-
-`pip install test`
