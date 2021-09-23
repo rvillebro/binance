@@ -52,6 +52,10 @@ async def test_recent_trades(client):
 
 @pytest.mark.asyncio
 async def test_historical_trades(client):
+    print(client._api_key)
+    if client._api_key is None:
+        pytest.skip("Requires API key!")
+
     func = client.market.historical_trades
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
@@ -91,6 +95,7 @@ async def test_aggregated_trades(client):
     response = await func(symbol='BTCUSDT', fromId=from_id, startTime=start_time, endTime=end_time)
     assert response['status_code'] == 200
 
+
 @pytest.mark.asyncio
 async def test_klines(client):
     from binance.enums.binance import KlineInterval
@@ -116,6 +121,7 @@ async def test_klines(client):
     assert response['status_code'] == 200
     response = await func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime, endTime=endTime)
     assert response['status_code'] == 200
+
 
 @pytest.mark.asyncio
 async def test_continues_contract_klines(client):
@@ -209,7 +215,6 @@ async def test_mark_price(client):
 
     response = await func(symbol='BTCUSDT')
     assert response['status_code'] == 200
-
 
 
 @pytest.mark.asyncio
