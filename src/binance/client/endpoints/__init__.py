@@ -9,10 +9,9 @@ from binance.enums import http
 
 
 class _Parameters():
-    """
-    Class for containing a API parameters and encoding them
-    """
+    """Class for containing API parameters and encoding them."""
     __slot__ = ['__params']
+
     def __init__(self, params):
         self.__params = dict()
         if params is not None:
@@ -31,7 +30,7 @@ class _Parameters():
 
     def urlencode(self):
         """
-        Url encodes parameters
+        Url encodes parameters.
 
         Returns
         str
@@ -49,24 +48,30 @@ class _Parameters():
 
 
 class _Endpoint():
-    """
-    Class for containing a API endpoint
-    """
-    __slots__ = ['http_call', 'route', 'headers', 'api_key', 'sign', 'func']
+    """Class for containing an API endpoint."""
+    __slots__ = ['http_method', 'route', 'headers', 'add_api_key', 'add_signature', 'func', 'func_signature']
 
-    def __init__(self, http_call: http.Call, route: str, func: object, /,
-                 headers: dict = None, api_key: bool = False, sign: bool = False):
-        self.http_call = http_call
+    def __init__(self, http_method: http.Method, route: str, func: object, /,
+                 headers: dict = None, add_api_key: bool = False, add_signature: bool = False):
+        self.http_method = http.Method(http_method)
         self.route = route
         self.headers = headers
-        self.api_key = api_key
-        self.sign = sign
+        self.add_api_key = add_api_key
+        self.add_signature = add_signature
         self.func = func
-    
+        self.func_signature = inspect.signature(func)
+
     def __repr__(self):
         return f'Endpoint(http_call={self.http_call}, route={self.route}, func={self.func}, headers={self.headers}, api_key={self.api_key}, sign={self.sign})'
     
-    def wrap(self, client):
+    def _get_params(self, args, kwargs):
+        ba = self.func_signature.bind(*args, **kwargs)
+        ba.apply_defaults()
+        params = ba.arguments if ba is not None else None
+        params = _Parameters(params)
+        return params
+   
+    def wrap(self, client, /, asynchronous=True):
         """
         Wraps API endpoint with client.
 
@@ -80,70 +85,53 @@ class _Endpoint():
         coroutine
             Coroutine which prepares params and uses client to make a http call.
         """
-        func_signature = inspect.signature(self.func)
-        @functools.wraps(self.func)
-        async def wrapper(*args, **kwargs):
-            ba = func_signature.bind(*args, **kwargs)
-            ba.apply_defaults()
-            params = ba.arguments if ba is not None else None
-            params = _Parameters(params)
-            return await client._call(self.http_call, self.route,  params=params, headers=self.headers, api_key=self.api_key, sign=self.sign)
+        if asynchronous:
+            @functools.wraps(self.func)
+            async def wrapper(*args, **kwargs):
+                return await client._call(
+                    self.http_method,
+                    self.route,
+                    params=self._get_params(args, kwargs),
+                    headers=self.headers,
+                    add_api_key=self.add_api_key,
+                    add_signature=self.add_signature
+                )
+        else:
+            @functools.wraps(self.func)
+            def wrapper(*args, **kwargs):
+                return client._call(
+                    self.http_method,
+                    self.route,
+                    params=self._get_params(args, kwargs),
+                    headers=self.headers,
+                    add_api_key=self.add_api_key,
+                    add_signature=self.add_signature
+                )
+
         return wrapper
 
 
 class Endpoints():
-    """
-    Class for containing and decorating API endpoints.
-    """
+    """Class for containing and decorating API endpoints."""
     def __init__(self, name):
         self.name = name
         self.__endpoints = list()
 
     def __repr__(self):
         return f'Endpoints({str(self.__endpoints)})'
-
-    def get(self, route, /, headers:dict=None, api_key:bool=False, sign:bool=False):
-        """
-        GET http request decorator.
-
-        Parameters
-        ----------
-        route : str
-            Route of API endpoint
-        headers : dict, optional
-            Headers to add to http request
-        api_key : bool, default=False
-            Whether or not to include API key in header
-        sign : bool, default=False
-            Whether or not to add signature to params
-        """
-        http_call = http.Call.GET
+    
+    def add(self, http_method, route, /, headers=None, add_api_key=False, add_signature=False):
         def decorator(func):
-            endpoint = _Endpoint(http_call, route, func, headers=headers, api_key=api_key, sign=sign)
+            endpoint = _Endpoint(
+                http_method,
+                route,
+                func,
+                headers=headers,
+                add_api_key=add_api_key,
+                add_signature=add_signature
+            )
             self.__endpoints.append(endpoint)
         return decorator
     
-    def post(self, route, /, headers=None, api_key=False, sign=False):
-        """
-        POST http request decorator.
-
-        Parameters
-        ----------
-        route : str
-            Route of API endpoint
-        headers : dict, optional
-            Headers to add to http request
-        api_key : bool, default=False
-            Whether or not to include API key in header
-        sign : bool, default=False
-            Whether or not to add signature to params
-        """
-        http_call = http.Call.POST
-        def decorator(func):
-            endpoint = _Endpoint(http_call, route, func, headers=headers, api_key=api_key, sign=sign)
-            self.__endpoints.append(endpoint)
-        return decorator
-    
-    @property
-    def list(self):
+    def to_list(self):
         return self.__endpoints

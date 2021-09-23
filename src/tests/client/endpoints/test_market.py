@@ -269,6 +269,7 @@ async def test_open_interest(client):
         await func()
 
     response = await func(symbol='BTCUSDT')
+    print(response)
     assert response['status_code'] == 200
 
 
