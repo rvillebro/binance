@@ -10,6 +10,9 @@ Welcome to binance's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   usage
+   configuration
+   api/index
 
 
 Indices and tables
