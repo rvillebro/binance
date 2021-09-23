@@ -11,7 +11,7 @@ from . import Endpoints
 
 endpoints = Endpoints('trade')
 
-@endpoints.post('/fapi/v1/positionSide/dual', api_key=True, sign=True)
+@endpoints.add('post', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
 def set_position_mode(dualSidePosition, timestamp=utils.get_timestamp(), receiveWindow=None):
     """
     Sets the user's position mode on every position: hedge mode or one-way mode (*TRADE*)
@@ -30,7 +30,7 @@ def set_position_mode(dualSidePosition, timestamp=utils.get_timestamp(), receive
     pass
 
 
-@endpoints.get('/fapi/v1/positionSide/dual', api_key=True, sign=True)
+@endpoints.add('get', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
 def get_position_mode(timestamp=utils.get_timestamp(), receiveWindow=None):
     """
     Gets the user's position mode on every position: hedge mode or one-way mode (*USER_DATA*)

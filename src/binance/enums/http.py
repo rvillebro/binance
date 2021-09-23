@@ -2,11 +2,12 @@
 """
 HTTP enums
 """
+import requests
 from .base import EnumString
 
-class Call(EnumString):
-    GET = 'get'
-    POST = 'post'
+class Method(EnumString):
+    GET = 'GET'
+    POST = 'POST'
 
 
 class ReturnCodes(EnumString):

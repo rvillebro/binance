@@ -12,6 +12,6 @@ def event_loop():
 
 @pytest.fixture(scope="module")
 async def client():
-    c = binance.Client()
+    c = binance.AIOClient()
     yield c
     await c.close()
