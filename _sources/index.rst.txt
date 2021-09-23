@@ -11,6 +11,7 @@ Welcome to binance's documentation!
    :caption: Contents:
 
    user_guide/index
+   contributing/index
    api/index
 
 
