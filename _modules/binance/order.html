@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>binance.order &#8212; binance 0.1 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../index.html">
+<p class="title">binance</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../user_guide/index.html">
+  User guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../api/index.html">
+  API
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/rvillebro/binance" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for binance.order</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">binance.enums</span> <span class="kn">import</span> <span class="n">binance</span>
+
+<span class="k">class</span> <span class="nc">Order</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">PARAM_NAMES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;position_side&#39;</span><span class="p">:</span> <span class="s1">&#39;positionSide&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;time_in_force&#39;</span><span class="p">:</span> <span class="s1">&#39;timeInForce&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;reduce_only&#39;</span><span class="p">:</span> <span class="s1">&#39;reduce_only&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;client_order_id&#39;</span><span class="p">:</span> <span class="s1">&#39;newClientOrderId&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;stop_price&#39;</span><span class="p">:</span> <span class="s1">&#39;stopPrice&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;close_position&#39;</span><span class="p">:</span> <span class="s1">&#39;closePosition&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;activation_price&#39;</span><span class="p">:</span> <span class="s1">&#39;activationPrice&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;callback_rate&#39;</span><span class="p">:</span> <span class="s1">&#39;callbackRate&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;working_type&#39;</span><span class="p">:</span> <span class="s1">&#39;workingType&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;price_protect&#39;</span><span class="p">:</span> <span class="s1">&#39;priceProtect&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;response_type&#39;</span><span class="p">:</span> <span class="s1">&#39;newOrderRespType&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__slots__</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PARAM_NAMES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">params</span>
+
+<div class="viewcode-block" id="Limit"><a class="viewcode-back" href="../../api/order_types.html#binance.order.Limit">[docs]</a><span class="k">class</span> <span class="nc">Limit</span><span class="p">(</span><span class="n">Order</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes limit binance object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol (str):</span>
+<span class="sd">        side (enum): BUY or SELL</span>
+<span class="sd">        position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.</span>
+<span class="sd">        time_in_force (enum): GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)</span>
+<span class="sd">        quantity (float): Cannot be sent with closePosition=true (Close-All)</span>
+<span class="sd">        reduce_only (str): &quot;true&quot; or &quot;false&quot;. default &quot;false&quot;. Cannot be sent in Hedge Mode; cannot be sent with closePosition=true</span>
+<span class="sd">        price (float): </span>
+<span class="sd">        client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$</span>
+<span class="sd">        close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.</span>
+<span class="sd">        reponse_type (enum): &quot;ACK&quot;, &quot;RESULT&quot;, default &quot;ACK&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;symbol&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;side&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;quantity&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;price&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;time_in_force&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;position_side&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;reduce_only&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;client_order_id&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;close_position&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;response_type&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">symbol</span><span class="p">,</span>
+            <span class="n">side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderSide</span><span class="p">,</span>
+            <span class="n">quantity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">price</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">time_in_force</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">TimeInForce</span><span class="p">,</span>
+            <span class="n">position_side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">PositionSide</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">reduce_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">client_order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">close_position</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">response_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">ResponseType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderType</span><span class="o">.</span><span class="n">LIMIT</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_side</span> <span class="o">=</span> <span class="n">position_side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_in_force</span> <span class="o">=</span> <span class="n">time_in_force</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduce_only</span> <span class="o">=</span> <span class="n">reduce_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">price</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_position</span> <span class="o">=</span> <span class="n">close_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_order_id</span> <span class="o">=</span> <span class="n">client_order_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_type</span> <span class="o">=</span> <span class="n">response_type</span></div>
+
+
+<div class="viewcode-block" id="Market"><a class="viewcode-back" href="../../api/order_types.html#binance.order.Market">[docs]</a><span class="k">class</span> <span class="nc">Market</span><span class="p">(</span><span class="n">Order</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes market binance object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol (str):</span>
+<span class="sd">        side (enum): BUY or SELL</span>
+<span class="sd">        position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.</span>
+<span class="sd">        quantity (float): Cannot be sent with closePosition=true (Close-All)</span>
+<span class="sd">        reduce_only (str): &quot;true&quot; or &quot;false&quot;. default &quot;false&quot;. Cannot be sent in Hedge Mode; cannot be sent with closePosition=true</span>
+<span class="sd">        close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.</span>
+<span class="sd">        client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$</span>
+<span class="sd">        response_type (enum): &quot;ACK&quot;, &quot;RESULT&quot;, default &quot;ACK&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="s1">&#39;side&#39;</span><span class="p">,</span> <span class="s1">&#39;position_side&#39;</span><span class="p">,</span> <span class="s1">&#39;quantity&#39;</span><span class="p">,</span> <span class="s1">&#39;reduce_only&#39;</span><span class="p">,</span> <span class="s1">&#39;close_position&#39;</span><span class="p">,</span> <span class="s1">&#39;client_order_id&#39;</span><span class="p">,</span> <span class="s1">&#39;response_type&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">symbol</span><span class="p">,</span>
+            <span class="n">side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderSide</span><span class="p">,</span>
+            <span class="n">quantity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">position_side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">PositionSide</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">reduce_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">close_position</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">client_order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">response_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">ResponseType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderType</span><span class="o">.</span><span class="n">MARKET</span>
+
+        <span class="c1"># check enums</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderSide</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s1"> is not a valid binance OrderSide.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position_side</span><span class="p">,</span> <span class="n">binance</span><span class="o">.</span><span class="n">PositionSide</span><span class="p">)</span> <span class="ow">or</span> <span class="n">position_side</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position_side</span> <span class="o">=</span> <span class="n">position_side</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">position_side</span><span class="si">}</span><span class="s1"> is not a valid binance PositionSide.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response_type</span><span class="p">,</span> <span class="n">binance</span><span class="o">.</span><span class="n">ResponseType</span><span class="p">)</span> <span class="ow">or</span> <span class="n">response_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_type</span> <span class="o">=</span> <span class="n">response_type</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">response_type</span><span class="si">}</span><span class="s1"> is not a valid binance ResponseType.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduce_only</span> <span class="o">=</span> <span class="n">reduce_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_position</span> <span class="o">=</span> <span class="n">close_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_order_id</span> <span class="o">=</span> <span class="n">client_order_id</span></div>
+
+
+<div class="viewcode-block" id="Stop"><a class="viewcode-back" href="../../api/order_types.html#binance.order.Stop">[docs]</a><span class="k">class</span> <span class="nc">Stop</span><span class="p">(</span><span class="n">Order</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes stop binance object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol (str):</span>
+<span class="sd">        side (enum): BUY or SELL</span>
+<span class="sd">        quantity (float): Cannot be sent with closePosition=true (Close-All)</span>
+<span class="sd">        price (float): price</span>
+<span class="sd">        stop_price (float): Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.</span>
+<span class="sd">        price_protect (bool): &quot;TRUE&quot; or &quot;FALSE&quot;, default &quot;FALSE&quot;. Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        working_type (enum): stopPrice triggered by: &quot;MARK_PRICE&quot;, &quot;CONTRACT_PRICE&quot;. Default &quot;CONTRACT_PRICE&quot;</span>
+<span class="sd">        time_in_force (enum): GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)</span>
+<span class="sd">        reduce_only (str): &quot;true&quot; or &quot;false&quot;. default &quot;false&quot;. Cannot be sent in Hedge Mode; cannot be sent with closePosition=true</span>
+<span class="sd">        close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.</span>
+<span class="sd">        client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$</span>
+<span class="sd">        response_type (enum): &quot;ACK&quot;, &quot;RESULT&quot;, default &quot;ACK&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">symbol</span><span class="p">,</span>
+            <span class="n">side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderSide</span><span class="p">,</span>
+            <span class="n">quantity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">price</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">stop_price</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">position_side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">PositionSide</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">price_protect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">working_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">WorkingType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">time_in_force</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">TimeInForce</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">reduce_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">close_position</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">client_order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">response_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">ResponseType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderType</span><span class="o">.</span><span class="n">STOP</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">price</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_price</span> <span class="o">=</span> <span class="n">stop_price</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_side</span> <span class="o">=</span> <span class="n">position_side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price_protect</span> <span class="o">=</span> <span class="n">price_protect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_type</span> <span class="o">=</span> <span class="n">working_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_in_force</span> <span class="o">=</span> <span class="n">time_in_force</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduce_only</span> <span class="o">=</span> <span class="n">reduce_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_position</span> <span class="o">=</span> <span class="n">close_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_order_id</span> <span class="o">=</span> <span class="n">client_order_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_type</span> <span class="o">=</span> <span class="n">response_type</span></div>
+
+
+<div class="viewcode-block" id="StopMarket"><a class="viewcode-back" href="../../api/order_types.html#binance.order.StopMarket">[docs]</a><span class="k">class</span> <span class="nc">StopMarket</span><span class="p">(</span><span class="n">Order</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes stop market binance object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol (str):</span>
+<span class="sd">        side (enum): BUY or SELL</span>
+<span class="sd">        stop_price (float): Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        quantity (float): Cannot be sent with closePosition=true (Close-All)</span>
+<span class="sd">        position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.</span>
+<span class="sd">        price_protect (bool): &quot;TRUE&quot; or &quot;FALSE&quot;, default &quot;FALSE&quot;. Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        working_type (enum): stopPrice triggered by: &quot;MARK_PRICE&quot;, &quot;CONTRACT_PRICE&quot;. Default &quot;CONTRACT_PRICE&quot;</span>
+<span class="sd">        time_in_force (enum): GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)</span>
+<span class="sd">        reduce_only (str): &quot;true&quot; or &quot;false&quot;. default &quot;false&quot;. Cannot be sent in Hedge Mode; cannot be sent with closePosition=true</span>
+<span class="sd">        close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.</span>
+<span class="sd">        client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$</span>
+<span class="sd">        response_type (enum): &quot;ACK&quot;, &quot;RESULT&quot;, default &quot;ACK&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">symbol</span><span class="p">,</span>
+            <span class="n">side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderSide</span><span class="p">,</span>
+            <span class="n">stop_price</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">quantity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">position_side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">PositionSide</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">price_protect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">working_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">WorkingType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">time_in_force</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">TimeInForce</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">reduce_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">close_position</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">client_order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">response_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">ResponseType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderType</span><span class="o">.</span><span class="n">STOP_MARKET</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_price</span> <span class="o">=</span> <span class="n">stop_price</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_side</span> <span class="o">=</span> <span class="n">position_side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price_protect</span> <span class="o">=</span> <span class="n">price_protect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_type</span> <span class="o">=</span> <span class="n">working_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_in_force</span> <span class="o">=</span> <span class="n">time_in_force</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduce_only</span> <span class="o">=</span> <span class="n">reduce_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_position</span> <span class="o">=</span> <span class="n">close_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_order_id</span> <span class="o">=</span> <span class="n">client_order_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_type</span> <span class="o">=</span> <span class="n">response_type</span></div>
+
+
+<div class="viewcode-block" id="TakeProfit"><a class="viewcode-back" href="../../api/order_types.html#binance.order.TakeProfit">[docs]</a><span class="k">class</span> <span class="nc">TakeProfit</span><span class="p">(</span><span class="n">Order</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes take profit binance object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol (str):</span>
+<span class="sd">        side (enum): BUY or SELL</span>
+<span class="sd">        quantity (float): Cannot be sent with closePosition=true (Close-All)</span>
+<span class="sd">        price (float): price</span>
+<span class="sd">        stop_price (float): Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.</span>
+<span class="sd">        price_protect (bool): &quot;TRUE&quot; or &quot;FALSE&quot;, default &quot;FALSE&quot;. Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        working_type (enum): stopPrice triggered by: &quot;MARK_PRICE&quot;, &quot;CONTRACT_PRICE&quot;. Default &quot;CONTRACT_PRICE&quot;</span>
+<span class="sd">        time_in_force (enum): GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)</span>
+<span class="sd">        reduce_only (str): &quot;true&quot; or &quot;false&quot;. default &quot;false&quot;. Cannot be sent in Hedge Mode; cannot be sent with closePosition=true</span>
+<span class="sd">        close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.</span>
+<span class="sd">        client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$</span>
+<span class="sd">        response_type (enum): &quot;ACK&quot;, &quot;RESULT&quot;, default &quot;ACK&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">symbol</span><span class="p">,</span>
+            <span class="n">side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderSide</span><span class="p">,</span>
+            <span class="n">quantity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">price</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">stop_price</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">position_side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">PositionSide</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">price_protect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">working_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">WorkingType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">time_in_force</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">TimeInForce</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">reduce_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">close_position</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">client_order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">response_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">ResponseType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderType</span><span class="o">.</span><span class="n">TAKE_PROFIT</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">price</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_price</span> <span class="o">=</span> <span class="n">stop_price</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_side</span> <span class="o">=</span> <span class="n">position_side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price_protect</span> <span class="o">=</span> <span class="n">price_protect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_type</span> <span class="o">=</span> <span class="n">working_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_in_force</span> <span class="o">=</span> <span class="n">time_in_force</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduce_only</span> <span class="o">=</span> <span class="n">reduce_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_position</span> <span class="o">=</span> <span class="n">close_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_order_id</span> <span class="o">=</span> <span class="n">client_order_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_type</span> <span class="o">=</span> <span class="n">response_type</span></div>
+
+
+<div class="viewcode-block" id="TakeProfitMarket"><a class="viewcode-back" href="../../api/order_types.html#binance.order.TakeProfitMarket">[docs]</a><span class="k">class</span> <span class="nc">TakeProfitMarket</span><span class="p">(</span><span class="n">Order</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes take profit market binance object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol (str):</span>
+<span class="sd">        side (enum): BUY or SELL</span>
+<span class="sd">        stop_price (float): Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        quantity (float): Cannot be sent with closePosition=true (Close-All)</span>
+<span class="sd">        position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.</span>
+<span class="sd">        price_protect (bool): &quot;TRUE&quot; or &quot;FALSE&quot;, default &quot;FALSE&quot;. Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET binances.</span>
+<span class="sd">        working_type (enum): stopPrice triggered by: &quot;MARK_PRICE&quot;, &quot;CONTRACT_PRICE&quot;. Default &quot;CONTRACT_PRICE&quot;</span>
+<span class="sd">        time_in_force (enum): GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)</span>
+<span class="sd">        reduce_only (str): &quot;true&quot; or &quot;false&quot;. default &quot;false&quot;. Cannot be sent in Hedge Mode; cannot be sent with closePosition=true</span>
+<span class="sd">        close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.</span>
+<span class="sd">        client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$</span>
+<span class="sd">        response_type (enum): &quot;ACK&quot;, &quot;RESULT&quot;, default &quot;ACK&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">symbol</span><span class="p">,</span>
+            <span class="n">side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderSide</span><span class="p">,</span>
+            <span class="n">stop_price</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">quantity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">position_side</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">PositionSide</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">price_protect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">working_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">WorkingType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">time_in_force</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">TimeInForce</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">reduce_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">close_position</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">client_order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">response_type</span><span class="p">:</span> <span class="n">binance</span><span class="o">.</span><span class="n">ResponseType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">binance</span><span class="o">.</span><span class="n">OrderType</span><span class="o">.</span><span class="n">TAKE_PROFIT_MARKET</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_price</span> <span class="o">=</span> <span class="n">stop_price</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_side</span> <span class="o">=</span> <span class="n">position_side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price_protect</span> <span class="o">=</span> <span class="n">price_protect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">working_type</span> <span class="o">=</span> <span class="n">working_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_in_force</span> <span class="o">=</span> <span class="n">time_in_force</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduce_only</span> <span class="o">=</span> <span class="n">reduce_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_position</span> <span class="o">=</span> <span class="n">close_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_order_id</span> <span class="o">=</span> <span class="n">client_order_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_type</span> <span class="o">=</span> <span class="n">response_type</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Rasmus Villebro.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
