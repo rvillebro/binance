@@ -10,23 +10,33 @@ from binance.enums import http
 
 class _Parameters():
     """Class for containing API parameters and encoding them."""
-    __slot__ = ['__params']
+    __slot__ = ['params']
 
     def __init__(self, params):
-        self.__params = dict()
-        if params is not None:
-            for key, value in params.items():
-                self[key] = value
+        self.params = dict()
+        for key, val in params.items():
+            if val is not None:
+                self.params[key] = self._encode(val)
     
     def __repr__(self):
-        return f'Parameters({self.__params})'
-
-    def __setitem__(self, key, val):
+        return f'Parameters({self.params})'
+    
+    def __setitem__(self, key,val):
         if val is not None:
-            self.__params[key] = str(val)
-
+            self.params[key] = self._encode(val)
+    
     def __getitem__(self, key):
-        return self.__params[key]
+        return self.params[key]
+
+    def _encode(self, val):
+        if isinstance(val, list):
+            val = json.dumps(val)
+        elif isinstance(val, float):
+            val = (f'{val:.20f}')[slice(0, 16)].rstrip('0').rstrip('.')
+        elif callable(val):
+            val = val()
+        
+        return str(val)
 
     def urlencode(self):
         """
@@ -36,15 +46,7 @@ class _Parameters():
         str
             Url encoded string of parameters
         """
-        params = dict()
-        for key, val in self.__params.items():
-            if isinstance(val, list):
-                params[key] = json.dumps(val)
-            elif isinstance(val, float):
-                params[key] = (f'{val:.20f}')[slice(0, 16)].rstrip('0').rstrip('.')
-            else:
-                params[key] = str(val)
-        return urlencode(params)
+        return urlencode(self.params)
 
 
 class _Endpoint():
@@ -59,7 +61,7 @@ class _Endpoint():
         self.add_api_key = add_api_key
         self.add_signature = add_signature
         self.func = func
-        self.func_signature = inspect.signature(func)
+        self.func_signature = inspect.signature(self.func)
 
     def __repr__(self):
         return f'Endpoint(http_call={self.http_call}, route={self.route}, func={self.func}, headers={self.headers}, api_key={self.api_key}, sign={self.sign})'
@@ -67,8 +69,8 @@ class _Endpoint():
     def _get_params(self, args, kwargs):
         ba = self.func_signature.bind(*args, **kwargs)
         ba.apply_defaults()
-        params = ba.arguments if ba is not None else None
-        params = _Parameters(params)
+
+        params = _Parameters(ba.arguments)
         return params
    
     def wrap(self, client, /, asynchronous=True):
@@ -133,5 +135,5 @@ class Endpoints():
             self.__endpoints.append(endpoint)
         return decorator
     
-    def to_list(self):
-        return self.__endpoints
+    def __iter__(self):
+        return iter(self.__endpoints)

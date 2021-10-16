@@ -4,13 +4,13 @@ Binance ENUM definitions
 
 https://binance-docs.github.io/apidocs/futures/en/#public-endpoints-info
 """
-from .base import EnumString
+from .base import StrEnum
 
-class SymbolType(EnumString):
+class SymbolType(StrEnum):
     FUTURE = 'FUTURE'
 
 
-class ContractType(EnumString):
+class ContractType(StrEnum):
     PERPETUAL = 'PERPETUAL'
     CURRENT_MONTH = 'CURRENT_MONTH'
     NEXT_MONTH = 'NEXT_MONTH'
@@ -18,7 +18,7 @@ class ContractType(EnumString):
     NEXT_QUARTER = 'NEXT_QUARTER'
 
 
-class ContractStatus(EnumString):
+class ContractStatus(StrEnum):
     PENDING_TRADING = 'PENDING_TRADING'
     TRADING = 'TRADING'
     PRE_DELIVERING = 'PRE_DELIVERING'
@@ -29,7 +29,7 @@ class ContractStatus(EnumString):
     CLOSE = 'CLOSE'
 
 
-class OrderStatus(EnumString):
+class OrderStatus(StrEnum):
     NEW = 'NEW'
     PARTIALLY_FILLED = 'PARTIALLY_FILLED'
     FILLED = 'FILLED'
@@ -38,7 +38,7 @@ class OrderStatus(EnumString):
     EXPIRED = 'EXPIRED'
 
 
-class OrderType(EnumString):
+class OrderType(StrEnum):
     LIMIT = 'LIMIT'
     MARKET = 'MARKET'
     STOP = 'STOP'
@@ -48,35 +48,35 @@ class OrderType(EnumString):
     TRAILING_STOP_MARKET = 'TRAILING_STOP_MARKET'
 
 
-class OrderSide(EnumString):
+class OrderSide(StrEnum):
     BUY = 'BUY'
     SELL = 'SELL'
 
 
-class PositionSide(EnumString):
+class PositionSide(StrEnum):
     BOTH = 'BOTH'
     LONG = 'LONG'
     SHORT = 'SHORT'
 
 
-class WorkingType(EnumString):
+class WorkingType(StrEnum):
     MARK_PRICE = 'MARK_PRICE'
     CONTRACT_PRICE = 'CONTRACT_PRICE'
 
 
-class TimeInForce(EnumString):
+class TimeInForce(StrEnum):
     GOOD_TILL_CANCEL = 'GTC'
     IMMEDIATE_OR_CANCEL = 'IOC'
     FILL_OR_KILL = 'FOK'
     GOOD_TILL_CROSSING = 'GTX'
 
 
-class ResponseType(EnumString):
+class ResponseType(StrEnum):
     ACK = 'ACK'
     RESULTS = 'RESULT'
 
 
-class KlineInterval(EnumString):
+class KlineInterval(StrEnum):
     ONE_MINUTE = '1m'
     THREE_MINUTES = '3m'
     FIVE_MINUTES = '5m'
@@ -94,16 +94,16 @@ class KlineInterval(EnumString):
     ONE_MONTH = '1M'
 
 
-class RateLimiter(EnumString):
+class RateLimiter(StrEnum):
     REQUEST_WEIGHT = 'REQUEST_WEIGHT'
     ORDERS = 'ORDERS'
 
 
-class RateLimitInterval(EnumString):
+class RateLimitInterval(StrEnum):
     MINUTE = 'MINUTE'
 
 
-class Period(EnumString):
+class Period(StrEnum):
     FIVE_MINUTES = '5m'
     FIFTEEN_MINUTES = '15m'
     THIRTY_MINUTES = '30m'

@@ -32,7 +32,7 @@ class AIOClient(BaseClient):
             if self._api_secret is None:
                 raise ValueError('Binance futures API secret is missing!')
             params['signature'] = self._get_signature(params.urlencode())
-        
+
         request = self.session.request(
             method=str(http_method),
             url=self._rest_base + route,

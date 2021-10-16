@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 from enum import Enum
 
-class EnumString(Enum):
+class StrEnum(Enum):
+    """
+    String Enum for use with strings
+    """
     def __str__(self):
         return self.value
     
