@@ -11,8 +11,8 @@ from . import Endpoints
 
 endpoints = Endpoints('trade')
 
-@endpoints.add('post', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
-def set_position_mode(dualSidePosition, timestamp=utils.get_timestamp(), receiveWindow=None):
+@endpoints.add('POST', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
+def set_position_mode(dualSidePosition, timestamp=utils.get_timestamp, recvWindow=None):
     """
     Sets the user's position mode on every position: hedge mode or one-way mode (*TRADE*)
 
@@ -30,8 +30,8 @@ def set_position_mode(dualSidePosition, timestamp=utils.get_timestamp(), receive
     pass
 
 
-@endpoints.add('get', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
-def get_position_mode(timestamp=utils.get_timestamp(), receiveWindow=None):
+@endpoints.add('GET', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
+def get_position_mode(timestamp=utils.get_timestamp, recvWindow=None):
     """
     Gets the user's position mode on every position: hedge mode or one-way mode (*USER_DATA*)
 
@@ -47,7 +47,7 @@ def get_position_mode(timestamp=utils.get_timestamp(), receiveWindow=None):
     pass
 
     
-def new_order(order: Order, timestamp=utils.get_timestamp(), receive_window=None):
+def new_order(order: Order, timestamp: int=utils.get_timestamp, recvWindow: int=None):
     """
     Send in a new order (*TRADE*).
 
@@ -59,12 +59,12 @@ def new_order(order: Order, timestamp=utils.get_timestamp(), receive_window=None
         a binance.order.Order object
     timestamp : int
         timestamp
-    receive_window : int
+    recvWindow : int
         receive window
     """
     pass
 
-def batch_order(orders: list[Order], timestamp=utils.get_timestamp(), receive_window=None):
+def batch_order(orders: list[Order], timestamp: int=utils.get_timestamp, recvWindow: int=None):
     """
     Send in a batch of orders (*TRADE*).
 
@@ -76,7 +76,7 @@ def batch_order(orders: list[Order], timestamp=utils.get_timestamp(), receive_wi
         list of binance.order.Order objects
     timestamp : int
         timestamp
-    receive_window : int
+    recvWindow : int
         receive window
     """
     pass

@@ -37,8 +37,8 @@ class BaseClient(abc.ABC):
 
     def register_endpoints(self, endpoints):
         obj = SimpleNamespace()
-        for endpoint in endpoints.to_list():
-            setattr(obj, endpoint.func.__name__, endpoint.wrap(self))
+        for e in endpoints:
+            setattr(obj, e.func.__name__, e.wrap(self))
         return obj
     
     def _add_api_key_to_headers(self, headers):

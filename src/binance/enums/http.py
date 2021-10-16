@@ -2,15 +2,14 @@
 """
 HTTP enums
 """
-import requests
-from .base import EnumString
+from .base import StrEnum
 
-class Method(EnumString):
+class Method(StrEnum):
     GET = 'GET'
     POST = 'POST'
 
 
-class ReturnCodes(EnumString):
+class ReturnCodes(StrEnum):
     MALFORMEDREQUEST = "4xx"
     RATELIMIT = "429"
     IPBAN = "418"

@@ -3,27 +3,25 @@ import pytest
 
 
 @pytest.mark.asyncio
-async def test_ping(client):
-    response = await client.market.ping()
+async def test_ping(aioclient):
+    response = await aioclient.market.ping()
+    assert response['status_code'] == 200
+
+@pytest.mark.asyncio
+async def test_server_time(aioclient):
+    response = await aioclient.market.server_time()
     assert response['status_code'] == 200
 
 
 @pytest.mark.asyncio
-async def test_server_time(client):
-    response = await client.market.server_time()
+async def test_exchange_info(aioclient):
+    response = await aioclient.market.exchange_info()
     assert response['status_code'] == 200
 
 
 @pytest.mark.asyncio
-async def test_exchange_info(client):
-    response = await client.market.exchange_info()
-    print(response)
-    assert response['status_code'] == 200
-
-
-@pytest.mark.asyncio
-async def test_order_book(client):
-    func = client.market.order_book
+async def test_order_book(aioclient):
+    func = aioclient.market.order_book
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -38,8 +36,8 @@ async def test_order_book(client):
 
 
 @pytest.mark.asyncio
-async def test_recent_trades(client):
-    func = client.market.recent_trades
+async def test_recent_trades(aioclient):
+    func = aioclient.market.recent_trades
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
 
@@ -51,12 +49,11 @@ async def test_recent_trades(client):
 
 
 @pytest.mark.asyncio
-async def test_historical_trades(client):
-    print(client._api_key)
-    if client._api_key is None:
+async def test_historical_trades(aioclient):
+    if aioclient._api_key is None:
         pytest.skip("Requires API key!")
 
-    func = client.market.historical_trades
+    func = aioclient.market.historical_trades
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
 
@@ -71,8 +68,8 @@ async def test_historical_trades(client):
     assert response['status_code'] == 200
 
 @pytest.mark.asyncio
-async def test_aggregated_trades(client):
-    func = client.market.aggregated_trades
+async def test_aggregated_trades(aioclient):
+    func = aioclient.market.aggregated_trades
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
 
@@ -97,10 +94,10 @@ async def test_aggregated_trades(client):
 
 
 @pytest.mark.asyncio
-async def test_klines(client):
+async def test_klines(aioclient):
     from binance.enums.binance import KlineInterval
 
-    func = client.market.klines
+    func = aioclient.market.klines
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -124,10 +121,10 @@ async def test_klines(client):
 
 
 @pytest.mark.asyncio
-async def test_continues_contract_klines(client):
+async def test_continues_contract_klines(aioclient):
     from binance.enums.binance import ContractType, KlineInterval
 
-    func = client.market.continues_contract_klines
+    func = aioclient.market.continues_contract_klines
     with pytest.raises(TypeError, match=r"missing a required argument: 'pair'"):
         await func()
     
@@ -154,10 +151,10 @@ async def test_continues_contract_klines(client):
 
 
 @pytest.mark.asyncio
-async def test_index_price_klines(client):
+async def test_index_price_klines(aioclient):
     from binance.enums.binance import KlineInterval
 
-    func = client.market.index_price_klines
+    func = aioclient.market.index_price_klines
     with pytest.raises(TypeError, match=r"missing a required argument: 'pair'"):
         await func()
     
@@ -181,10 +178,10 @@ async def test_index_price_klines(client):
 
 
 @pytest.mark.asyncio
-async def test_mark_price_klines(client):
+async def test_mark_price_klines(aioclient):
     from binance.enums.binance import KlineInterval
 
-    func = client.market.mark_price_klines
+    func = aioclient.market.mark_price_klines
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -208,8 +205,8 @@ async def test_mark_price_klines(client):
 
 
 @pytest.mark.asyncio
-async def test_mark_price(client):
-    func = client.market.mark_price
+async def test_mark_price(aioclient):
+    func = aioclient.market.mark_price
     response = await func()
     assert response['status_code'] == 200
 
@@ -218,8 +215,8 @@ async def test_mark_price(client):
 
 
 @pytest.mark.asyncio
-async def test_funding_rate_history(client):
-    func = client.market.funding_rate_history
+async def test_funding_rate_history(aioclient):
+    func = aioclient.market.funding_rate_history
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
 
@@ -237,8 +234,8 @@ async def test_funding_rate_history(client):
 
 
 @pytest.mark.asyncio
-async def test_ticker_price_change_statistics(client):
-    func = client.market.ticker_price_change_statistics
+async def test_ticker_price_change_statistics(aioclient):
+    func = aioclient.market.ticker_price_change_statistics
     response = await func()
     assert response['status_code'] == 200
 
@@ -247,8 +244,8 @@ async def test_ticker_price_change_statistics(client):
 
 
 @pytest.mark.asyncio
-async def test_ticker_price(client):
-    func = client.market.ticker_price
+async def test_ticker_price(aioclient):
+    func = aioclient.market.ticker_price
     response = await func()
     assert response['status_code'] == 200
 
@@ -257,8 +254,8 @@ async def test_ticker_price(client):
 
 
 @pytest.mark.asyncio
-async def test_ticker_order_book(client):
-    func = client.market.ticker_order_book
+async def test_ticker_order_book(aioclient):
+    func = aioclient.market.ticker_order_book
     response = await func()
     assert response['status_code'] == 200
 
@@ -267,25 +264,24 @@ async def test_ticker_order_book(client):
 
 
 @pytest.mark.asyncio
-async def test_open_interest(client):
-    func = client.market.open_interest
+async def test_open_interest(aioclient):
+    func = aioclient.market.open_interest
 
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
 
     response = await func(symbol='BTCUSDT')
-    print(response)
     assert response['status_code'] == 200
 
 
 @pytest.mark.asyncio
-async def open_interest_history(client):
+async def open_interest_history(aioclient):
     """
     CURRENTLY NOT WORING IN TEST?
     """
     from binance.enums.binance import Period
 
-    func = client.market.open_interest_history
+    func = aioclient.market.open_interest_history
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -309,13 +305,13 @@ async def open_interest_history(client):
 
 
 @pytest.mark.asyncio
-async def top_long_short_account_ratio(client):
+async def top_long_short_account_ratio(aioclient):
     """
     CURRENTLY NOT WORING IN TEST?
     """
     from binance.enums.binance import Period
 
-    func = client.market.top_long_short_account_ratio
+    func = aioclient.market.top_long_short_account_ratio
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -339,13 +335,13 @@ async def top_long_short_account_ratio(client):
 
 
 @pytest.mark.asyncio
-async def top_long_short_position_ratio(client):
+async def top_long_short_position_ratio(aioclient):
     """
     CURRENTLY NOT WORING IN TEST?
     """
     from binance.enums.binance import Period
 
-    func = client.market.top_long_short_position_ratio
+    func = aioclient.market.top_long_short_position_ratio
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -369,13 +365,13 @@ async def top_long_short_position_ratio(client):
 
 
 @pytest.mark.asyncio
-async def global_long_short_account_ratio(client):
+async def global_long_short_account_ratio(aioclient):
     """
     CURRENTLY NOT WORING IN TEST?
     """
     from binance.enums.binance import Period
 
-    func = client.market.global_long_short_account_ratio
+    func = aioclient.market.global_long_short_account_ratio
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -399,13 +395,13 @@ async def global_long_short_account_ratio(client):
 
 
 @pytest.mark.asyncio
-async def taker_long_short_ratio(client):
+async def taker_long_short_ratio(aioclient):
     """
     CURRENTLY NOT WORING IN TEST?
     """
     from binance.enums.binance import Period
 
-    func = client.market.taker_long_short_ratio
+    func = aioclient.market.taker_long_short_ratio
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -429,13 +425,13 @@ async def taker_long_short_ratio(client):
 
 
 @pytest.mark.asyncio
-async def lvt_klines(client):
+async def lvt_klines(aioclient):
     """
     CURRENTLY NOT WORING IN TEST?
     """
     from binance.enums.binance import KlineInterval
 
-    func = client.market.lvt_klines
+    func = aioclient.market.lvt_klines
     with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
         await func()
     
@@ -459,8 +455,8 @@ async def lvt_klines(client):
 
 
 @pytest.mark.asyncio
-async def test_composite_index_info(client):
-    func = client.market.composite_index_info
+async def test_composite_index_info(aioclient):
+    func = aioclient.market.composite_index_info
     response = await func()
     assert response['status_code'] == 200
 

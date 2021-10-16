@@ -8,5 +8,5 @@ def get_timestamp():
     Return:
         int: timestamp in miliseconds
     """
-    timestamp = int(round(time.time() * 1000) - 10000)
+    timestamp = int(round(time.time() * 1000))
     return timestamp
