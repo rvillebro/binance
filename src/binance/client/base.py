@@ -41,16 +41,22 @@ class BaseClient(abc.ABC):
             setattr(obj, e.func.__name__, e.wrap(self))
         return obj
     
-    def _add_api_key_to_headers(self, headers):
-        headers.update({
-            'X-MBX-APIKEY': self._api_key
-        })
-
+    def _add_api_key(self, headers):
+        """Adds API key to headers"""
+        if self._api_key is None:
+            raise ValueError('Binance futures API key is missing!')
+        headers = dict() if headers is None else headers
+        headers.update({'X-MBX-APIKEY': self._api_key})
         return headers
     
-    def _get_signature(self, params : str) -> str:
-        signature = hmac.new(self._api_secret.encode(), params.encode(), hashlib.sha256).hexdigest()
-        return signature
+    def _add_signature(self, params: '_Parameters') -> str:
+        """Adds signature to params"""
+        if self._api_secret is None:
+                raise ValueError('Binance futures API secret is missing!')
+        url_encoded_params = params.urlencode()
+        signature = hmac.new(self._api_secret.encode(), url_encoded_params.encode(), hashlib.sha256).hexdigest()
+        params['signature'] = signature
+        return params
 
     @abc.abstractmethod
     def _call(self, http_method: http.Method, route: str, /,
