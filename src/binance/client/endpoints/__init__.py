@@ -133,6 +133,7 @@ class Endpoints():
                 add_signature=add_signature
             )
             self.__endpoints.append(endpoint)
+            return func
         return decorator
     
     def __iter__(self):
