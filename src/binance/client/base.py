@@ -32,14 +32,22 @@ class BaseClient(abc.ABC):
         self._api_key = api_key
         self._api_secret = api_secret
 
-        self.market = self.register_endpoints(market.endpoints)  # market API information
-        self.trade = self.register_endpoints(trade.endpoints)  # trade API information
+        self.register_endpoints(market.endpoints)  # market API information
+        self.register_endpoints(trade.endpoints)  # trade API information
 
     def register_endpoints(self, endpoints):
-        obj = SimpleNamespace()
-        for e in endpoints:
-            setattr(obj, e.func.__name__, e.wrap(self))
-        return obj
+        """
+        Registers endpoints to client.
+        All endpoints are added under the endpoint name.
+
+        Parameters
+        ----------
+        endpoints : binance.client.endpoints.Endpoints
+            Endpoints to register
+        """
+        wrapped_endpoints = {e.func.__name__: e.wrap(self) for e in endpoints}
+        wrapped_endpoints = SimpleNamespace(**wrapped_endpoints)
+        self.__setattr__(endpoints.name, wrapped_endpoints)
     
     def _add_api_key(self, headers):
         """Adds API key to headers"""

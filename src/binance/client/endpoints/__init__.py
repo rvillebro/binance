@@ -87,7 +87,7 @@ class _Endpoint():
         coroutine
             Coroutine which prepares params and uses client to make a http call.
         """
-        if asynchronous:
+        if client.asynchronous:
             @functools.wraps(self.func)
             async def wrapper(*args, **kwargs):
                 return await client._call(
