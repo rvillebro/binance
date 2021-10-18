@@ -197,6 +197,435 @@
 <span id="market"></span><h1>Market<a class="headerlink" href="#module-binance.client.endpoints.market" title="Permalink to this headline">¶</a></h1>
 <p>Market data endpoints</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints">https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints</a></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.aggregated_trades">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">aggregated_trades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#aggregated_trades"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.aggregated_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets aggregate trades list for a symbol.</p>
+<ul class="simple">
+<li><p>If both startTime and endTime are sent, time between startTime and endTime must be less than 1 hour.</p></li>
+<li><p>If fromId, startTime, and endTime are not sent, the most recent aggregate trades will be returned.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#compressed-aggregate-trades-list">https://binance-docs.github.io/apidocs/futures/en/#compressed-aggregate-trades-list</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull aggregated trades for</p></li>
+<li><p><strong>fromId</strong> (<em>int</em><em>, </em><em>str</em>) – from id</p></li>
+<li><p><strong>startTime</strong> (<em>int</em><em>, </em><em>str</em>) – start time in seconds</p></li>
+<li><p><strong>endTime</strong> (<em>int</em><em>, </em><em>str</em>) – end time in seconds</p></li>
+<li><p><strong>limit</strong> (<em>int</em><em>, </em><em>str</em>) – limit (default=500, max=1000)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.composite_index_info">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">composite_index_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#composite_index_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.composite_index_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets mark price for a symbol or all symbols.</p>
+<ul class="simple">
+<li><p>Only for composite index symbols</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#composite-index-symbol-information">https://binance-docs.github.io/apidocs/futures/en/#composite-index-symbol-information</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>str</em>) – symbol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.continues_contract_klines">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">continues_contract_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contractType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#continues_contract_klines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.continues_contract_klines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets continues contract klines/candlesticks for a pair.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent klines are returned.</p></li>
+<li><p>Klines are uniquely identified by their open time.</p></li>
+<li><p>Weight: based on parameter limit</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#continuous-contract-kline-candlestick-data">https://binance-docs.github.io/apidocs/futures/en/#continuous-contract-kline-candlestick-data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pair</strong> (<em>str</em>) – pair to pull continues klines/candlestick for</p></li>
+<li><p><strong>contractType</strong> (<em>binance.enums.binance.ContractTypes</em>) – contract type</p></li>
+<li><p><strong>interval</strong> (<em>binance.enums.binance.KlinesInterval</em>) – interval</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default=500, max=1500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.exchange_info">
+<em class="property"><span class="pre">async</span> </em><span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">exchange_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#exchange_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.exchange_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets current exchange trading rules and symbol information</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#exchange-information">https://binance-docs.github.io/apidocs/futures/en/#exchange-information</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.funding_rate_history">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">funding_rate_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#funding_rate_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.funding_rate_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets funding rate history.</p>
+<ul class="simple">
+<li><p>If start time and end time are not sent, the most recent limit datas are returned.</p></li>
+<li><p>If the number of data between start time and end time is larger than limit, return as startTime + limit.</p></li>
+<li><p>In ascending order.</p></li>
+</ul>
+<p>weight: 1</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#get-funding-rate-history">https://binance-docs.github.io/apidocs/futures/en/#get-funding-rate-history</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to get funding rate history for</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default: 100, max: 1000)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.global_long_short_account_ratio">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">global_long_short_account_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#global_long_short_account_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.global_long_short_account_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets global long/short account ratio  a specific symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent data is returned.</p></li>
+<li><p>Only the data of the latest 30 days is available.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#long-short-ratio">https://binance-docs.github.io/apidocs/futures/en/#long-short-ratio</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to get funding rate history for</p></li>
+<li><p><strong>period</strong> (<em>binance.enums.binance.Period</em>) – period</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default: 30, max: 500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.historical_trades">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">historical_trades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#historical_trades"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.historical_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets historical trades for a symbol. (<em>MARKET_DATA</em>)</p>
+<ul class="simple">
+<li><p>Market trades means trades filled in the order book.</p></li>
+<li><p>Only market trades will be returned, which means the insurance fund trades and ADL trades won’t be returned.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#old-trades-lookup-market_data">https://binance-docs.github.io/apidocs/futures/en/#old-trades-lookup-market_data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull order book for.</p></li>
+<li><p><strong>limit</strong> (<em>int</em><em>, </em><em>str</em>) – limit (default=500, max=1000)</p></li>
+<li><p><strong>fromId</strong> (<em>int</em><em>, </em><em>str</em>) – TradeId to fetch from. (default: most recent trades)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.index_price_klines">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">index_price_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#index_price_klines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.index_price_klines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets index price klines/candlesticks for a pair.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent klines are returned.</p></li>
+<li><p>Klines are uniquely identified by their open time.</p></li>
+<li><p>Weight: based on parameter limit</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#index-price-kline-candlestick-data">https://binance-docs.github.io/apidocs/futures/en/#index-price-kline-candlestick-data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pair</strong> (<em>str</em>) – pair to pull continues klines/candlestick for</p></li>
+<li><p><strong>contractType</strong> (<em>binance.enums.binance.ContractTypes</em>) – contract type</p></li>
+<li><p><strong>interval</strong> (<em>binance.enums.binance.KlinesInterval</em>) – interval</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default=500, max=1500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.klines">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#klines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.klines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets klines/candlesticks  for a symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent klines are returned.</p></li>
+<li><p>Klines are uniquely identified by their open time.</p></li>
+<li><p>Weight: based on parameter limit</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#kline-candlestick-data">https://binance-docs.github.io/apidocs/futures/en/#kline-candlestick-data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull klines/candlesticks for</p></li>
+<li><p><strong>interval</strong> (<em>binance.enums.binance.KlinesInterval</em>) – klines interval</p></li>
+<li><p><strong>startTime</strong> – start time in seconds</p></li>
+<li><p><strong>endTime</strong> (<em>int</em><em>, </em><em>str</em>) – end time in seconds</p></li>
+<li><p><strong>limit</strong> (<em>int</em><em>, </em><em>str</em>) – limit (default=500, max=1500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.lvt_klines">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">lvt_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#lvt_klines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.lvt_klines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets historical BLVT NAV klines/candlesticks for a symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent klines are returned.</p></li>
+<li><p>Klines are uniquely identified by their open time.</p></li>
+<li><p>Weight: based on parameter limit</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#historical-blvt-nav-kline-candlestick">https://binance-docs.github.io/apidocs/futures/en/#historical-blvt-nav-kline-candlestick</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull historical BLVT NAV klines/candlesticks for</p></li>
+<li><p><strong>interval</strong> (<em>binance.enums.binance.KlinesInterval</em>) – klines interval</p></li>
+<li><p><strong>startTime</strong> – start time in seconds</p></li>
+<li><p><strong>endTime</strong> (<em>int</em><em>, </em><em>str</em>) – end time in seconds</p></li>
+<li><p><strong>limit</strong> (<em>int</em><em>, </em><em>str</em>) – limit (default=500, max=1000)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.mark_price">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">mark_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#mark_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.mark_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets mark price for a symbol or all symbols.
+weight=1</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#mark-price">https://binance-docs.github.io/apidocs/futures/en/#mark-price</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>str</em>) – symbol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.mark_price_klines">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">mark_price_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#mark_price_klines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.mark_price_klines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets mark price klines/candlesticks for a symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent klines are returned.</p></li>
+<li><p>Klines are uniquely identified by their open time.</p></li>
+<li><p>Weight: based on parameter limit</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#mark-price-kline-candlestick-data">https://binance-docs.github.io/apidocs/futures/en/#mark-price-kline-candlestick-data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull continues klines/candlestick for</p></li>
+<li><p><strong>contractType</strong> (<em>binance.enums.binance.ContractTypes</em>) – contract type</p></li>
+<li><p><strong>interval</strong> (<em>binance.enums.binance.KlinesInterval</em>) – interval</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default=500, max=1500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.open_interest">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">open_interest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#open_interest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.open_interest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets present open interest for a specific symbol.</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#open-interest">https://binance-docs.github.io/apidocs/futures/en/#open-interest</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>str</em>) – symbol to present open interest for</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.open_interest_history">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">open_interest_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#open_interest_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.open_interest_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets open interest history for a specific symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent data is returned.</p></li>
+<li><p>Only the data of the latest 30 days is available.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#open-interest-statistics">https://binance-docs.github.io/apidocs/futures/en/#open-interest-statistics</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to get funding rate history for</p></li>
+<li><p><strong>period</strong> (<em>binance.enums.binance.Period</em>) – period</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default: 30, max: 500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.order_book">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">order_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#order_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.order_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets order book for a symbol.</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#order-book">https://binance-docs.github.io/apidocs/futures/en/#order-book</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull order book for</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.ping">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">ping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#ping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.ping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pings server to test connectivity</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#test-connectivity">https://binance-docs.github.io/apidocs/futures/en/#test-connectivity</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.recent_trades">
+<em class="property"><span class="pre">async</span> </em><span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">recent_trades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#recent_trades"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.recent_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets most recent trades for a symbol.</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#recent-trades-list">https://binance-docs.github.io/apidocs/futures/en/#recent-trades-list</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull recent trades for</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default=500, max=1000)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.server_time">
+<em class="property"><span class="pre">async</span> </em><span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">server_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#server_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.server_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets current server time</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#check-server-time">https://binance-docs.github.io/apidocs/futures/en/#check-server-time</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.taker_long_short_ratio">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">taker_long_short_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#taker_long_short_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.taker_long_short_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets taker long/short ratio  a specific symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent data is returned.</p></li>
+<li><p>Only the data of the latest 30 days is available.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#taker-buy-sell-volume">https://binance-docs.github.io/apidocs/futures/en/#taker-buy-sell-volume</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to get funding rate history for</p></li>
+<li><p><strong>period</strong> (<em>binance.enums.binance.Period</em>) – period</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default: 30, max: 500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.ticker_order_book">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">ticker_order_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#ticker_order_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.ticker_order_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets best price/quantity on the order book for a symbol or all symbols.</p>
+<ul class="simple">
+<li><p>If the symbol is not sent, bookTickers for all symbols will be returned in an array.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#symbol-order-book-ticker">https://binance-docs.github.io/apidocs/futures/en/#symbol-order-book-ticker</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>str</em>) – symbol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.ticker_price">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">ticker_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#ticker_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.ticker_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the latest price for a symbol or all symbols.</p>
+<ul class="simple">
+<li><p>If the symbol is not sent, prices for all symbols will be returned in an array.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#symbol-price-ticker">https://binance-docs.github.io/apidocs/futures/en/#symbol-price-ticker</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>str</em>) – symbol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.ticker_price_change_statistics">
+<em class="property"><span class="pre">async</span> </em><span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">ticker_price_change_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#ticker_price_change_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.ticker_price_change_statistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the 24 hour rolling window price change statistics for symbol or all symbols.</p>
+<ul class="simple">
+<li><p>If the symbol is not sent, tickers for all symbols will be returned in an array.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#24hr-ticker-price-change-statistics">https://binance-docs.github.io/apidocs/futures/en/#24hr-ticker-price-change-statistics</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>str</em>) – symbol to get 24 hour rolling window price change statistics for</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.top_long_short_account_ratio">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">top_long_short_account_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#top_long_short_account_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.top_long_short_account_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets top trader long/short account ratio for a specific symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent data is returned.</p></li>
+<li><p>Only the data of the latest 30 days is available.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#top-trader-long-short-ratio-accounts-market_data">https://binance-docs.github.io/apidocs/futures/en/#top-trader-long-short-ratio-accounts-market_data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to get funding rate history for</p></li>
+<li><p><strong>period</strong> (<em>binance.enums.binance.Period</em>) – period</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default: 30, max: 500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.top_long_short_position_ratio">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.market.</span></span><span class="sig-name descname"><span class="pre">top_long_short_position_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#top_long_short_position_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.top_long_short_position_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets top trader long/short position ratio  a specific symbol.</p>
+<ul class="simple">
+<li><p>If startTime and endTime are not sent, the most recent data is returned.</p></li>
+<li><p>Only the data of the latest 30 days is available.</p></li>
+</ul>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#top-trader-long-short-ratio-positions">https://binance-docs.github.io/apidocs/futures/en/#top-trader-long-short-ratio-positions</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – symbol to get funding rate history for</p></li>
+<li><p><strong>period</strong> (<em>binance.enums.binance.Period</em>) – period</p></li>
+<li><p><strong>startTime</strong> (<em>int</em>) – start time</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – end time</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit (default: 30, max: 500)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

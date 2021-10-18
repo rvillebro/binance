@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>binance.client.endpoints.market &#8212; binance 0.1 documentation</title>
+    
+  <link href="../../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/blank.css" />
+    
+  <link rel="preload" as="script" href="../../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../../index.html">
+<p class="title">binance</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../user_guide/index.html">
+  User guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../contributing/index.html">
+  Contributing
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../api/index.html">
+  API
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../tests/index.html">
+  API
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/rvillebro/binance" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for binance.client.endpoints.market</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Market data endpoints</span>
+
+<span class="sd">https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Endpoints</span>
+
+<span class="n">endpoints</span> <span class="o">=</span> <span class="n">Endpoints</span><span class="p">(</span><span class="s1">&#39;market&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ping"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.ping">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ping&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ping</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pings server to test connectivity</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#test-connectivity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="server_time"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.server_time">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/time&#39;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">server_time</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets current server time</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#check-server-time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="exchange_info"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.exchange_info">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/exchangeInfo&#39;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">exchange_info</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets current exchange trading rules and symbol information</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#exchange-information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="order_book"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.order_book">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/depth&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets order book for a symbol.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#order-book</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to pull order book for</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="recent_trades"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.recent_trades">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/trades&#39;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets most recent trades for a symbol.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#recent-trades-list</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to pull recent trades for</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default=500, max=1000)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="historical_trades"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.historical_trades">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/historicalTrades&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">historical_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets historical trades for a symbol. (*MARKET_DATA*)</span>
+
+<span class="sd">    * Market trades means trades filled in the order book.</span>
+<span class="sd">    * Only market trades will be returned, which means the insurance fund trades and ADL trades won&#39;t be returned.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#old-trades-lookup-market_data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to pull order book for.</span>
+<span class="sd">    limit : int, str</span>
+<span class="sd">        limit (default=500, max=1000)</span>
+<span class="sd">    fromId : int, str</span>
+<span class="sd">        TradeId to fetch from. (default: most recent trades)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="aggregated_trades"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.aggregated_trades">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/aggTrades&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">aggregated_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets aggregate trades list for a symbol.</span>
+
+<span class="sd">    * If both startTime and endTime are sent, time between startTime and endTime must be less than 1 hour.</span>
+<span class="sd">    * If fromId, startTime, and endTime are not sent, the most recent aggregate trades will be returned.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#compressed-aggregate-trades-list</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to pull aggregated trades for</span>
+<span class="sd">    fromId : int, str</span>
+<span class="sd">        from id</span>
+<span class="sd">    startTime : int, str</span>
+<span class="sd">        start time in seconds</span>
+<span class="sd">    endTime : int, str</span>
+<span class="sd">        end time in seconds</span>
+<span class="sd">    limit : int, str</span>
+<span class="sd">        limit (default=500, max=1000)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.klines">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/klines&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets klines/candlesticks  for a symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent klines are returned.</span>
+<span class="sd">    * Klines are uniquely identified by their open time.</span>
+<span class="sd">    * Weight: based on parameter limit</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#kline-candlestick-data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to pull klines/candlesticks for</span>
+<span class="sd">    interval : binance.enums.binance.KlinesInterval</span>
+<span class="sd">        klines interval</span>
+<span class="sd">    startTime:</span>
+<span class="sd">        start time in seconds</span>
+<span class="sd">    endTime : int, str</span>
+<span class="sd">        end time in seconds</span>
+<span class="sd">    limit : int, str</span>
+<span class="sd">        limit (default=500, max=1500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="continues_contract_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.continues_contract_klines">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/continuousKlines&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">continues_contract_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">contractType</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets continues contract klines/candlesticks for a pair.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent klines are returned.</span>
+<span class="sd">    * Klines are uniquely identified by their open time.</span>
+<span class="sd">    * Weight: based on parameter limit</span>
+<span class="sd">    </span>
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#continuous-contract-kline-candlestick-data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pair : str</span>
+<span class="sd">        pair to pull continues klines/candlestick for</span>
+<span class="sd">    contractType : binance.enums.binance.ContractTypes</span>
+<span class="sd">        contract type</span>
+<span class="sd">    interval : binance.enums.binance.KlinesInterval</span>
+<span class="sd">        interval</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int </span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default=500, max=1500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="index_price_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.index_price_klines">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/indexPriceKlines&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index_price_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets index price klines/candlesticks for a pair.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent klines are returned.</span>
+<span class="sd">    * Klines are uniquely identified by their open time.</span>
+<span class="sd">    * Weight: based on parameter limit</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#index-price-kline-candlestick-data</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pair : str</span>
+<span class="sd">        pair to pull continues klines/candlestick for</span>
+<span class="sd">    contractType : binance.enums.binance.ContractTypes</span>
+<span class="sd">        contract type</span>
+<span class="sd">    interval : binance.enums.binance.KlinesInterval</span>
+<span class="sd">        interval</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int </span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default=500, max=1500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="mark_price_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.mark_price_klines">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/markPriceKlines&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mark_price_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets mark price klines/candlesticks for a symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent klines are returned.</span>
+<span class="sd">    * Klines are uniquely identified by their open time.</span>
+<span class="sd">    * Weight: based on parameter limit</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#mark-price-kline-candlestick-data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to pull continues klines/candlestick for</span>
+<span class="sd">    contractType : binance.enums.binance.ContractTypes</span>
+<span class="sd">        contract type</span>
+<span class="sd">    interval : binance.enums.binance.KlinesInterval</span>
+<span class="sd">        interval</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int </span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default=500, max=1500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="mark_price"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.mark_price">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/premiumIndex&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mark_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets mark price for a symbol or all symbols.</span>
+<span class="sd">    weight=1</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#mark-price</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="funding_rate_history"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.funding_rate_history">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/fundingRate&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">funding_rate_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets funding rate history.</span>
+
+<span class="sd">    * If start time and end time are not sent, the most recent limit datas are returned.</span>
+<span class="sd">    * If the number of data between start time and end time is larger than limit, return as startTime + limit.</span>
+<span class="sd">    * In ascending order.</span>
+
+<span class="sd">    weight: 1</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#get-funding-rate-history</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to get funding rate history for</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int</span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default: 100, max: 1000)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ticker_price_change_statistics"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.ticker_price_change_statistics">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/24hr&#39;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">ticker_price_change_statistics</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the 24 hour rolling window price change statistics for symbol or all symbols.</span>
+
+<span class="sd">    * If the symbol is not sent, tickers for all symbols will be returned in an array.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#24hr-ticker-price-change-statistics</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to get 24 hour rolling window price change statistics for</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ticker_price"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.ticker_price">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/price&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ticker_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the latest price for a symbol or all symbols.</span>
+
+<span class="sd">    * If the symbol is not sent, prices for all symbols will be returned in an array.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#symbol-price-ticker</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ticker_order_book"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.ticker_order_book">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/bookTicker&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ticker_order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets best price/quantity on the order book for a symbol or all symbols.</span>
+
+<span class="sd">    * If the symbol is not sent, bookTickers for all symbols will be returned in an array.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#symbol-order-book-ticker</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="open_interest"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.open_interest">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/openInterest&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">open_interest</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets present open interest for a specific symbol.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#open-interest</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to present open interest for</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="open_interest_history"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.open_interest_history">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/openInterestHist&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">open_interest_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets open interest history for a specific symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent data is returned.</span>
+<span class="sd">    * Only the data of the latest 30 days is available.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#open-interest-statistics</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to get funding rate history for</span>
+<span class="sd">    period : binance.enums.binance.Period</span>
+<span class="sd">        period</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int</span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default: 30, max: 500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="top_long_short_account_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.top_long_short_account_ratio">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/topLongShortAccountRatio&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">top_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets top trader long/short account ratio for a specific symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent data is returned.</span>
+<span class="sd">    * Only the data of the latest 30 days is available.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#top-trader-long-short-ratio-accounts-market_data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to get funding rate history for</span>
+<span class="sd">    period : binance.enums.binance.Period</span>
+<span class="sd">        period</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int</span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default: 30, max: 500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="top_long_short_position_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.top_long_short_position_ratio">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/topLongShortPositionRatio&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">top_long_short_position_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets top trader long/short position ratio  a specific symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent data is returned.</span>
+<span class="sd">    * Only the data of the latest 30 days is available.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#top-trader-long-short-ratio-positions</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to get funding rate history for</span>
+<span class="sd">    period : binance.enums.binance.Period</span>
+<span class="sd">        period</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int</span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default: 30, max: 500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="global_long_short_account_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.global_long_short_account_ratio">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/globalLongShortAccountRatio&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">global_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets global long/short account ratio  a specific symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent data is returned.</span>
+<span class="sd">    * Only the data of the latest 30 days is available.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#long-short-ratio</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to get funding rate history for</span>
+<span class="sd">    period : binance.enums.binance.Period</span>
+<span class="sd">        period</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int</span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default: 30, max: 500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="taker_long_short_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.taker_long_short_ratio">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/takerlongshortRatio&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">taker_long_short_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets taker long/short ratio  a specific symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent data is returned.</span>
+<span class="sd">    * Only the data of the latest 30 days is available.</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#taker-buy-sell-volume</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to get funding rate history for</span>
+<span class="sd">    period : binance.enums.binance.Period</span>
+<span class="sd">        period</span>
+<span class="sd">    startTime : int</span>
+<span class="sd">        start time</span>
+<span class="sd">    endTime : int</span>
+<span class="sd">        end time</span>
+<span class="sd">    limit : int</span>
+<span class="sd">        limit (default: 30, max: 500)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="lvt_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.lvt_klines">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/lvtKlines&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">lvt_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets historical BLVT NAV klines/candlesticks for a symbol.</span>
+
+<span class="sd">    * If startTime and endTime are not sent, the most recent klines are returned.</span>
+<span class="sd">    * Klines are uniquely identified by their open time.</span>
+<span class="sd">    * Weight: based on parameter limit</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#historical-blvt-nav-kline-candlestick</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol to pull historical BLVT NAV klines/candlesticks for</span>
+<span class="sd">    interval : binance.enums.binance.KlinesInterval</span>
+<span class="sd">        klines interval</span>
+<span class="sd">    startTime:</span>
+<span class="sd">        start time in seconds</span>
+<span class="sd">    endTime : int, str</span>
+<span class="sd">        end time in seconds</span>
+<span class="sd">    limit : int, str</span>
+<span class="sd">        limit (default=500, max=1000)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="composite_index_info"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.composite_index_info">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/indexInfo&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">composite_index_info</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets mark price for a symbol or all symbols.</span>
+<span class="sd">    </span>
+<span class="sd">    * Only for composite index symbols</span>
+
+<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#composite-index-symbol-information</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    symbol : str</span>
+<span class="sd">        symbol</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Rasmus Villebro.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

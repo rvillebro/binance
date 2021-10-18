@@ -214,6 +214,21 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.get_position_mode">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.trade.</span></span><span class="sig-name descname"><span class="pre">get_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">timestamp=&lt;function</span> <span class="pre">get_timestamp&gt;</span></em>, <em class="sig-param"><span class="pre">recvWindow=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#get_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.get_position_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the user’s position mode on every position: hedge mode or one-way mode (<em>USER_DATA</em>)</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#get-current-position-mode-user_data">https://binance-docs.github.io/apidocs/futures/en/#get-current-position-mode-user_data</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeStamp</strong> (<em>int</em>) – timestamp</p></li>
+<li><p><strong>receiveWindow</strong> (<em>int</em>) – receive window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="binance.client.endpoints.trade.new_order">
 <span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.trade.</span></span><span class="sig-name descname"><span class="pre">new_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">order:</span> <span class="pre">binance.order.Order</span></em>, <em class="sig-param"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></em>, <em class="sig-param"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#new_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.new_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send in a new order (<em>TRADE</em>).</p>
@@ -224,6 +239,22 @@
 <li><p><strong>order</strong> (<em>binance.order.Order</em>) – a binance.order.Order object</p></li>
 <li><p><strong>timestamp</strong> (<em>int</em>) – timestamp</p></li>
 <li><p><strong>recvWindow</strong> (<em>int</em>) – receive window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.set_position_mode">
+<span class="sig-prename descclassname"><span class="pre">binance.client.endpoints.trade.</span></span><span class="sig-name descname"><span class="pre">set_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dualSidePosition</span></em>, <em class="sig-param"><span class="pre">timestamp=&lt;function</span> <span class="pre">get_timestamp&gt;</span></em>, <em class="sig-param"><span class="pre">recvWindow=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#set_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.set_position_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the user’s position mode on every position: hedge mode or one-way mode (<em>TRADE</em>)</p>
+<p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade">https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dualSidePosition</strong> (<em>str</em>) – “true” for hedge mode and “false” for one-way mode</p></li>
+<li><p><strong>timeStamp</strong> (<em>int</em>) – timestamp</p></li>
+<li><p><strong>receiveWindow</strong> (<em>int</em>) – receive window</p></li>
 </ul>
 </dd>
 </dl>
