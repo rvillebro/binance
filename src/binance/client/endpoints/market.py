@@ -3,8 +3,7 @@
 Market endpoints
 ================
 
-.. contents::
-    :local:
+
 
 https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
 """
@@ -23,7 +22,7 @@ def ping():
 
 
 @endpoints.add('GET', '/fapi/v1/time')
-async def server_time():
+def server_time():
     """
     Gets current server time
 
@@ -33,7 +32,7 @@ async def server_time():
 
 
 @endpoints.add('GET', '/fapi/v1/exchangeInfo')
-async def exchange_info():
+def exchange_info():
     """
     Gets current exchange trading rules and symbol information
 
@@ -60,7 +59,7 @@ def order_book(symbol, limit=None):
 
 
 @endpoints.add('GET', '/fapi/v1/trades')
-async def recent_trades(symbol, limit=None):
+def recent_trades(symbol, limit=None):
     """
     Gets most recent trades for a symbol.
 
