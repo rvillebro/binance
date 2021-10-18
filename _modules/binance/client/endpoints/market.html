@@ -153,8 +153,7 @@
 <span class="sd">Market endpoints</span>
 <span class="sd">================</span>
 
-<span class="sd">.. contents::</span>
-<span class="sd">    :local:</span>
+
 
 <span class="sd">https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -173,7 +172,7 @@
 
 
 <div class="viewcode-block" id="server_time"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.server_time">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/time&#39;</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">server_time</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">server_time</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets current server time</span>
 
@@ -183,7 +182,7 @@
 
 
 <div class="viewcode-block" id="exchange_info"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.exchange_info">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/exchangeInfo&#39;</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">exchange_info</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">exchange_info</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets current exchange trading rules and symbol information</span>
 
@@ -210,7 +209,7 @@
 
 
 <div class="viewcode-block" id="recent_trades"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.recent_trades">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/trades&#39;</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets most recent trades for a symbol.</span>
 
