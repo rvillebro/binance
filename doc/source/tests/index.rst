@@ -1,6 +1,6 @@
 
-API
-===
+Tests
+=====
 
 .. toctree::
    :maxdepth: 2
