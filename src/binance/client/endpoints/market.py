@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
-Market data endpoints
+Market endpoints
+================
+
+.. contents::
+    :local:
 
 https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
 """
