@@ -13,6 +13,7 @@ Welcome to binance's documentation!
    user_guide/index
    contributing/index
    api/index
+   tests/index
 
 
 Indices and tables
