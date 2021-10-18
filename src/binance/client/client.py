@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 import json
 import requests
+from requests.models import Request
 
 from binance.enums import http
 from binance.client.base import BaseClient
 
 class Client(BaseClient):
     def __init__(self, *args, **kwargs) -> object:
-        super().__init__(*args, *kwargs)
+        self.asynchronous = False
         self.session = requests.Session()
-    
+        super().__init__(*args, *kwargs)
+
     def __enter__(self) -> None:
         return self
     
@@ -24,29 +26,21 @@ class Client(BaseClient):
               params=None, headers=None, add_api_key=False,
               add_signature=False) -> None:
         if add_api_key is True:
-            if self.__api_key is None:
-                raise ValueError('Binance futures API key is missing!')
-            headers = {} if headers is None else headers
-            headers = self.__add_api_key_to_headers(headers)
+            headers = self._add_api_key(headers)
 
         if add_signature is True:
-            if self.___api_secret is None:
-                raise ValueError('Binance futures API secret is missing!')
-            params['signature'] = self.__get_signature(params.urlencode())
+            params = self._add_signature(params)
         
-        response = self.session.Request(
-            method=http_method.value(),
-            utrl=self._rest_base + route,
+        req = requests.Request(
+            method=http_method.value,
+            url=self._rest_base + route,
             params=params.urlencode(),
             headers=headers
         )
 
-        status_code = response.status
-        response_body = response.text()
-        if len(response_body) > 0:
-            response_body = json.loads(response_body)
-
-            return {
-                "status_code": status_code,
-                "response": response_body
-            }
+        req = self.session.prepare_request(req)
+        response = self.session.send(req)
+        return {
+            "status_code": response.status_code,
+            "response": response.json()
+        }

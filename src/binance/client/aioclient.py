@@ -7,8 +7,9 @@ from binance.client.base import BaseClient
 
 class AIOClient(BaseClient):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, *kwargs)
+        self.asynchronous = True
         self.session = aiohttp.ClientSession()
+        super().__init__(*args, *kwargs)
     
     async def __aenter__(self):
         return self
@@ -29,7 +30,7 @@ class AIOClient(BaseClient):
             params = self._add_signature(params)
 
         request = self.session.request(
-            method=str(http_method),
+            method=http_method.value,
             url=self._rest_base + route,
             params=params.urlencode(),
             headers=headers
