@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import abc
-import json
 import hmac
 import hashlib
 

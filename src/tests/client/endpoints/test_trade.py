@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import pytest
+from pydantic import ValidationError
 
 def test_get_position_mode(client):
     if client._api_key is None:
@@ -14,7 +15,7 @@ def test_set_position_mode(client):
         pytest.skip("Requires API key and secret!")
     
     func = client.trade.set_position_mode
-    with pytest.raises(TypeError, match=r"missing a required argument: 'dualSidePosition'"):
+    with pytest.raises(ValidationError):
         func()
     
     response = client.trade.get_position_mode(recvWindow=30000)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import pytest
+from pydantic import ValidationError
 
 
 def test_ping(client):
@@ -22,7 +23,7 @@ def test_exchange_info(client):
 
 def test_order_book(client):
     func = client.market.order_book
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
     
     response = func(symbol='BTCUSDT', limit=420)
@@ -37,7 +38,7 @@ def test_order_book(client):
 
 def test_recent_trades(client):
     func = client.market.recent_trades
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
 
     response = func(symbol='BTCUSDT')
@@ -52,7 +53,7 @@ def test_historical_trades(client):
         pytest.skip("Requires API key!")
 
     func = client.market.historical_trades
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
 
     response = func(symbol='BTCUSDT')
@@ -68,7 +69,7 @@ def test_historical_trades(client):
 
 def test_aggregated_trades(client):
     func = client.market.aggregated_trades
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
 
     response = func(symbol='BTCUSDT')
@@ -95,11 +96,8 @@ def test_klines(client):
     from binance.enums.binance import KlineInterval
 
     func = client.market.klines
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'interval'"):
-        func(symbol='BTCUSDT')
     
     response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
@@ -121,14 +119,8 @@ def test_continues_contract_klines(client):
     from binance.enums.binance import ContractType, KlineInterval
 
     func = client.market.continues_contract_klines
-    with pytest.raises(TypeError, match=r"missing a required argument: 'pair'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'contractType'"):
-        func(pair='BTCUSDT')
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'interval'"):
-        func(pair='BTCUSDT', contractType=ContractType.PERPETUAL)
 
     response = func(pair='BTCUSDT', contractType=ContractType.PERPETUAL, interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
@@ -150,11 +142,8 @@ def test_index_price_klines(client):
     from binance.enums.binance import KlineInterval
 
     func = client.market.index_price_klines
-    with pytest.raises(TypeError, match=r"missing a required argument: 'pair'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'interval'"):
-        func(pair='BTCUSDT')
     
     response = func(pair='BTCUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
@@ -176,11 +165,8 @@ def test_mark_price_klines(client):
     from binance.enums.binance import KlineInterval
 
     func = client.market.mark_price_klines
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'interval'"):
-        func(symbol='BTCUSDT')
     
     response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
@@ -209,7 +195,7 @@ def test_mark_price(client):
 
 def test_funding_rate_history(client):
     func = client.market.funding_rate_history
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
 
     response = func(symbol='BTCUSDT')
@@ -253,28 +239,24 @@ def test_ticker_order_book(client):
 
 
 def test_open_interest(client):
-    pytest.skip("Not working at the moment")
+    pytest.skip("not working at the moment")
+
     func = client.market.open_interest
 
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
 
     response = func(symbol='BTCUSDT')
     assert response['status_code'] == 200
 
 
-def open_interest_history(client):
-    """
-    CURRENTLY NOT WORING IN TEST?
-    """
+def test_open_interest_history(client):
+    pytest.skip("not working at the moment")
     from binance.enums.binance import Period
 
     func = client.market.open_interest_history
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'period'"):
-        func(symbol='BTCUSDT')
     
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
@@ -292,18 +274,14 @@ def open_interest_history(client):
     assert response['status_code'] == 200
 
 
-def top_long_short_account_ratio(client):
-    """
-    CURRENTLY NOT WORING IN TEST?
-    """
+def test_top_long_short_account_ratio(client):
+    pytest.skip("not working at the moment")
+
     from binance.enums.binance import Period
 
     func = client.market.top_long_short_account_ratio
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'period'"):
-        func(symbol='BTCUSDT')
     
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
@@ -321,18 +299,14 @@ def top_long_short_account_ratio(client):
     assert response['status_code'] == 200
 
 
-def top_long_short_position_ratio(client):
-    """
-    CURRENTLY NOT WORING IN TEST?
-    """
+def test_top_long_short_position_ratio(client):
+    pytest.skip("not working at the moment")
+
     from binance.enums.binance import Period
 
     func = client.market.top_long_short_position_ratio
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'period'"):
-        func(symbol='BTCUSDT')
     
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
@@ -350,18 +324,14 @@ def top_long_short_position_ratio(client):
     assert response['status_code'] == 200
 
 
-def global_long_short_account_ratio(client):
-    """
-    CURRENTLY NOT WORING IN TEST?
-    """
+def test_global_long_short_account_ratio(client):
+    pytest.skip()
+
     from binance.enums.binance import Period
 
     func = client.market.global_long_short_account_ratio
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'period'"):
-        func(symbol='BTCUSDT')
     
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
@@ -379,18 +349,14 @@ def global_long_short_account_ratio(client):
     assert response['status_code'] == 200
 
 
-def taker_long_short_ratio(client):
-    """
-    CURRENTLY NOT WORING IN TEST?
-    """
+def test_taker_long_short_ratio(client):
+    pytest.skip("not working at the moment")
+
     from binance.enums.binance import Period
 
     func = client.market.taker_long_short_ratio
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'period'"):
-        func(symbol='BTCUSDT')
     
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
@@ -408,18 +374,14 @@ def taker_long_short_ratio(client):
     assert response['status_code'] == 200
 
 
-def lvt_klines(client):
-    """
-    CURRENTLY NOT WORING IN TEST?
-    """
+def test_lvt_klines(client):
+    pytest.skip("not working at the moment")
+
     from binance.enums.binance import KlineInterval
 
     func = client.market.lvt_klines
-    with pytest.raises(TypeError, match=r"missing a required argument: 'symbol'"):
+    with pytest.raises(ValidationError):
         func()
-    
-    with pytest.raises(TypeError, match=r"missing a required argument: 'interval'"):
-        func(symbol='BLZUSDT')
     
     response = func(symbol='BLZUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200

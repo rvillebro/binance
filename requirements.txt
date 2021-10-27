@@ -1,3 +1,4 @@
 requests
 aiohttp[speedups]
 python-dotenv
+pydantic

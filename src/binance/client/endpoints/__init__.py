@@ -3,6 +3,7 @@ import json
 import inspect
 import functools
 
+from pydantic import validate_arguments
 from urllib.parse import urlencode
 
 from binance.enums import http
@@ -15,8 +16,7 @@ class _Parameters():
     def __init__(self, params):
         self.params = dict()
         for key, val in params.items():
-            if val is not None:
-                self.params[key] = self._encode(val)
+            self[key] = val
     
     def __repr__(self):
         return f'Parameters({self.params})'
@@ -88,6 +88,7 @@ class _Endpoint():
             Coroutine which prepares params and uses client to make a http call.
         """
         if client.asynchronous:
+            @validate_arguments  # validates the type of parsed arguments
             @functools.wraps(self.func)
             async def wrapper(*args, **kwargs):
                 return await client._call(
@@ -99,6 +100,7 @@ class _Endpoint():
                     add_signature=self.add_signature
                 )
         else:
+            @validate_arguments  # validates the type of parsed arguments
             @functools.wraps(self.func)
             def wrapper(*args, **kwargs):
                 return client._call(

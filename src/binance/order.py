@@ -1,85 +1,51 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3'
+from pydantic import BaseModel
+from typing import Literal, Optional
+
 from binance.enums import binance
 
-class Order(object):
-    PARAM_NAMES = {
-        'position_side': 'positionSide',
-        'time_in_force': 'timeInForce',
-        'reduce_only': 'reduce_only',
-        'client_order_id': 'newClientOrderId',
-        'stop_price': 'stopPrice',
-        'close_position': 'closePosition',
-        'activation_price': 'activationPrice',
-        'callback_rate': 'callbackRate',
-        'working_type': 'workingType',
-        'price_protect': 'priceProtect',
-        'response_type': 'newOrderRespType',
-    }
+class Order:
+    def test(self):
+        print('hello')
 
-    @property
-    def params(self):
-        params = dict()
-        for param in self.__slots__:
-            name = self.PARAM_NAMES.get(param, param)
-            params[name] = getattr(self, param)
-        return params
-
-class Limit(Order):
+class Limit(BaseModel, Order):
     """
-    Initializes limit binance object.
+    Initialize limit order object.
 
-    Args:
-        symbol (str):
-        side (enum): BUY or SELL
-        position_side (enum): BOTH, LONG or SHORT. Default BOTH for One-way Mode ; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.
-        time_in_force (enum): GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)
-        quantity (float): Cannot be sent with closePosition=true (Close-All)
-        reduce_only (str): "true" or "false". default "false". Cannot be sent in Hedge Mode; cannot be sent with closePosition=true
-        price (float): 
-        client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$
-        close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.
-        reponse_type (enum): "ACK", "RESULT", default "ACK"
+    Parameters
+    ----------
+    symbol : str
+        symbol
+    side : :class:`~binance.enum.binance.OrderSide`
+        BUY or SELL
+    positionSide : :class:`~binance.enum.binance.PositionSide`
+        BOTH, LONG or SHORT. Default BOTH for One-way Mode; LONG or SHORT for Hedge Mode. It must be sent in Hedge Mode.
+    timeInForce : :class:`~binance.enum.binance.TimeInForce`
+        GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)
+    quantity : float
+        Cannot be sent with closePosition=true (Close-All)
+    reduceOnly : str
+        "true" or "false". default "false". Cannot be sent in Hedge Mode; cannot be sent with closePosition=true
+    price : float
+        Price 
+    newClientOrderId : str
+        A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$
+    reponseType :class:`~binance.enum.binance.ResponseType`
+        "ACK" or "RESULT", default "ACK"
     """
-    __slots__ = (
-        'type',
-        'symbol',
-        'side',
-        'quantity',
-        'price',
-        'time_in_force',
-        'position_side',
-        'reduce_only',
-        'client_order_id',
-        'close_position',
-        'response_type',
-    )
+    symbol : str
+    side : binance.OrderSide
+    quantity : float
+    price : float
+    timenInForce : binance.TimeInForce
+    positionSide : Optional[binance.PositionSide] = None
+    reduceOnly : Optional[str] = None
+    clientOrderId : Optional[str] = None
+    responseType : Optional[binance.ResponseType] = None
+    type : Literal[binance.OrderType.LIMIT] = binance.OrderType.LIMIT
 
-    def __init__(
-            self,
-            symbol,
-            side: binance.OrderSide,
-            quantity: float,
-            price: float,
-            time_in_force: binance.TimeInForce,
-            position_side: binance.PositionSide = None,
-            reduce_only: bool = None,
-            client_order_id: str = None,
-            close_position: bool = None,
-            response_type: binance.ResponseType = None,
-        ):
-        self.type = binance.OrderType.LIMIT
-
-        self.symbol = symbol
-        self.side = side
-        self.position_side = position_side
-        self.time_in_force = time_in_force
-        self.quantity = quantity
-        self.reduce_only = reduce_only
-        self.price = price
-        self.close_position = close_position
-        self.client_order_id = client_order_id
-        self.response_type = response_type
-
+    class Config:
+        use_enum_values = True
 
 class Market(Order):
     """
@@ -200,6 +166,9 @@ class StopMarket(Order):
         close_position (str): true, false；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.
         client_order_id (str): A unique id among open binances. Automatically generated if not sent. Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$
         response_type (enum): "ACK", "RESULT", default "ACK"
+    
+        closePosition : str
+        "true" or "false"；Close-All，used with STOP_MARKET or TAKE_PROFIT_MARKET.
     """
     def __init__(
             self,
