@@ -154,6 +154,8 @@
 
 <span class="sd">https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
 <span class="kn">import</span> <span class="nn">binance.utils</span> <span class="k">as</span> <span class="nn">utils</span>
 <span class="kn">from</span> <span class="nn">binance.order</span> <span class="kn">import</span> <span class="n">Order</span>
 
@@ -161,8 +163,9 @@
 
 <span class="n">endpoints</span> <span class="o">=</span> <span class="n">Endpoints</span><span class="p">(</span><span class="s1">&#39;trade&#39;</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="set_position_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.set_position_mode">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">set_position_mode</span><span class="p">(</span><span class="n">dualSidePosition</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">set_position_mode</span><span class="p">(</span><span class="n">dualSidePosition</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sets the user&#39;s position mode on every position: hedge mode or one-way mode (*TRADE*)</span>
 
@@ -181,7 +184,7 @@
 
 
 <div class="viewcode-block" id="get_position_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.get_position_mode">[docs]</a><span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_position_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_position_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the user&#39;s position mode on every position: hedge mode or one-way mode (*USER_DATA*)</span>
 
@@ -205,8 +208,8 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    order : binance.order.Order</span>
-<span class="sd">        a binance.order.Order object</span>
+<span class="sd">    order : :class:`~binance.order.Order`</span>
+<span class="sd">        An :class:`~binance.order.Order` object</span>
 <span class="sd">    timestamp : int</span>
 <span class="sd">        timestamp</span>
 <span class="sd">    recvWindow : int</span>
