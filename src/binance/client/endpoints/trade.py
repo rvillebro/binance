@@ -4,6 +4,8 @@ Trade data endpoints
 
 https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints
 """
+from typing import Optional
+
 import binance.utils as utils
 from binance.order import Order
 
@@ -11,8 +13,9 @@ from . import Endpoints
 
 endpoints = Endpoints('trade')
 
+
 @endpoints.add('POST', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
-def set_position_mode(dualSidePosition, timestamp=utils.get_timestamp, recvWindow=None):
+def set_position_mode(dualSidePosition, timestamp: int=utils.get_timestamp, recvWindow: Optional[int]=None):
     """
     Sets the user's position mode on every position: hedge mode or one-way mode (*TRADE*)
 
@@ -31,7 +34,7 @@ def set_position_mode(dualSidePosition, timestamp=utils.get_timestamp, recvWindo
 
 
 @endpoints.add('GET', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
-def get_position_mode(timestamp=utils.get_timestamp, recvWindow=None):
+def get_position_mode(timestamp: int=utils.get_timestamp, recvWindow: Optional[int]=None):
     """
     Gets the user's position mode on every position: hedge mode or one-way mode (*USER_DATA*)
 
@@ -55,8 +58,8 @@ def new_order(order: Order, timestamp: int=utils.get_timestamp, recvWindow: int=
 
     Parameters
     ----------
-    order : binance.order.Order
-        a binance.order.Order object
+    order : :class:`~binance.order.Order`
+        An :class:`~binance.order.Order` object
     timestamp : int
         timestamp
     recvWindow : int
