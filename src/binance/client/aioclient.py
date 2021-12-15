@@ -6,8 +6,9 @@ from binance.enums import http
 from binance.client.base import BaseClient
 
 class AIOClient(BaseClient):
+    ASYNCHRONOUS = True
+
     def __init__(self, *args, **kwargs):
-        self.asynchronous = True
         self.session = aiohttp.ClientSession()
         super().__init__(*args, *kwargs)
     

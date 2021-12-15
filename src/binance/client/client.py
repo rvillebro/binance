@@ -7,8 +7,9 @@ from binance.enums import http
 from binance.client.base import BaseClient
 
 class Client(BaseClient):
+    ASYNCHRONOUS = False
+
     def __init__(self, *args, **kwargs) -> object:
-        self.asynchronous = False
         self.session = requests.Session()
         super().__init__(*args, *kwargs)
 

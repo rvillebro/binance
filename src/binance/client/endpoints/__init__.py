@@ -9,7 +9,7 @@ from urllib.parse import urlencode
 from binance.enums import http
 
 
-class _Parameters():
+class _Parameters:
     """Class for containing API parameters and encoding them."""
     __slot__ = ['params']
 
@@ -49,7 +49,7 @@ class _Parameters():
         return urlencode(self.params)
 
 
-class _Endpoint():
+class _Endpoint:
     """Class for containing an API endpoint."""
     __slots__ = ['http_method', 'route', 'headers', 'add_api_key', 'add_signature', 'func', 'func_signature']
 
@@ -87,7 +87,7 @@ class _Endpoint():
         coroutine
             Coroutine which prepares params and uses client to make a http call.
         """
-        if client.asynchronous:
+        if client.ASYNCHRONOUS:
             @validate_arguments  # validates the type of parsed arguments
             @functools.wraps(self.func)
             async def wrapper(*args, **kwargs):
@@ -115,7 +115,7 @@ class _Endpoint():
         return wrapper
 
 
-class Endpoints():
+class Endpoints:
     """Class for containing and decorating API endpoints."""
     def __init__(self, name):
         self.name = name
