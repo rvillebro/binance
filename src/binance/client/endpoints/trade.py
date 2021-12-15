@@ -44,12 +44,48 @@ def get_position_mode(timestamp: int=utils.get_timestamp, recvWindow: Optional[i
     ----------
     timeStamp : int
         timestamp
-    receiveWindow : int
+    recvWindow : int
         receive window
     """
     pass
 
-    
+
+@endpoints.add('POST', '/fapi/v1/multiAssetsMargin', add_api_key=True, add_signature=True)
+def set_multiasset_mode(multiAssetsMargin, timestamp: int=utils.get_timestampm, recvWindow: int=None):
+    """
+    Sets the user's Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*TRADE*)
+
+    https://binance-docs.github.io/apidocs/futures/en/#change-multi-assets-mode-trade
+
+    Parameters
+    ----------
+    multiAssetsMargin : bool
+        "true" for Multi-Assets mode or "false" for Single-Assets mode
+    timestamp : int
+        timestamp
+    recvWindow : int
+        receive window
+    """
+    pass
+
+
+@endpoints.add('GET', '/fapi/v1/multiAssetsMargin',  add_api_key=True)
+def get_multiasset_mode(timestamp: int=utils.get_timestampm, recvWindow: int=None):
+    """
+    Gets the user's Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*USER DATA*)
+
+    https://binance-docs.github.io/apidocs/futures/en/#get-current-multi-assets-mode-user_data
+
+    Parameters
+    ----------
+    timestamp : int
+        timestamp
+    recvWindow : int
+        receive window
+    """
+    pass
+
+
 def new_order(order: Order, timestamp: int=utils.get_timestamp, recvWindow: int=None):
     """
     Send in a new order (*TRADE*).
@@ -66,6 +102,7 @@ def new_order(order: Order, timestamp: int=utils.get_timestamp, recvWindow: int=
         receive window
     """
     pass
+
 
 def batch_order(orders: list[Order], timestamp: int=utils.get_timestamp, recvWindow: int=None):
     """

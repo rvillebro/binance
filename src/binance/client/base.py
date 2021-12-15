@@ -15,6 +15,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class BaseClient(abc.ABC):
+    #: indicates whether endpoints should be asynchronous
+    ASYNCHRONOUS: bool
+
     def __init__(self, api_key=os.environ.get('BINANCE_API_KEY'),
                  api_secret=os.environ.get('BINANCE_API_SECRET'),
                  mode=NETWORK.TEST, rest=None, websocket=None):
@@ -59,7 +62,7 @@ class BaseClient(abc.ABC):
     def _add_signature(self, params: '_Parameters') -> str:
         """Adds signature to params"""
         if self._api_secret is None:
-                raise ValueError('Binance futures API secret is missing!')
+            raise ValueError('Binance futures API secret is missing!')
         url_encoded_params = params.urlencode()
         signature = hmac.new(self._api_secret.encode(), url_encoded_params.encode(), hashlib.sha256).hexdigest()
         params['signature'] = signature
