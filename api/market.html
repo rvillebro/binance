@@ -196,6 +196,11 @@
   <span class="target" id="module-binance.client.endpoints.market"></span><section id="market-endpoints">
 <h1>Market endpoints<a class="headerlink" href="#market-endpoints" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints">https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="binance.client.endpoints.market.Market">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Market</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#Market"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.Market" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="binance.client.endpoints.market.aggregated_trades">
 <span class="sig-name descname"><span class="pre">aggregated_trades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#aggregated_trades"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.aggregated_trades" title="Permalink to this definition">¶</a></dt>
@@ -262,6 +267,13 @@
 <span class="sig-name descname"><span class="pre">exchange_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#exchange_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.exchange_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets current exchange trading rules and symbol information</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#exchange-information">https://binance-docs.github.io/apidocs/futures/en/#exchange-information</a></p>
+<p class="rubric">Examples</p>
+<p>To get Binance’s exchange information call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">exchange_info</span><span class="p">()</span>
+<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;timezone&#39;: &#39;UTC&#39;, &#39;serverTime&#39;:...}}</span>
+</pre></div>
+</div>
+<p>Keep up to date with the exchange information in order to get the proper symbols etc.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -472,17 +484,30 @@ weight=1</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="binance.client.endpoints.market.order_book">
-<span class="sig-name descname"><span class="pre">order_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#order_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.order_book" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">order_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#order_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.order_book" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets order book for a symbol.</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#order-book">https://binance-docs.github.io/apidocs/futures/en/#order-book</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>symbol</strong> (<em>str</em>) – symbol to pull order book for</p></li>
-<li><p><strong>limit</strong> (<em>int</em>) – limit (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – limit the number of bids to return (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>To get the order book for a symbol call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">)</span>
+<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;lastUpdateId&#39;:...}}</span>
+</pre></div>
+</div>
+<p>You are also able to limit the number of orders:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="s1">&#39;bids&#39;</span><span class="p">])</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p>This is helpful</p>
 </dd></dl>
 
 <dl class="py function">
@@ -490,6 +515,14 @@ weight=1</p>
 <span class="sig-name descname"><span class="pre">ping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#ping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.ping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pings server to test connectivity</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#test-connectivity">https://binance-docs.github.io/apidocs/futures/en/#test-connectivity</a></p>
+<p class="rubric">Examples</p>
+<p>To ping binance servers call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
+<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {}}</span>
+</pre></div>
+</div>
+<p>It should return rather quickly.
+It is helpful to test connectivity.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -512,6 +545,14 @@ weight=1</p>
 <span class="sig-name descname"><span class="pre">server_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#server_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.server_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets current server time</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#check-server-time">https://binance-docs.github.io/apidocs/futures/en/#check-server-time</a></p>
+<p class="rubric">Examples</p>
+<p>To get binance server time call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">server_time</span><span class="p">()</span>
+<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;serverTime&#39;:...}}</span>
+</pre></div>
+</div>
+<p>Your host time nad Binance server time may vary.
+Remeber that Binace uses UTC — Coordinated Universal Time.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -568,7 +609,7 @@ weight=1</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="binance.client.endpoints.market.ticker_price_change_statistics">
-<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">ticker_price_change_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#ticker_price_change_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.ticker_price_change_statistics" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ticker_price_change_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/market.html#ticker_price_change_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.market.ticker_price_change_statistics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the 24 hour rolling window price change statistics for symbol or all symbols.</p>
 <ul class="simple">
 <li><p>If the symbol is not sent, tickers for all symbols will be returned in an array.</p></li>
@@ -667,7 +708,7 @@ weight=1</p>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br>
 </p>
     </div>
     
