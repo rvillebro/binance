@@ -9,8 +9,8 @@ class AIOClient(BaseClient):
     ASYNCHRONOUS = True
 
     def __init__(self, *args, **kwargs):
-        self.session = aiohttp.ClientSession()
         super().__init__(*args, *kwargs)
+        self.session = aiohttp.ClientSession()
     
     async def __aenter__(self):
         return self
