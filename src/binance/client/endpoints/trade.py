@@ -7,14 +7,14 @@ https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints
 from typing import Optional
 
 import binance.utils as utils
-from binance.order import Order
+from binance.order.base import Order
 
-from . import Endpoints
+from .base import Endpoints
 
-endpoints = Endpoints('trade')
+class Trade(Endpoints): ...
 
 
-@endpoints.add('POST', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
+@Trade.add('POST', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
 def set_position_mode(dualSidePosition, timestamp: int=utils.get_timestamp, recvWindow: Optional[int]=None):
     """
     Sets the user's position mode on every position: hedge mode or one-way mode (*TRADE*)
@@ -32,8 +32,7 @@ def set_position_mode(dualSidePosition, timestamp: int=utils.get_timestamp, recv
     """
     pass
 
-
-@endpoints.add('GET', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
+@Trade.add('GET', '/fapi/v1/positionSide/dual', add_api_key=True, add_signature=True)
 def get_position_mode(timestamp: int=utils.get_timestamp, recvWindow: Optional[int]=None):
     """
     Gets the user's position mode on every position: hedge mode or one-way mode (*USER_DATA*)
@@ -50,8 +49,8 @@ def get_position_mode(timestamp: int=utils.get_timestamp, recvWindow: Optional[i
     pass
 
 
-@endpoints.add('POST', '/fapi/v1/multiAssetsMargin', add_api_key=True, add_signature=True)
-def set_multiasset_mode(multiAssetsMargin, timestamp: int=utils.get_timestampm, recvWindow: int=None):
+@Trade.add('POST', '/fapi/v1/multiAssetsMargin', add_api_key=True, add_signature=True)
+def set_multiasset_mode(multiAssetsMargin, timestamp: int=utils.get_timestamp, recvWindow: int=None):
     """
     Sets the user's Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*TRADE*)
 
@@ -69,8 +68,8 @@ def set_multiasset_mode(multiAssetsMargin, timestamp: int=utils.get_timestampm, 
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/multiAssetsMargin',  add_api_key=True)
-def get_multiasset_mode(timestamp: int=utils.get_timestampm, recvWindow: int=None):
+@Trade.add('GET', '/fapi/v1/multiAssetsMargin',  add_api_key=True)
+def get_multiasset_mode(timestamp: int=utils.get_timestamp, recvWindow: int=None):
     """
     Gets the user's Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*USER DATA*)
 

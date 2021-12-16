@@ -10,8 +10,8 @@ class Client(BaseClient):
     ASYNCHRONOUS = False
 
     def __init__(self, *args, **kwargs) -> object:
-        self.session = requests.Session()
         super().__init__(*args, *kwargs)
+        self.session = requests.Session()
 
     def __enter__(self) -> None:
         return self

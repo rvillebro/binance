@@ -3,46 +3,73 @@
 Market endpoints
 ================
 
-
-
 https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
 """
-from . import Endpoints
+from .base import Endpoints
 
-endpoints = Endpoints('market')
+class Market(Endpoints): ...
 
-@endpoints.add('GET', '/fapi/v1/ping')
+@Market.add('GET', '/fapi/v1/ping')
 def ping():
     """
     Pings server to test connectivity
 
     https://binance-docs.github.io/apidocs/futures/en/#test-connectivity
+
+    Examples
+    --------
+    To ping binance servers call:
+
+        >>> client.market.ping()
+        {'status_code': 200, 'response': {}}
+    
+    It should return rather quickly.
+    It is helpful to test connectivity.
     """
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/time')
+@Market.add('GET', '/fapi/v1/time')
 def server_time():
     """
     Gets current server time
 
     https://binance-docs.github.io/apidocs/futures/en/#check-server-time
+
+    Examples
+    --------
+    To get binance server time call:
+
+        >>> client.market.server_time()
+        {'status_code': 200, 'response': {'serverTime':...}}
+    
+    Your host time nad Binance server time may vary.
+    Remeber that Binace uses UTC — Coordinated Universal Time.
     """
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/exchangeInfo')
+@Market.add('GET', '/fapi/v1/exchangeInfo')
 def exchange_info():
     """
     Gets current exchange trading rules and symbol information
 
     https://binance-docs.github.io/apidocs/futures/en/#exchange-information
+
+    Examples
+    --------
+    To get Binance's exchange information call:
+
+        >>> client.market.exchange_info()
+        {'status_code': 200, 'response': {'timezone': 'UTC', 'serverTime':...}}
+    
+    Keep up to date with the exchange information in order to get the proper symbols etc.
     """
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/depth')
-def order_book(symbol, limit=None):
+@Market.add('GET', '/fapi/v1/depth')
+def order_book(symbol, limit: int=None):
     """
     Gets order book for a symbol.
 
@@ -53,12 +80,27 @@ def order_book(symbol, limit=None):
     symbol : str
         symbol to pull order book for
     limit : int
-        limit (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])
+        limit the number of bids to return (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])
+    
+    Examples
+    --------
+    To get the order book for a symbol call:
+
+        >>> client.market.order_book(symbol='BTCUSDT')
+        {'status_code': 200, 'response': {'lastUpdateId':...}}
+    
+    You are also able to limit the number of orders:
+
+        >>> r = client.market.order_book(symbol='BTCUSDT', limit=5)
+        >>> len(r['response']['bids'])
+        5
+    
+    This is helpful
     """
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/trades')
+@Market.add('GET', '/fapi/v1/trades')
 def recent_trades(symbol, limit=None):
     """
     Gets most recent trades for a symbol.
@@ -75,7 +117,7 @@ def recent_trades(symbol, limit=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/historicalTrades', add_api_key=True)
+@Market.add('GET', '/fapi/v1/historicalTrades', add_api_key=True)
 def historical_trades(symbol, limit=None, fromId=None):
     """
     Gets historical trades for a symbol. (*MARKET_DATA*)
@@ -97,7 +139,7 @@ def historical_trades(symbol, limit=None, fromId=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/aggTrades')
+@Market.add('GET', '/fapi/v1/aggTrades')
 def aggregated_trades(symbol, fromId=None, startTime=None, endTime=None, limit=None):
     """
     Gets aggregate trades list for a symbol.
@@ -123,7 +165,7 @@ def aggregated_trades(symbol, fromId=None, startTime=None, endTime=None, limit=N
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/klines')
+@Market.add('GET', '/fapi/v1/klines')
 def klines(symbol, interval, startTime=None, endTime=None, limit=None):
     """
     Gets klines/candlesticks  for a symbol.
@@ -150,7 +192,7 @@ def klines(symbol, interval, startTime=None, endTime=None, limit=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/continuousKlines')
+@Market.add('GET', '/fapi/v1/continuousKlines')
 def continues_contract_klines(pair, contractType, interval, startTime=None, endTime=None, limit=None):
     """
     Gets continues contract klines/candlesticks for a pair.
@@ -179,7 +221,7 @@ def continues_contract_klines(pair, contractType, interval, startTime=None, endT
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/indexPriceKlines')
+@Market.add('GET', '/fapi/v1/indexPriceKlines')
 def index_price_klines(pair, interval, startTime=None, endTime=None, limit=None):
     """
     Gets index price klines/candlesticks for a pair.
@@ -208,7 +250,7 @@ def index_price_klines(pair, interval, startTime=None, endTime=None, limit=None)
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/markPriceKlines')
+@Market.add('GET', '/fapi/v1/markPriceKlines')
 def mark_price_klines(symbol, interval, startTime=None, endTime=None, limit=None):
     """
     Gets mark price klines/candlesticks for a symbol.
@@ -237,7 +279,7 @@ def mark_price_klines(symbol, interval, startTime=None, endTime=None, limit=None
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/premiumIndex')
+@Market.add('GET', '/fapi/v1/premiumIndex')
 def mark_price(symbol=None):
     """
     Gets mark price for a symbol or all symbols.
@@ -253,7 +295,7 @@ def mark_price(symbol=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/fundingRate')
+@Market.add('GET', '/fapi/v1/fundingRate')
 def funding_rate_history(symbol, startTime=None, endTime=None, limit=None):
     """
     Gets funding rate history.
@@ -280,8 +322,8 @@ def funding_rate_history(symbol, startTime=None, endTime=None, limit=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/ticker/24hr')
-async def ticker_price_change_statistics(symbol=None):
+@Market.add('GET', '/fapi/v1/ticker/24hr')
+def ticker_price_change_statistics(symbol=None):
     """
     Gets the 24 hour rolling window price change statistics for symbol or all symbols.
 
@@ -297,7 +339,7 @@ async def ticker_price_change_statistics(symbol=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/ticker/price')
+@Market.add('GET', '/fapi/v1/ticker/price')
 def ticker_price(symbol=None):
     """
     Gets the latest price for a symbol or all symbols.
@@ -314,7 +356,7 @@ def ticker_price(symbol=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/ticker/bookTicker')
+@Market.add('GET', '/fapi/v1/ticker/bookTicker')
 def ticker_order_book(symbol=None):
     """
     Gets best price/quantity on the order book for a symbol or all symbols.
@@ -331,7 +373,7 @@ def ticker_order_book(symbol=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/openInterest')
+@Market.add('GET', '/fapi/v1/openInterest')
 def open_interest(symbol):
     """
     Gets present open interest for a specific symbol.
@@ -346,7 +388,7 @@ def open_interest(symbol):
     pass
 
 
-@endpoints.add('GET', '/futures/data/openInterestHist')
+@Market.add('GET', '/futures/data/openInterestHist')
 def open_interest_history(symbol, period, limit=None, startTime=None, endTime=None):
     """
     Gets open interest history for a specific symbol.
@@ -372,7 +414,7 @@ def open_interest_history(symbol, period, limit=None, startTime=None, endTime=No
     pass
 
 
-@endpoints.add('GET', '/futures/data/topLongShortAccountRatio', add_api_key=True)
+@Market.add('GET', '/futures/data/topLongShortAccountRatio', add_api_key=True)
 def top_long_short_account_ratio(symbol, period, limit=None, startTime=None, endTime=None):
     """
     Gets top trader long/short account ratio for a specific symbol.
@@ -398,7 +440,7 @@ def top_long_short_account_ratio(symbol, period, limit=None, startTime=None, end
     pass
 
 
-@endpoints.add('GET', '/futures/data/topLongShortPositionRatio')
+@Market.add('GET', '/futures/data/topLongShortPositionRatio')
 def top_long_short_position_ratio(symbol, period, limit=None, startTime=None, endTime=None):
     """
     Gets top trader long/short position ratio  a specific symbol.
@@ -424,7 +466,7 @@ def top_long_short_position_ratio(symbol, period, limit=None, startTime=None, en
     pass
 
 
-@endpoints.add('GET', '/futures/data/globalLongShortAccountRatio')
+@Market.add('GET', '/futures/data/globalLongShortAccountRatio')
 def global_long_short_account_ratio(symbol, period, limit=None, startTime=None, endTime=None):
     """
     Gets global long/short account ratio  a specific symbol.
@@ -450,7 +492,7 @@ def global_long_short_account_ratio(symbol, period, limit=None, startTime=None, 
     pass
 
 
-@endpoints.add('GET', '/futures/data/takerlongshortRatio')
+@Market.add('GET', '/futures/data/takerlongshortRatio')
 def taker_long_short_ratio(symbol, period, limit=None, startTime=None, endTime=None):
     """
     Gets taker long/short ratio  a specific symbol.
@@ -476,7 +518,7 @@ def taker_long_short_ratio(symbol, period, limit=None, startTime=None, endTime=N
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/lvtKlines')
+@Market.add('GET', '/fapi/v1/lvtKlines')
 def lvt_klines(symbol, interval, startTime=None, endTime=None, limit=None):
     """
     Gets historical BLVT NAV klines/candlesticks for a symbol.
@@ -503,7 +545,7 @@ def lvt_klines(symbol, interval, startTime=None, endTime=None, limit=None):
     pass
 
 
-@endpoints.add('GET', '/fapi/v1/indexInfo')
+@Market.add('GET', '/fapi/v1/indexInfo')
 def composite_index_info(symbol=None):
     """
     Gets mark price for a symbol or all symbols.

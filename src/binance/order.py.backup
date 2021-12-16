@@ -4,11 +4,11 @@ from typing import Literal, Optional
 
 from binance.enums import binance
 
-class Order:
+class OrderMixin:
     def test(self):
         print('hello')
 
-class Limit(BaseModel, Order):
+class Limit(BaseModel, OrderMixin):
     """
     Initialize limit order object.
 

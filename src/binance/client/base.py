@@ -8,7 +8,7 @@ from types import SimpleNamespace
 
 from binance.enums import http
 from binance.constants import NETWORK
-from .endpoints import market, trade
+from binance.client.endpoints import Market, Trade
 
 # load dot env environment variables (api key and secret)
 from dotenv import load_dotenv
@@ -34,8 +34,10 @@ class BaseClient(abc.ABC):
         self._api_key = api_key
         self._api_secret = api_secret
 
-        self.register_endpoints(market.endpoints)  # market API information
-        self.register_endpoints(trade.endpoints)  # trade API information
+        self.market = Market(self)
+        self.trade = Trade(self)
+        #self.register_endpoints(market.endpoints)  # market API information
+        #self.register_endpoints(trade.endpoints)  # trade API information
 
     def register_endpoints(self, endpoints):
         """
