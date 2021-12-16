@@ -3,4 +3,4 @@ Installation
 ============
 
 
-``pip install test``
+``pip install binance``
