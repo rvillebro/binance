@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
 """
-Trade data endpoints
+Trade endpoints
+===============
 
 https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints
 """

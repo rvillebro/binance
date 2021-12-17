@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 import abc
 import hmac
@@ -8,7 +7,7 @@ from types import SimpleNamespace
 
 from binance.enums import http
 from binance.constants import NETWORK
-from binance.client.endpoints import Market, Trade
+from binance.client import endpoints
 
 # load dot env environment variables (api key and secret)
 from dotenv import load_dotenv
@@ -34,24 +33,10 @@ class BaseClient(abc.ABC):
         self._api_key = api_key
         self._api_secret = api_secret
 
-        self.market = Market(self)
-        self.trade = Trade(self)
-        #self.register_endpoints(market.endpoints)  # market API information
-        #self.register_endpoints(trade.endpoints)  # trade API information
+        self.market = endpoints.Market(self)
+        self.trade = endpoints.Trade(self)
 
-    def register_endpoints(self, endpoints):
-        """
-        Registers endpoints to client.
-        All endpoints are added under the endpoint name.
-
-        Parameters
-        ----------
-        endpoints : binance.client.endpoints.Endpoints
-            Endpoints to register
-        """
-        wrapped_endpoints = {e.func.__name__: e.wrap(self) for e in endpoints}
-        wrapped_endpoints = SimpleNamespace(**wrapped_endpoints)
-        self.__setattr__(endpoints.name, wrapped_endpoints)
+        self.user_data_streams = endpoints.UserDataStreams(self)
     
     def _add_api_key(self, headers):
         """Adds API key to headers"""

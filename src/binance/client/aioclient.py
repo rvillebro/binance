@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import json
 import aiohttp
 
@@ -9,9 +8,9 @@ class AIOClient(BaseClient):
     ASYNCHRONOUS = True
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, *kwargs)
         self.session = aiohttp.ClientSession()
-    
+        super().__init__(*args, *kwargs)
+
     async def __aenter__(self):
         return self
     

@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+"""
+"""
 from types import SimpleNamespace
 
 NETWORK = SimpleNamespace(
