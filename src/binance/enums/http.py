@@ -7,6 +7,8 @@ from .base import StrEnum
 class Method(StrEnum):
     GET = 'GET'
     POST = 'POST'
+    PUT = 'PUT'
+    DELETE = 'DELETE'
 
 
 class ReturnCodes(StrEnum):

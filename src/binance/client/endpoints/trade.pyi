@@ -1,3 +1,9 @@
+"""
+Trade endpoints
+===============
+
+https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints
+"""
 from binance.order.base import Order
 from typing import Optional
 from binance import utils

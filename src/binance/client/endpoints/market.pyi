@@ -1,9 +1,15 @@
+"""
+Market endpoints
+================
+
+https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
+"""
 from typing import Any
 
 class Market:
     def ping():
         """
-        Pings server to test connectivity
+        Pings server to test connectivity.
 
         https://binance-docs.github.io/apidocs/futures/en/#test-connectivity
 
@@ -21,7 +27,7 @@ class Market:
 
     def server_time():
         """
-        Gets current server time
+        Gets current server time.
 
         https://binance-docs.github.io/apidocs/futures/en/#check-server-time
 
@@ -39,7 +45,7 @@ class Market:
 
     def exchange_info():
         """
-        Gets current exchange trading rules and symbol information
+        Gets current exchange trading rules and symbol information.
 
         https://binance-docs.github.io/apidocs/futures/en/#exchange-information
 
@@ -80,7 +86,7 @@ class Market:
             >>> len(r['response']['bids'])
             5
         
-        This is helpful
+        The limit can be set in the following intervals: [5, 10, 20, 50, 100, 500, 1000]
         """
         pass
 
@@ -96,6 +102,13 @@ class Market:
             symbol to pull recent trades for
         limit : int
             limit (default=500, max=1000)
+        
+        Examples
+        --------
+        To get recent trades call:
+
+            >>> client.market.recent_trades(symbol='BTCUSDT')
+            {'status_code': 200, 'response': {'lastUpdateId':...}}
         """
         pass
 

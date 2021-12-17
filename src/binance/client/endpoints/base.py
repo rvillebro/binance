@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+"""
+Endpoint base classes
+=====================
+
+- _Parameters
+- _Endpoint
+- Endpoints
+"""
 import abc
 import json
 import inspect

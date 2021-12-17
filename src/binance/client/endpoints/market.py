@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Market endpoints
 ================
@@ -26,7 +25,6 @@ def ping():
     It should return rather quickly.
     It is helpful to test connectivity.
     """
-    pass
 
 
 @Market.add('GET', '/fapi/v1/time')
@@ -46,8 +44,7 @@ def server_time():
     Your host time nad Binance server time may vary.
     Remeber that Binace uses UTC — Coordinated Universal Time.
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/exchangeInfo')
 def exchange_info():
@@ -65,8 +62,7 @@ def exchange_info():
     
     Keep up to date with the exchange information in order to get the proper symbols etc.
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/depth')
 def order_book(symbol, limit: int=None):
@@ -97,8 +93,7 @@ def order_book(symbol, limit: int=None):
     
     This is helpful
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/trades')
 def recent_trades(symbol, limit=None):
@@ -113,9 +108,15 @@ def recent_trades(symbol, limit=None):
         symbol to pull recent trades for
     limit : int
         limit (default=500, max=1000)
-    """
-    pass
+    
+    Examples
+    --------
+    To get recent trades call:
 
+        >>> client.market.recent_trades(symbol='BTCUSDT')
+        {'status_code': 200, 'response': [{'id': ...}]}
+    """
+    
 
 @Market.add('GET', '/fapi/v1/historicalTrades', add_api_key=True)
 def historical_trades(symbol, limit=None, fromId=None):
@@ -136,8 +137,7 @@ def historical_trades(symbol, limit=None, fromId=None):
     fromId : int, str
         TradeId to fetch from. (default: most recent trades)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/aggTrades')
 def aggregated_trades(symbol, fromId=None, startTime=None, endTime=None, limit=None):
@@ -162,8 +162,7 @@ def aggregated_trades(symbol, fromId=None, startTime=None, endTime=None, limit=N
     limit : int, str
         limit (default=500, max=1000)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/klines')
 def klines(symbol, interval, startTime=None, endTime=None, limit=None):
@@ -189,8 +188,7 @@ def klines(symbol, interval, startTime=None, endTime=None, limit=None):
     limit : int, str
         limit (default=500, max=1500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/continuousKlines')
 def continues_contract_klines(pair, contractType, interval, startTime=None, endTime=None, limit=None):
@@ -218,8 +216,7 @@ def continues_contract_klines(pair, contractType, interval, startTime=None, endT
     limit : int
         limit (default=500, max=1500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/indexPriceKlines')
 def index_price_klines(pair, interval, startTime=None, endTime=None, limit=None):
@@ -247,8 +244,7 @@ def index_price_klines(pair, interval, startTime=None, endTime=None, limit=None)
     limit : int
         limit (default=500, max=1500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/markPriceKlines')
 def mark_price_klines(symbol, interval, startTime=None, endTime=None, limit=None):
@@ -276,8 +272,7 @@ def mark_price_klines(symbol, interval, startTime=None, endTime=None, limit=None
     limit : int
         limit (default=500, max=1500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/premiumIndex')
 def mark_price(symbol=None):
@@ -292,8 +287,7 @@ def mark_price(symbol=None):
     symbol : str
         symbol
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/fundingRate')
 def funding_rate_history(symbol, startTime=None, endTime=None, limit=None):
@@ -319,8 +313,7 @@ def funding_rate_history(symbol, startTime=None, endTime=None, limit=None):
     limit : int
         limit (default: 100, max: 1000)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/ticker/24hr')
 def ticker_price_change_statistics(symbol=None):
@@ -336,8 +329,7 @@ def ticker_price_change_statistics(symbol=None):
     symbol : str
         symbol to get 24 hour rolling window price change statistics for
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/ticker/price')
 def ticker_price(symbol=None):
@@ -353,8 +345,7 @@ def ticker_price(symbol=None):
     symbol : str
         symbol
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/ticker/bookTicker')
 def ticker_order_book(symbol=None):
@@ -370,8 +361,7 @@ def ticker_order_book(symbol=None):
     symbol : str
         symbol
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/openInterest')
 def open_interest(symbol):
@@ -385,8 +375,7 @@ def open_interest(symbol):
     symbol : str
         symbol to present open interest for
     """
-    pass
-
+    
 
 @Market.add('GET', '/futures/data/openInterestHist')
 def open_interest_history(symbol, period, limit=None, startTime=None, endTime=None):
@@ -411,8 +400,7 @@ def open_interest_history(symbol, period, limit=None, startTime=None, endTime=No
     limit : int
         limit (default: 30, max: 500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/futures/data/topLongShortAccountRatio', add_api_key=True)
 def top_long_short_account_ratio(symbol, period, limit=None, startTime=None, endTime=None):
@@ -437,8 +425,7 @@ def top_long_short_account_ratio(symbol, period, limit=None, startTime=None, end
     limit : int
         limit (default: 30, max: 500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/futures/data/topLongShortPositionRatio')
 def top_long_short_position_ratio(symbol, period, limit=None, startTime=None, endTime=None):
@@ -463,8 +450,7 @@ def top_long_short_position_ratio(symbol, period, limit=None, startTime=None, en
     limit : int
         limit (default: 30, max: 500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/futures/data/globalLongShortAccountRatio')
 def global_long_short_account_ratio(symbol, period, limit=None, startTime=None, endTime=None):
@@ -489,8 +475,7 @@ def global_long_short_account_ratio(symbol, period, limit=None, startTime=None, 
     limit : int
         limit (default: 30, max: 500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/futures/data/takerlongshortRatio')
 def taker_long_short_ratio(symbol, period, limit=None, startTime=None, endTime=None):
@@ -515,8 +500,7 @@ def taker_long_short_ratio(symbol, period, limit=None, startTime=None, endTime=N
     limit : int
         limit (default: 30, max: 500)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/lvtKlines')
 def lvt_klines(symbol, interval, startTime=None, endTime=None, limit=None):
@@ -542,8 +526,7 @@ def lvt_klines(symbol, interval, startTime=None, endTime=None, limit=None):
     limit : int, str
         limit (default=500, max=1000)
     """
-    pass
-
+    
 
 @Market.add('GET', '/fapi/v1/indexInfo')
 def composite_index_info(symbol=None):
@@ -559,4 +542,4 @@ def composite_index_info(symbol=None):
     symbol : str
         symbol
     """
-    pass
+    
