@@ -148,8 +148,7 @@
               <div>
                 
   <h1>Source code for binance.client.endpoints.market</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Market endpoints</span>
 <span class="sd">================</span>
 
@@ -175,8 +174,7 @@
 <span class="sd">    </span>
 <span class="sd">    It should return rather quickly.</span>
 <span class="sd">    It is helpful to test connectivity.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<span class="sd">    &quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="server_time"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.server_time">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/time&#39;</span><span class="p">)</span>
@@ -195,9 +193,8 @@
 <span class="sd">    </span>
 <span class="sd">    Your host time nad Binance server time may vary.</span>
 <span class="sd">    Remeber that Binace uses UTC — Coordinated Universal Time.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="exchange_info"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.exchange_info">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/exchangeInfo&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">exchange_info</span><span class="p">():</span>
@@ -214,9 +211,8 @@
 <span class="sd">        {&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;timezone&#39;: &#39;UTC&#39;, &#39;serverTime&#39;:...}}</span>
 <span class="sd">    </span>
 <span class="sd">    Keep up to date with the exchange information in order to get the proper symbols etc.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="order_book"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.order_book">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/depth&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -246,9 +242,8 @@
 <span class="sd">        5</span>
 <span class="sd">    </span>
 <span class="sd">    This is helpful</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="recent_trades"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.recent_trades">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/trades&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -263,9 +258,15 @@
 <span class="sd">        symbol to pull recent trades for</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default=500, max=1000)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    To get recent trades call:</span>
 
+<span class="sd">        &gt;&gt;&gt; client.market.recent_trades(symbol=&#39;BTCUSDT&#39;)</span>
+<span class="sd">        {&#39;status_code&#39;: 200, &#39;response&#39;: [{&#39;id&#39;: ...}]}</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="historical_trades"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.historical_trades">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/historicalTrades&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">historical_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -285,9 +286,8 @@
 <span class="sd">        limit (default=500, max=1000)</span>
 <span class="sd">    fromId : int, str</span>
 <span class="sd">        TradeId to fetch from. (default: most recent trades)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="aggregated_trades"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.aggregated_trades">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/aggTrades&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">aggregated_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -311,9 +311,8 @@
 <span class="sd">        end time in seconds</span>
 <span class="sd">    limit : int, str</span>
 <span class="sd">        limit (default=500, max=1000)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.klines">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/klines&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -338,9 +337,8 @@
 <span class="sd">        end time in seconds</span>
 <span class="sd">    limit : int, str</span>
 <span class="sd">        limit (default=500, max=1500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="continues_contract_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.continues_contract_klines">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/continuousKlines&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">continues_contract_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">contractType</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -367,9 +365,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default=500, max=1500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="index_price_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.index_price_klines">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/indexPriceKlines&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">index_price_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -396,9 +393,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default=500, max=1500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="mark_price_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.mark_price_klines">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/markPriceKlines&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">mark_price_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -425,9 +421,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default=500, max=1500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="mark_price"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.mark_price">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/premiumIndex&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">mark_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -441,9 +436,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    symbol : str</span>
 <span class="sd">        symbol</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="funding_rate_history"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.funding_rate_history">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/fundingRate&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">funding_rate_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -468,9 +462,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default: 100, max: 1000)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="ticker_price_change_statistics"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.ticker_price_change_statistics">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/24hr&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">ticker_price_change_statistics</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -485,9 +478,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    symbol : str</span>
 <span class="sd">        symbol to get 24 hour rolling window price change statistics for</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="ticker_price"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.ticker_price">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/price&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">ticker_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -502,9 +494,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    symbol : str</span>
 <span class="sd">        symbol</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="ticker_order_book"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.ticker_order_book">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/bookTicker&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">ticker_order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -519,9 +510,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    symbol : str</span>
 <span class="sd">        symbol</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="open_interest"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.open_interest">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/openInterest&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">open_interest</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
@@ -534,9 +524,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    symbol : str</span>
 <span class="sd">        symbol to present open interest for</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="open_interest_history"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.open_interest_history">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/openInterestHist&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">open_interest_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -560,9 +549,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default: 30, max: 500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="top_long_short_account_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.top_long_short_account_ratio">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/topLongShortAccountRatio&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">top_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -586,9 +574,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default: 30, max: 500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="top_long_short_position_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.top_long_short_position_ratio">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/topLongShortPositionRatio&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">top_long_short_position_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -612,9 +599,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default: 30, max: 500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="global_long_short_account_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.global_long_short_account_ratio">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/globalLongShortAccountRatio&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">global_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -638,9 +624,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default: 30, max: 500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="taker_long_short_ratio"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.taker_long_short_ratio">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/takerlongshortRatio&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">taker_long_short_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -664,9 +649,8 @@
 <span class="sd">        end time</span>
 <span class="sd">    limit : int</span>
 <span class="sd">        limit (default: 30, max: 500)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="lvt_klines"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.lvt_klines">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/lvtKlines&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">lvt_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -691,9 +675,8 @@
 <span class="sd">        end time in seconds</span>
 <span class="sd">    limit : int, str</span>
 <span class="sd">        limit (default=500, max=1000)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 
 <div class="viewcode-block" id="composite_index_info"><a class="viewcode-back" href="../../../../api/market.html#binance.client.endpoints.market.composite_index_info">[docs]</a><span class="nd">@Market</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/indexInfo&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">composite_index_info</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -708,8 +691,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    symbol : str</span>
 <span class="sd">        symbol</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+    
 </pre></div>
 
               </div>

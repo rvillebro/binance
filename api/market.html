@@ -538,6 +538,12 @@ It is helpful to test connectivity.</p>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>To get recent trades call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">)</span>
+<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: [{&#39;id&#39;: ...}]}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
