@@ -2,7 +2,12 @@
 Market endpoints
 ================
 
+All market data endpoints are collected here.
+
 https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
+
+.. automodule:: binance.client.endpoints.market
+    :members:
 """
 from .base import Endpoints, LinkEndpointsMixin
 
@@ -23,8 +28,8 @@ class Market(LinkEndpointsMixin):
 
             >>> client.market.ping()
             {'status_code': 200, 'response': {}}
-        It should return rather quickly.
-        It is helpful to test connectivity.
+
+        It is helpful to test connectivity and should return rather quickly.
         """
 
     @endpoints.add('GET', '/fapi/v1/time')
@@ -40,8 +45,9 @@ class Market(LinkEndpointsMixin):
 
             >>> client.market.server_time()
             {'status_code': 200, 'response': {'serverTime':...}}
-        Your host time nad Binance server time may vary.
-        Remeber that Binace uses UTC — Coordinated Universal Time.
+        
+        Your host time and Binance server time may vary.
+        Remeber that Binance uses UTC — Coordinated Universal Time.
         """
 
     @endpoints.add('GET', '/fapi/v1/exchangeInfo')
@@ -57,6 +63,7 @@ class Market(LinkEndpointsMixin):
 
             >>> client.market.exchange_info()
             {'status_code': 200, 'response': {'timezone': 'UTC', 'serverTime':...}}
+
         Keep up to date with the exchange information in order to get the proper symbols etc.
         """
 
@@ -73,17 +80,20 @@ class Market(LinkEndpointsMixin):
             symbol to pull order book for
         limit : int
             limit the number of bids to return (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])
+
         Examples
         --------
         To get the order book for a symbol call:
 
             >>> client.market.order_book(symbol='BTCUSDT')
             {'status_code': 200, 'response': {'lastUpdateId':...}}
+
         You are also able to limit the number of orders:
 
             >>> r = client.market.order_book(symbol='BTCUSDT', limit=5)
             >>> len(r['response']['bids'])
             5
+
         The limit can be set to the following interval: [5, 10, 20, 50, 100, 500, 1000]
         """
 
@@ -100,17 +110,20 @@ class Market(LinkEndpointsMixin):
             symbol to pull recent trades for
         limit : int
             limit (default=500, max=1000)
+
         Examples
         --------
         To get recent trades call:
 
             >>> client.market.recent_trades(symbol='BTCUSDT')
             {'status_code': 200, 'response': [{'id': ...}]}
+
         You are also able to limit the number of recent trades received:
 
             >>> r = client.market.recent_trades(symbol='BTCUSDT', limit=69)
             >>> len(r['response'])
             69
+
         The maximum limit is 1000.
         """
 
@@ -191,6 +204,7 @@ class Market(LinkEndpointsMixin):
         * If startTime and endTime are not sent, the most recent klines are returned.
         * Klines are uniquely identified by their open time.
         * Weight: based on parameter limit
+    
         https://binance-docs.github.io/apidocs/futures/en/#continuous-contract-kline-candlestick-data
 
         Parameters

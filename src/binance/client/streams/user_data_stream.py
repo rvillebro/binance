@@ -21,7 +21,7 @@ class UserDataStream:
         self.client = client
         self.loop = loop
 
-        self._task = None
+        self._ws_task = None
         self._stop_event = asyncio.Event(loop=self._loop)
 
     def subscribe(self, callback):

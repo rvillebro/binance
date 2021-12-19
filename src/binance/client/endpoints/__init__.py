@@ -1,11 +1,7 @@
 """
+
 All endpoints
-=============
 
-- Market
-- Trade
-
-- Websocket
 """
 
 from .market import Market
