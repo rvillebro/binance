@@ -2,7 +2,7 @@ import pytest
 from binance.client import Client
 
 @pytest.fixture(autouse=True, scope='module')
-def add_np(doctest_namespace, request):
+def add_clients(doctest_namespace, request):
     client = Client()
     doctest_namespace["client"] = client
 

@@ -4,8 +4,12 @@ User Data Stream endpoints
 
 https://binance-docs.github.io/apidocs/futures/en/#user-data-streams
 """
+from .base import Endpoints, LinkEndpointsMixin
 
-class UserDataStreams:
+class UserData(LinkEndpointsMixin):
+    endpoints = Endpoints()
+
+    @endpoints.add('POST', '/fapi/v1/listenKey', add_api_key=True)
     def get_listen_key():
         """
         Gets a listen key for user data streams (USER_STREAM).
@@ -20,6 +24,7 @@ class UserDataStreams:
             {'status_code': 200, 'response': {'listenKey': ...}}
         """
 
+    @endpoints.add('PUT', '/fapi/v1/listenKey', add_api_key=True)
     def keep_listen_key_alive():
         """
         Keeps current listen key alive (USER_STREAM).
@@ -34,6 +39,7 @@ class UserDataStreams:
             {'status_code': 200, 'response': {}}
         """
 
+    @endpoints.add('DELETE', '/fapi/v1/listenKey', add_api_key=True)
     def close_list_key():
         """
         Closes current user data streams listen key (USER_STREAM).
