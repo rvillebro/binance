@@ -210,12 +210,10 @@
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints">https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints</a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="binance.client.endpoints.trade.Trade">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Trade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="binance.client.endpoints.trade.batch_order">
-<span class="sig-name descname"><span class="pre">batch_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">orders:</span> <span class="pre">list[binance.order.base.Order],</span> <span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;,</span> <span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#batch_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.batch_order" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Trade</span></span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.Trade.batch_order">
+<span class="sig-name descname"><span class="pre">batch_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade.batch_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade.batch_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send in a batch of orders (<em>TRADE</em>).</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#place-multiple-orders-trade">https://binance-docs.github.io/apidocs/futures/en/#place-multiple-orders-trade</a></p>
 <dl class="field-list simple">
@@ -229,9 +227,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="binance.client.endpoints.trade.get_multiasset_mode">
-<span class="sig-name descname"><span class="pre">get_multiasset_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#get_multiasset_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.get_multiasset_mode" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.Trade.get_multiasset_mode">
+<span class="sig-name descname"><span class="pre">get_multiasset_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recvWindow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade.get_multiasset_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade.get_multiasset_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the user’s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (<em>USER DATA</em>)</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#get-current-multi-assets-mode-user_data">https://binance-docs.github.io/apidocs/futures/en/#get-current-multi-assets-mode-user_data</a></p>
 <dl class="field-list simple">
@@ -244,9 +242,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="binance.client.endpoints.trade.get_position_mode">
-<span class="sig-name descname"><span class="pre">get_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#get_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.get_position_mode" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.Trade.get_position_mode">
+<span class="sig-name descname"><span class="pre">get_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recvWindow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade.get_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade.get_position_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the user’s position mode on every position: hedge mode or one-way mode (<em>USER_DATA</em>)</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#get-current-position-mode-user_data">https://binance-docs.github.io/apidocs/futures/en/#get-current-position-mode-user_data</a></p>
 <dl class="field-list simple">
@@ -259,9 +257,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="binance.client.endpoints.trade.new_order">
-<span class="sig-name descname"><span class="pre">new_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order:</span> <span class="pre">binance.order.base.Order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#new_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.new_order" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.Trade.new_order">
+<span class="sig-name descname"><span class="pre">new_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade.new_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade.new_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send in a new order (<em>TRADE</em>).</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#new-order-trade">https://binance-docs.github.io/apidocs/futures/en/#new-order-trade</a></p>
 <dl class="field-list simple">
@@ -275,9 +273,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="binance.client.endpoints.trade.set_multiasset_mode">
-<span class="sig-name descname"><span class="pre">set_multiasset_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiAssetsMargin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#set_multiasset_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.set_multiasset_mode" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.Trade.set_multiasset_mode">
+<span class="sig-name descname"><span class="pre">set_multiasset_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade.set_multiasset_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade.set_multiasset_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the user’s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (<em>TRADE</em>)</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#change-multi-assets-mode-trade">https://binance-docs.github.io/apidocs/futures/en/#change-multi-assets-mode-trade</a></p>
 <dl class="field-list simple">
@@ -291,9 +289,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="binance.client.endpoints.trade.set_position_mode">
-<span class="sig-name descname"><span class="pre">set_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dualSidePosition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#set_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.set_position_mode" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="binance.client.endpoints.trade.Trade.set_position_mode">
+<span class="sig-name descname"><span class="pre">set_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/binance/client/endpoints/trade.html#Trade.set_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.trade.Trade.set_position_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the user’s position mode on every position: hedge mode or one-way mode (<em>TRADE</em>)</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade">https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade</a></p>
 <dl class="field-list simple">
@@ -305,6 +303,8 @@
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -350,7 +350,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br>
 </p>
     </div>
     

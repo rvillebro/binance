@@ -159,116 +159,112 @@
 <span class="kn">import</span> <span class="nn">binance.utils</span> <span class="k">as</span> <span class="nn">utils</span>
 <span class="kn">from</span> <span class="nn">binance.order.base</span> <span class="kn">import</span> <span class="n">Order</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Endpoints</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Endpoints</span><span class="p">,</span> <span class="n">LinkEndpointsMixin</span>
 
-<div class="viewcode-block" id="Trade"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade">[docs]</a><span class="k">class</span> <span class="nc">Trade</span><span class="p">(</span><span class="n">Endpoints</span><span class="p">):</span> <span class="o">...</span></div>
+<div class="viewcode-block" id="Trade"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade">[docs]</a><span class="k">class</span> <span class="nc">Trade</span><span class="p">(</span><span class="n">LinkEndpointsMixin</span><span class="p">):</span>
+    <span class="n">endpoints</span> <span class="o">=</span> <span class="n">Endpoints</span><span class="p">()</span>
 
+<div class="viewcode-block" id="Trade.set_position_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade.set_position_mode">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">set_position_mode</span><span class="p">(</span><span class="n">dualSidePosition</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the user&#39;s position mode on every position: hedge mode or one-way mode (*TRADE*)</span>
 
-<div class="viewcode-block" id="set_position_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.set_position_mode">[docs]</a><span class="nd">@Trade</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">set_position_mode</span><span class="p">(</span><span class="n">dualSidePosition</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sets the user&#39;s position mode on every position: hedge mode or one-way mode (*TRADE*)</span>
+<span class="sd">        https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade</span>
 
-<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dualSidePosition : str</span>
+<span class="sd">            &quot;true&quot; for hedge mode and &quot;false&quot; for one-way mode</span>
+<span class="sd">        timeStamp : int</span>
+<span class="sd">            timestamp</span>
+<span class="sd">        receiveWindow : int</span>
+<span class="sd">            receive window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    dualSidePosition : str</span>
-<span class="sd">        &quot;true&quot; for hedge mode and &quot;false&quot; for one-way mode</span>
-<span class="sd">    timeStamp : int</span>
-<span class="sd">        timestamp</span>
-<span class="sd">    receiveWindow : int</span>
-<span class="sd">        receive window</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<div class="viewcode-block" id="Trade.get_position_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade.get_position_mode">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_position_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the user&#39;s position mode on every position: hedge mode or one-way mode (*USER_DATA*)</span>
 
-<div class="viewcode-block" id="get_position_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.get_position_mode">[docs]</a><span class="nd">@Trade</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_position_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Gets the user&#39;s position mode on every position: hedge mode or one-way mode (*USER_DATA*)</span>
+<span class="sd">        https://binance-docs.github.io/apidocs/futures/en/#get-current-position-mode-user_data</span>
 
-<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#get-current-position-mode-user_data</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        timeStamp : int</span>
+<span class="sd">            timestamp</span>
+<span class="sd">        recvWindow : int</span>
+<span class="sd">            receive window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    timeStamp : int</span>
-<span class="sd">        timestamp</span>
-<span class="sd">    recvWindow : int</span>
-<span class="sd">        receive window</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<div class="viewcode-block" id="Trade.set_multiasset_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade.set_multiasset_mode">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/multiAssetsMargin&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">set_multiasset_mode</span><span class="p">(</span><span class="n">multiAssetsMargin</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the user&#39;s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*TRADE*)</span>
 
+<span class="sd">        https://binance-docs.github.io/apidocs/futures/en/#change-multi-assets-mode-trade</span>
 
-<div class="viewcode-block" id="set_multiasset_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.set_multiasset_mode">[docs]</a><span class="nd">@Trade</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/multiAssetsMargin&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">set_multiasset_mode</span><span class="p">(</span><span class="n">multiAssetsMargin</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sets the user&#39;s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*TRADE*)</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        multiAssetsMargin : bool</span>
+<span class="sd">            &quot;true&quot; for Multi-Assets mode or &quot;false&quot; for Single-Assets mode</span>
+<span class="sd">        timestamp : int</span>
+<span class="sd">            timestamp</span>
+<span class="sd">        recvWindow : int</span>
+<span class="sd">            receive window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
-<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#change-multi-assets-mode-trade</span>
+<div class="viewcode-block" id="Trade.get_multiasset_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade.get_multiasset_mode">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/multiAssetsMargin&#39;</span><span class="p">,</span>  <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_multiasset_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the user&#39;s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*USER DATA*)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    multiAssetsMargin : bool</span>
-<span class="sd">        &quot;true&quot; for Multi-Assets mode or &quot;false&quot; for Single-Assets mode</span>
-<span class="sd">    timestamp : int</span>
-<span class="sd">        timestamp</span>
-<span class="sd">    recvWindow : int</span>
-<span class="sd">        receive window</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<span class="sd">        https://binance-docs.github.io/apidocs/futures/en/#get-current-multi-assets-mode-user_data</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        timestamp : int</span>
+<span class="sd">            timestamp</span>
+<span class="sd">        recvWindow : int</span>
+<span class="sd">            receive window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="get_multiasset_mode"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.get_multiasset_mode">[docs]</a><span class="nd">@Trade</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/multiAssetsMargin&#39;</span><span class="p">,</span>  <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_multiasset_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Gets the user&#39;s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*USER DATA*)</span>
+<div class="viewcode-block" id="Trade.new_order"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade.new_order">[docs]</a>    <span class="k">def</span> <span class="nf">new_order</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="n">Order</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send in a new order (*TRADE*).</span>
 
-<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#get-current-multi-assets-mode-user_data</span>
+<span class="sd">        https://binance-docs.github.io/apidocs/futures/en/#new-order-trade</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    timestamp : int</span>
-<span class="sd">        timestamp</span>
-<span class="sd">    recvWindow : int</span>
-<span class="sd">        receive window</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        order : :class:`~binance.order.Order`</span>
+<span class="sd">            An :class:`~binance.order.Order` object</span>
+<span class="sd">        timestamp : int</span>
+<span class="sd">            timestamp</span>
+<span class="sd">        recvWindow : int</span>
+<span class="sd">            receive window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
+<div class="viewcode-block" id="Trade.batch_order"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.Trade.batch_order">[docs]</a>    <span class="k">def</span> <span class="nf">batch_order</span><span class="p">(</span><span class="n">orders</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Order</span><span class="p">],</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send in a batch of orders (*TRADE*).</span>
 
-<div class="viewcode-block" id="new_order"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.new_order">[docs]</a><span class="k">def</span> <span class="nf">new_order</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="n">Order</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Send in a new order (*TRADE*).</span>
+<span class="sd">        https://binance-docs.github.io/apidocs/futures/en/#place-multiple-orders-trade</span>
 
-<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#new-order-trade</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    order : :class:`~binance.order.Order`</span>
-<span class="sd">        An :class:`~binance.order.Order` object</span>
-<span class="sd">    timestamp : int</span>
-<span class="sd">        timestamp</span>
-<span class="sd">    recvWindow : int</span>
-<span class="sd">        receive window</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
-
-<div class="viewcode-block" id="batch_order"><a class="viewcode-back" href="../../../../api/trade.html#binance.client.endpoints.trade.batch_order">[docs]</a><span class="k">def</span> <span class="nf">batch_order</span><span class="p">(</span><span class="n">orders</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Order</span><span class="p">],</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span> <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Send in a batch of orders (*TRADE*).</span>
-
-<span class="sd">    https://binance-docs.github.io/apidocs/futures/en/#place-multiple-orders-trade</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    orders : list[binance.order.Order]</span>
-<span class="sd">        list of binance.order.Order objects</span>
-<span class="sd">    timestamp : int</span>
-<span class="sd">        timestamp</span>
-<span class="sd">    recvWindow : int</span>
-<span class="sd">        receive window</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        orders : list[binance.order.Order]</span>
+<span class="sd">            list of binance.order.Order objects</span>
+<span class="sd">        timestamp : int</span>
+<span class="sd">            timestamp</span>
+<span class="sd">        recvWindow : int</span>
+<span class="sd">            receive window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
 </pre></div>
 
               </div>
@@ -296,7 +292,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br>
 </p>
     </div>
     
