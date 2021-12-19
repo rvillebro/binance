@@ -10,6 +10,6 @@ All endpoints
 
 from .market import Market
 from .trade import Trade
-from .user_data_streams import UserDataStreams
+from .user_data import UserData
 
-__all__ = ['Market', 'Trade', 'UserDataStreams']
+__all__ = ['Market', 'Trade', 'UserData']

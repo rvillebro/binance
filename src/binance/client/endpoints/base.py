@@ -17,7 +17,9 @@ from urllib.parse import urlencode
 from binance.enums import http
 
 class _Parameters:
-    """Class for containing API parameters and encoding them."""
+    """
+    Class for containing API parameters and encoding them.
+    """
     __slot__ = ['params']
 
     def __init__(self, params):
@@ -57,7 +59,9 @@ class _Parameters:
 
 
 class _Endpoint:
-    """Class for containing an API endpoint."""
+    """
+    Class for containing an API endpoint.
+    """
     __slots__ = ['http_method', 'route', 'headers', 'add_api_key', 'add_signature', 'func', 'func_sig']
 
     def __init__(self, http_method: http.Method, route: str, func: object, /,
@@ -71,7 +75,7 @@ class _Endpoint:
         self.func_sig = inspect.signature(self.func)
 
     def __repr__(self):
-        return f'Endpoint(http_call={self.http_call}, route={self.route}, func={self.func}, headers={self.headers}, api_key={self.api_key}, sign={self.sign})'
+        return f'Endpoint(http_call={self.http_call}, route={self.route}, func={self.func}, headers={self.headers}, api_key={self.api_key}, add_signature={self.sign})'
 
     def _get_params(self, args, kwargs):
         ba = self.func_sig.bind(*args, **kwargs)
@@ -122,19 +126,11 @@ class _Endpoint:
         return wrapper
 
 
-class Endpoints(abc.ABC):
+class Endpoints:
     """
-    Abstract Class for containing and decorating API endpoints.
+    Class for containing API endpoints.
     """
     __endpoints = list()
-
-    def __init__(self, client):
-        """
-        """
-        for e in self.__endpoints:
-            endpoint_name = e.func.__name__
-            client_wrapped_endpoint = e.wrap(client)
-            self.__setattr__(endpoint_name, client_wrapped_endpoint)
 
     def __repr__(self):
         return f'Endpoints({str(self.__endpoints)})'
@@ -156,3 +152,26 @@ class Endpoints(abc.ABC):
     
     def __iter__(self):
         return iter(self.__endpoints)
+
+
+class LinkEndpointsMixin:
+    """
+    Mixin used to add link API endspoints method.
+    """
+
+    @classmethod
+    def link(cls, client):
+        """
+        Links endpoints to parsed client.
+
+        Parameters
+        ----------
+        client : BaseClient
+            client to link endpoints to
+        """
+        self = cls()
+        for e in cls.endpoints:
+            endpoint_name = e.func.__name__
+            client_wrapped_endpoint = e.wrap(client)
+            self.__setattr__(endpoint_name, client_wrapped_endpoint)
+        return self

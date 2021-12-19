@@ -33,10 +33,10 @@ class BaseClient(abc.ABC):
         self._api_key = api_key
         self._api_secret = api_secret
 
-        self.market = endpoints.Market(self)
-        self.trade = endpoints.Trade(self)
+        self.market = endpoints.Market.link(self)
+        self.trade = endpoints.Trade.link(self)
 
-        self.user_data_streams = endpoints.UserDataStreams(self)
+        self.user_data = endpoints.UserData.link(self)
     
     def _add_api_key(self, headers):
         """Adds API key to headers"""
