@@ -1,3 +1,7 @@
+"""
+Asynchronous Binance API client
+===============================
+"""
 import json
 import aiohttp
 
