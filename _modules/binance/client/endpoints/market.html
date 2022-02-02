@@ -7,26 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>binance.client.endpoints.market &#8212; binance 0.1 documentation</title>
     
-  <link href="../../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
-
+    <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/pydata-sphinx-theme.css" />
     
-  <link rel="preload" as="script" href="../../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
-
+    <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
@@ -102,10 +102,8 @@
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/rvillebro/binance" rel="noopener" target="_blank" title="GitHub">
-            <span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label>
-          </a>
+          <a class="nav-link" href="https://github.com/rvillebro/binance" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
         </li>
       </ul>
       </div>
@@ -121,7 +119,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -129,6 +128,9 @@
     
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -177,7 +179,7 @@
 <span class="sd">        To ping binance servers call:</span>
 
 <span class="sd">            &gt;&gt;&gt; client.market.ping()</span>
-<span class="sd">            {&#39;status_code&#39;: 200, &#39;response&#39;: {}}</span>
+<span class="sd">            Response(status=200, data={})</span>
 
 <span class="sd">        It is helpful to test connectivity and should return rather quickly.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
@@ -194,7 +196,7 @@
 <span class="sd">        To get binance server time call:</span>
 
 <span class="sd">            &gt;&gt;&gt; client.market.server_time()</span>
-<span class="sd">            {&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;serverTime&#39;:...}}</span>
+<span class="sd">            Response(status=200, data={&#39;serverTime&#39;:...})</span>
 <span class="sd">        </span>
 <span class="sd">        Your host time and Binance server time may vary.</span>
 <span class="sd">        Remeber that Binance uses UTC — Coordinated Universal Time.</span>
@@ -212,13 +214,13 @@
 <span class="sd">        To get Binance&#39;s exchange information call:</span>
 
 <span class="sd">            &gt;&gt;&gt; client.market.exchange_info()</span>
-<span class="sd">            {&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;timezone&#39;: &#39;UTC&#39;, &#39;serverTime&#39;:...}}</span>
+<span class="sd">            Response(status=200, data={&#39;timezone&#39;: &#39;UTC&#39;, &#39;serverTime&#39;:...})</span>
 
 <span class="sd">        Keep up to date with the exchange information in order to get the proper symbols etc.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.order_book"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.order_book">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/depth&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets order book for a symbol.</span>
 
@@ -236,12 +238,14 @@
 <span class="sd">        To get the order book for a symbol call:</span>
 
 <span class="sd">            &gt;&gt;&gt; client.market.order_book(symbol=&#39;BTCUSDT&#39;)</span>
-<span class="sd">            {&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;lastUpdateId&#39;:...}}</span>
+<span class="sd">            Response(status=200, data={&#39;lastUpdateId&#39;:...})</span>
 
 <span class="sd">        You are also able to limit the number of orders:</span>
 
 <span class="sd">            &gt;&gt;&gt; r = client.market.order_book(symbol=&#39;BTCUSDT&#39;, limit=5)</span>
-<span class="sd">            &gt;&gt;&gt; len(r[&#39;response&#39;][&#39;bids&#39;])</span>
+<span class="sd">            &gt;&gt;&gt; r.status</span>
+<span class="sd">            200</span>
+<span class="sd">            &gt;&gt;&gt; len(r.data[&#39;bids&#39;])</span>
 <span class="sd">            5</span>
 
 <span class="sd">        The limit can be set to the following interval: [5, 10, 20, 50, 100, 500, 1000]</span>
@@ -266,12 +270,14 @@
 <span class="sd">        To get recent trades call:</span>
 
 <span class="sd">            &gt;&gt;&gt; client.market.recent_trades(symbol=&#39;BTCUSDT&#39;)</span>
-<span class="sd">            {&#39;status_code&#39;: 200, &#39;response&#39;: [{&#39;id&#39;: ...}]}</span>
+<span class="sd">            Response(status=200, data=[{&#39;id&#39;: ...}])</span>
 
 <span class="sd">        You are also able to limit the number of recent trades received:</span>
 
 <span class="sd">            &gt;&gt;&gt; r = client.market.recent_trades(symbol=&#39;BTCUSDT&#39;, limit=69)</span>
-<span class="sd">            &gt;&gt;&gt; len(r[&#39;response&#39;])</span>
+<span class="sd">            &gt;&gt;&gt; r.status</span>
+<span class="sd">            200</span>
+<span class="sd">            &gt;&gt;&gt; len(r.data)</span>
 <span class="sd">            69</span>
 
 <span class="sd">        The maximum limit is 1000.</span>
@@ -295,10 +301,38 @@
 <span class="sd">            limit (default=500, max=1000)</span>
 <span class="sd">        fromId : int, str</span>
 <span class="sd">            TradeId to fetch from. (default: most recent trades)</span>
+<span class="sd">        </span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        To get historical trades call:</span>
+
+<span class="sd">            &gt;&gt;&gt; client.market.historical_trades(symbol=&#39;BTCUSDT&#39;)</span>
+<span class="sd">            Response(status=200, data=[...])</span>
+<span class="sd">        </span>
+<span class="sd">        You can limit the number of results:</span>
+
+<span class="sd">            &gt;&gt;&gt; r = client.market.historical_trades(symbol=&#39;BTCUSDT&#39;, limit=1)</span>
+<span class="sd">            &gt;&gt;&gt; r.status</span>
+<span class="sd">            200</span>
+<span class="sd">            &gt;&gt;&gt; len(r.data)</span>
+<span class="sd">            1</span>
+
+<span class="sd">        And set from which ID to pull from:</span>
+
+<span class="sd">            &gt;&gt;&gt; from_id = r.data[0][&#39;id&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; r = client.market.historical_trades(symbol=&#39;BTCUSDT&#39;, fromId=from_id)</span>
+<span class="sd">            &gt;&gt;&gt; r.status</span>
+<span class="sd">            200</span>
+<span class="sd">            &gt;&gt;&gt; from_id == r.data[0][&#39;id&#39;]</span>
+<span class="sd">            True</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.aggregated_trades"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.aggregated_trades">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/aggTrades&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">aggregated_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">aggregated_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                          <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets aggregate trades list for a symbol.</span>
 
@@ -347,7 +381,12 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.continues_contract_klines"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.continues_contract_klines">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/continuousKlines&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">continues_contract_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">contractType</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">continues_contract_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span>
+                                  <span class="n">contractType</span><span class="p">,</span>
+                                  <span class="n">interval</span><span class="p">,</span>
+                                  <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                  <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                  <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets continues contract klines/candlesticks for a pair.</span>
 
@@ -374,7 +413,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.index_price_klines"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.index_price_klines">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/indexPriceKlines&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">index_price_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">index_price_klines</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span>
+                           <span class="n">interval</span><span class="p">,</span>
+                           <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets index price klines/candlesticks for a pair.</span>
 
@@ -400,7 +443,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.mark_price_klines"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.mark_price_klines">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/markPriceKlines&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">mark_price_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">mark_price_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                          <span class="n">interval</span><span class="p">,</span>
+                          <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets mark price klines/candlesticks for a symbol.</span>
 
@@ -524,7 +571,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.open_interest_history"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.open_interest_history">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/openInterestHist&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">open_interest_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">open_interest_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                              <span class="n">period</span><span class="p">,</span>
+                              <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                              <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                              <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets open interest history for a specific symbol.</span>
 
@@ -547,8 +598,14 @@
 <span class="sd">            limit (default: 30, max: 500)</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="Market.top_long_short_account_ratio"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.top_long_short_account_ratio">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/topLongShortAccountRatio&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">top_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Market.top_long_short_account_ratio"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.top_long_short_account_ratio">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;/futures/data/topLongShortAccountRatio&#39;</span><span class="p">,</span>
+                   <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">top_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                                     <span class="n">period</span><span class="p">,</span>
+                                     <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                     <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                     <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets top trader long/short account ratio for a specific symbol.</span>
 
@@ -572,7 +629,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.top_long_short_position_ratio"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.top_long_short_position_ratio">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/topLongShortPositionRatio&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">top_long_short_position_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">top_long_short_position_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                                      <span class="n">period</span><span class="p">,</span>
+                                      <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                      <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                      <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets top trader long/short position ratio  a specific symbol.</span>
 
@@ -596,7 +657,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.global_long_short_account_ratio"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.global_long_short_account_ratio">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/globalLongShortAccountRatio&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">global_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">global_long_short_account_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                                        <span class="n">period</span><span class="p">,</span>
+                                        <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                        <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                        <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets global long/short account ratio  a specific symbol.</span>
 
@@ -620,7 +685,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.taker_long_short_ratio"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.taker_long_short_ratio">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/futures/data/takerlongshortRatio&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">taker_long_short_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">taker_long_short_ratio</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                               <span class="n">period</span><span class="p">,</span>
+                               <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                               <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                               <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets taker long/short ratio  a specific symbol.</span>
 
@@ -681,7 +750,6 @@
 <span class="sd">        symbol : str</span>
 <span class="sd">            symbol</span>
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
-        
 </pre></div>
 
               </div>
@@ -697,8 +765,8 @@
       </div>
     </div>
   
-  <script src="../../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
-<footer class="footer mt-5 mt-md-0">
+    <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -709,7 +777,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     

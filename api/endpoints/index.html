@@ -8,26 +8,26 @@
 
     <title>Endpoints &#8212; binance 0.1 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
-
+    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
-
+    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -103,10 +103,8 @@
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/rvillebro/binance" rel="noopener" target="_blank" title="GitHub">
-            <span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label>
-          </a>
+          <a class="nav-link" href="https://github.com/rvillebro/binance" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
         </li>
       </ul>
       </div>
@@ -122,7 +120,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -130,6 +129,9 @@
     
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -248,7 +250,7 @@
 <p class="rubric">Examples</p>
 <p>To get Binance’s exchange information call:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">exchange_info</span><span class="p">()</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;timezone&#39;: &#39;UTC&#39;, &#39;serverTime&#39;:...}}</span>
+<span class="go">Response(status=200, data={&#39;timezone&#39;: &#39;UTC&#39;, &#39;serverTime&#39;:...})</span>
 </pre></div>
 </div>
 <p>Keep up to date with the exchange information in order to get the proper symbols etc.</p>
@@ -317,6 +319,29 @@
 </ul>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>To get historical trades call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">historical_trades</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">)</span>
+<span class="go">Response(status=200, data=[...])</span>
+</pre></div>
+</div>
+<p>You can limit the number of results:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">historical_trades</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">status</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>And set from which ID to pull from:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">from_id</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">historical_trades</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="n">from_id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">status</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">from_id</span> <span class="o">==</span> <span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -476,12 +501,14 @@ weight=1</p>
 <p class="rubric">Examples</p>
 <p>To get the order book for a symbol call:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">)</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;lastUpdateId&#39;:...}}</span>
+<span class="go">Response(status=200, data={&#39;lastUpdateId&#39;:...})</span>
 </pre></div>
 </div>
 <p>You are also able to limit the number of orders:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="s1">&#39;bids&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">status</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;bids&#39;</span><span class="p">])</span>
 <span class="go">5</span>
 </pre></div>
 </div>
@@ -496,7 +523,7 @@ weight=1</p>
 <p class="rubric">Examples</p>
 <p>To ping binance servers call:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {}}</span>
+<span class="go">Response(status=200, data={})</span>
 </pre></div>
 </div>
 <p>It is helpful to test connectivity and should return rather quickly.</p>
@@ -518,12 +545,14 @@ weight=1</p>
 <p class="rubric">Examples</p>
 <p>To get recent trades call:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">)</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: [{&#39;id&#39;: ...}]}</span>
+<span class="go">Response(status=200, data=[{&#39;id&#39;: ...}])</span>
 </pre></div>
 </div>
 <p>You are also able to limit the number of recent trades received:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;BTCUSDT&#39;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">69</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">status</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 <span class="go">69</span>
 </pre></div>
 </div>
@@ -538,7 +567,7 @@ weight=1</p>
 <p class="rubric">Examples</p>
 <p>To get binance server time call:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">market</span><span class="o">.</span><span class="n">server_time</span><span class="p">()</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;serverTime&#39;:...}}</span>
+<span class="go">Response(status=200, data={&#39;serverTime&#39;:...})</span>
 </pre></div>
 </div>
 <p>Your host time and Binance server time may vary.
@@ -663,7 +692,7 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Trade</span></span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="binance.client.endpoints.Trade.batch_order">
-<span class="sig-name descname"><span class="pre">batch_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.batch_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.batch_order" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">batch_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">typing.Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.batch_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.batch_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send in a batch of orders (<em>TRADE</em>).</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#place-multiple-orders-trade">https://binance-docs.github.io/apidocs/futures/en/#place-multiple-orders-trade</a></p>
 <dl class="field-list simple">
@@ -709,7 +738,7 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="binance.client.endpoints.Trade.new_order">
-<span class="sig-name descname"><span class="pre">new_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.new_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.new_order" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">new_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">typing.Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.new_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.new_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send in a new order (<em>TRADE</em>).</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#new-order-trade">https://binance-docs.github.io/apidocs/futures/en/#new-order-trade</a></p>
 <dl class="field-list simple">
@@ -725,7 +754,7 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="binance.client.endpoints.Trade.set_multiasset_mode">
-<span class="sig-name descname"><span class="pre">set_multiasset_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.set_multiasset_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.set_multiasset_mode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_multiasset_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">typing.Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.set_multiasset_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.set_multiasset_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the user’s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (<em>TRADE</em>)</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#change-multi-assets-mode-trade">https://binance-docs.github.io/apidocs/futures/en/#change-multi-assets-mode-trade</a></p>
 <dl class="field-list simple">
@@ -741,7 +770,7 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="binance.client.endpoints.Trade.set_position_mode">
-<span class="sig-name descname"><span class="pre">set_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.set_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.set_position_mode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_position_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">get_timestamp&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recvWindow:</span> <span class="pre">typing.Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/binance/client/endpoints/trade.html#Trade.set_position_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#binance.client.endpoints.Trade.set_position_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the user’s position mode on every position: hedge mode or one-way mode (<em>TRADE</em>)</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade">https://binance-docs.github.io/apidocs/futures/en/#change-position-mode-trade</a></p>
 <dl class="field-list simple">
@@ -766,9 +795,14 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
 <dd><p>Closes current user data streams listen key (USER_STREAM).</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#close-user-data-stream-user_stream">https://binance-docs.github.io/apidocs/futures/en/#close-user-data-stream-user_stream</a></p>
 <p class="rubric">Examples</p>
-<p>To keep current listen key alive call:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">user_data_streams</span><span class="o">.</span><span class="n">close_list_key</span><span class="p">()</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {}}</span>
+<p>Get a listen key:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">user_data</span><span class="o">.</span><span class="n">get_listen_key</span><span class="p">()</span>
+<span class="go">Response(status=200, data={&#39;listenKey&#39;: ...})</span>
+</pre></div>
+</div>
+<p>To close a listen key call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">user_data</span><span class="o">.</span><span class="n">close_list_key</span><span class="p">()</span>
+<span class="go">Response(status=200, data={})</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -780,8 +814,8 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#start-user-data-stream-user_stream">https://binance-docs.github.io/apidocs/futures/en/#start-user-data-stream-user_stream</a></p>
 <p class="rubric">Examples</p>
 <p>To get a listen key call:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">user_data_streams</span><span class="o">.</span><span class="n">get_listen_key</span><span class="p">()</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {&#39;listenKey&#39;: ...}}</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">user_data</span><span class="o">.</span><span class="n">get_listen_key</span><span class="p">()</span>
+<span class="go">Response(status=200, data={&#39;listenKey&#39;: ...})</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -793,8 +827,8 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
 <p><a class="reference external" href="https://binance-docs.github.io/apidocs/futures/en/#keepalive-user-data-stream-user_stream">https://binance-docs.github.io/apidocs/futures/en/#keepalive-user-data-stream-user_stream</a></p>
 <p class="rubric">Examples</p>
 <p>To keep current user data streams listen key alive call:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">user_data_streams</span><span class="o">.</span><span class="n">keep_listen_key_alive</span><span class="p">()</span>
-<span class="go">{&#39;status_code&#39;: 200, &#39;response&#39;: {}}</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">user_data</span><span class="o">.</span><span class="n">keep_listen_key_alive</span><span class="p">()</span>
+<span class="go">Response(status=200, data={})</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -817,8 +851,8 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
-<footer class="footer mt-5 mt-md-0">
+    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -829,7 +863,7 @@ Remeber that Binance uses UTC — Coordinated Universal Time.</p>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     
