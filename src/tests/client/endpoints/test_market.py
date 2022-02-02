@@ -3,70 +3,6 @@ import pytest
 from pydantic import ValidationError
 
 
-def test_ping(client):
-    """Tests that you can ping server"""
-    response = client.market.ping()
-    assert response['status_code'] == 200
-
-
-def test_server_time(client):
-    """Tests that you pull server time"""
-    response = client.market.server_time()
-    assert response['status_code'] == 200
-
-
-def test_exchange_info(client):
-    """Tests that you can get exchange info"""
-    response = client.market.exchange_info()
-    assert response['status_code'] == 200
-
-
-def test_order_book(client):
-    func = client.market.order_book
-    with pytest.raises(ValidationError):
-        func()
-    
-    response = func(symbol='BTCUSDT', limit=420)
-    assert response['status_code'] == 400
-
-    response = func(symbol='BTCUSDT')
-    assert response['status_code'] == 200
-
-    response = func(symbol='BTCUSDT', limit=5)
-    assert response['status_code'] == 200
-
-
-def test_recent_trades(client):
-    func = client.market.recent_trades
-    with pytest.raises(ValidationError):
-        func()
-
-    response = func(symbol='BTCUSDT')
-    assert response['status_code'] == 200
-
-    response = func(symbol='BTCUSDT', limit=1)
-    assert response['status_code'] == 200
-
-
-def test_historical_trades(client):
-    if client._api_key is None:
-        pytest.skip("Requires API key!")
-
-    func = client.market.historical_trades
-    with pytest.raises(ValidationError):
-        func()
-
-    response = func(symbol='BTCUSDT')
-    assert response['status_code'] == 200
-
-    response = func(symbol='BTCUSDT', limit=1)
-    assert response['status_code'] == 200
-
-    from_id = response['response'][0]['id']
-    response = func(symbol='BTCUSDT', limit=1, fromId=from_id)
-    assert response['status_code'] == 200
-
-
 def test_aggregated_trades(client):
     func = client.market.aggregated_trades
     with pytest.raises(ValidationError):
@@ -74,10 +10,10 @@ def test_aggregated_trades(client):
 
     response = func(symbol='BTCUSDT')
     assert response['status_code'] == 200
-    
+
     response = func(symbol='BTCUSDT', limit=1)
     assert response['status_code'] == 200
-    
+
     from_id = response['response'][0]['a']
     response = func(symbol='BTCUSDT', fromId=from_id, limit=1)
     assert response['status_code'] == 200
@@ -88,7 +24,10 @@ def test_aggregated_trades(client):
     assert response['status_code'] == 200
     response = func(symbol='BTCUSDT', fromId=from_id, endTime=end_time)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', fromId=from_id, startTime=start_time, endTime=end_time)
+    response = func(symbol='BTCUSDT',
+                    fromId=from_id,
+                    startTime=start_time,
+                    endTime=end_time)
     assert response['status_code'] == 200
 
 
@@ -98,20 +37,29 @@ def test_klines(client):
     func = client.market.klines
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
 
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, limit=1)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    limit=1)
     assert response['status_code'] == 200
 
     startTime = response['response'][0][0]
     endTime = startTime + 1000
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -122,19 +70,34 @@ def test_continues_contract_klines(client):
     with pytest.raises(ValidationError):
         func()
 
-    response = func(pair='BTCUSDT', contractType=ContractType.PERPETUAL, interval=KlineInterval.ONE_MINUTE)
+    response = func(pair='BTCUSDT',
+                    contractType=ContractType.PERPETUAL,
+                    interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
 
-    response = func(pair='BTCUSDT', contractType=ContractType.PERPETUAL, interval=KlineInterval.ONE_MINUTE, limit=1)
+    response = func(pair='BTCUSDT',
+                    contractType=ContractType.PERPETUAL,
+                    interval=KlineInterval.ONE_MINUTE,
+                    limit=1)
     assert response['status_code'] == 200
 
     startTime = response['response'][0][0]
     endTime = startTime + 1000
-    response = func(pair='BTCUSDT', contractType=ContractType.PERPETUAL, interval=KlineInterval.ONE_MINUTE, startTime=startTime)
+    response = func(pair='BTCUSDT',
+                    contractType=ContractType.PERPETUAL,
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(pair='BTCUSDT', contractType=ContractType.PERPETUAL, interval=KlineInterval.ONE_MINUTE, endTime=endTime)
+    response = func(pair='BTCUSDT',
+                    contractType=ContractType.PERPETUAL,
+                    interval=KlineInterval.ONE_MINUTE,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(pair='BTCUSDT', contractType=ContractType.PERPETUAL, interval=KlineInterval.ONE_MINUTE, startTime=startTime, endTime=endTime)
+    response = func(pair='BTCUSDT',
+                    contractType=ContractType.PERPETUAL,
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -144,7 +107,7 @@ def test_index_price_klines(client):
     func = client.market.index_price_klines
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(pair='BTCUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
 
@@ -153,11 +116,18 @@ def test_index_price_klines(client):
 
     startTime = response['response'][0][0]
     endTime = startTime + 1000
-    response = func(pair='BTCUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime)
+    response = func(pair='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(pair='BTCUSDT', interval=KlineInterval.ONE_MINUTE, endTime=endTime)
+    response = func(pair='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(pair='BTCUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime, endTime=endTime)
+    response = func(pair='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -167,20 +137,29 @@ def test_mark_price_klines(client):
     func = client.market.mark_price_klines
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
 
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, limit=1)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    limit=1)
     assert response['status_code'] == 200
 
     startTime = response['response'][0][0]
     endTime = startTime + 1000
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -257,7 +236,7 @@ def test_open_interest_history(client):
     func = client.market.open_interest_history
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
 
@@ -266,11 +245,18 @@ def test_open_interest_history(client):
 
     startTime = response['response'][0]['timestamp']
     endTime = startTime + 1000
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -282,7 +268,7 @@ def test_top_long_short_account_ratio(client):
     func = client.market.top_long_short_account_ratio
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
 
@@ -291,11 +277,18 @@ def test_top_long_short_account_ratio(client):
 
     startTime = response['response'][0]['timestamp']
     endTime = startTime + 1000
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -307,7 +300,7 @@ def test_top_long_short_position_ratio(client):
     func = client.market.top_long_short_position_ratio
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
 
@@ -316,11 +309,18 @@ def test_top_long_short_position_ratio(client):
 
     startTime = response['response'][0]['timestamp']
     endTime = startTime + 1000
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -332,7 +332,7 @@ def test_global_long_short_account_ratio(client):
     func = client.market.global_long_short_account_ratio
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
 
@@ -341,11 +341,18 @@ def test_global_long_short_account_ratio(client):
 
     startTime = response['response'][0]['timestamp']
     endTime = startTime + 1000
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -357,7 +364,7 @@ def test_taker_long_short_ratio(client):
     func = client.market.taker_long_short_ratio
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES)
     assert response['status_code'] == 200
 
@@ -366,11 +373,18 @@ def test_taker_long_short_ratio(client):
 
     startTime = response['response'][0]['timestamp']
     endTime = startTime + 1000
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BTCUSDT', period=Period.FIFTEEN_MINUTES, startTime=startTime, endTime=endTime)
+    response = func(symbol='BTCUSDT',
+                    period=Period.FIFTEEN_MINUTES,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 
@@ -382,20 +396,29 @@ def test_lvt_klines(client):
     func = client.market.lvt_klines
     with pytest.raises(ValidationError):
         func()
-    
+
     response = func(symbol='BLZUSDT', interval=KlineInterval.ONE_MINUTE)
     assert response['status_code'] == 200
 
-    response = func(symbol='BLZUSDT', interval=KlineInterval.ONE_MINUTE, limit=1)
+    response = func(symbol='BLZUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    limit=1)
     assert response['status_code'] == 200
 
     startTime = response['response'][0][0]
     endTime = startTime + 1000
-    response = func(symbol='BLZUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime)
+    response = func(symbol='BLZUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime)
     assert response['status_code'] == 200
-    response = func(symbol='BLZUSDT', interval=KlineInterval.ONE_MINUTE, endTime=endTime)
+    response = func(symbol='BLZUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    endTime=endTime)
     assert response['status_code'] == 200
-    response = func(symbol='BLZUSDT', interval=KlineInterval.ONE_MINUTE, startTime=startTime, endTime=endTime)
+    response = func(symbol='BLZUSDT',
+                    interval=KlineInterval.ONE_MINUTE,
+                    startTime=startTime,
+                    endTime=endTime)
     assert response['status_code'] == 200
 
 

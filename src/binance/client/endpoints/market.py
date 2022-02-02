@@ -27,7 +27,7 @@ class Market(LinkEndpointsMixin):
         To ping binance servers call:
 
             >>> client.market.ping()
-            {'status_code': 200, 'response': {}}
+            Response(status=200, data={})
 
         It is helpful to test connectivity and should return rather quickly.
         """
@@ -44,7 +44,7 @@ class Market(LinkEndpointsMixin):
         To get binance server time call:
 
             >>> client.market.server_time()
-            {'status_code': 200, 'response': {'serverTime':...}}
+            Response(status=200, data={'serverTime':...})
         
         Your host time and Binance server time may vary.
         Remeber that Binance uses UTC — Coordinated Universal Time.
@@ -62,13 +62,13 @@ class Market(LinkEndpointsMixin):
         To get Binance's exchange information call:
 
             >>> client.market.exchange_info()
-            {'status_code': 200, 'response': {'timezone': 'UTC', 'serverTime':...}}
+            Response(status=200, data={'timezone': 'UTC', 'serverTime':...})
 
         Keep up to date with the exchange information in order to get the proper symbols etc.
         """
 
     @endpoints.add('GET', '/fapi/v1/depth')
-    def order_book(symbol, limit: int=None):
+    def order_book(symbol, limit: int = None):
         """
         Gets order book for a symbol.
 
@@ -86,12 +86,14 @@ class Market(LinkEndpointsMixin):
         To get the order book for a symbol call:
 
             >>> client.market.order_book(symbol='BTCUSDT')
-            {'status_code': 200, 'response': {'lastUpdateId':...}}
+            Response(status=200, data={'lastUpdateId':...})
 
         You are also able to limit the number of orders:
 
             >>> r = client.market.order_book(symbol='BTCUSDT', limit=5)
-            >>> len(r['response']['bids'])
+            >>> r.status
+            200
+            >>> len(r.data['bids'])
             5
 
         The limit can be set to the following interval: [5, 10, 20, 50, 100, 500, 1000]
@@ -116,12 +118,14 @@ class Market(LinkEndpointsMixin):
         To get recent trades call:
 
             >>> client.market.recent_trades(symbol='BTCUSDT')
-            {'status_code': 200, 'response': [{'id': ...}]}
+            Response(status=200, data=[{'id': ...}])
 
         You are also able to limit the number of recent trades received:
 
             >>> r = client.market.recent_trades(symbol='BTCUSDT', limit=69)
-            >>> len(r['response'])
+            >>> r.status
+            200
+            >>> len(r.data)
             69
 
         The maximum limit is 1000.
@@ -145,10 +149,38 @@ class Market(LinkEndpointsMixin):
             limit (default=500, max=1000)
         fromId : int, str
             TradeId to fetch from. (default: most recent trades)
+        
+        Examples
+        --------
+        To get historical trades call:
+
+            >>> client.market.historical_trades(symbol='BTCUSDT')
+            Response(status=200, data=[...])
+        
+        You can limit the number of results:
+
+            >>> r = client.market.historical_trades(symbol='BTCUSDT', limit=1)
+            >>> r.status
+            200
+            >>> len(r.data)
+            1
+
+        And set from which ID to pull from:
+
+            >>> from_id = r.data[0]['id']
+            >>> r = client.market.historical_trades(symbol='BTCUSDT', fromId=from_id)
+            >>> r.status
+            200
+            >>> from_id == r.data[0]['id']
+            True
         """
 
     @endpoints.add('GET', '/fapi/v1/aggTrades')
-    def aggregated_trades(symbol, fromId=None, startTime=None, endTime=None, limit=None):
+    def aggregated_trades(symbol,
+                          fromId=None,
+                          startTime=None,
+                          endTime=None,
+                          limit=None):
         """
         Gets aggregate trades list for a symbol.
 
@@ -197,7 +229,12 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/continuousKlines')
-    def continues_contract_klines(pair, contractType, interval, startTime=None, endTime=None, limit=None):
+    def continues_contract_klines(pair,
+                                  contractType,
+                                  interval,
+                                  startTime=None,
+                                  endTime=None,
+                                  limit=None):
         """
         Gets continues contract klines/candlesticks for a pair.
 
@@ -224,7 +261,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/indexPriceKlines')
-    def index_price_klines(pair, interval, startTime=None, endTime=None, limit=None):
+    def index_price_klines(pair,
+                           interval,
+                           startTime=None,
+                           endTime=None,
+                           limit=None):
         """
         Gets index price klines/candlesticks for a pair.
 
@@ -250,7 +291,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/markPriceKlines')
-    def mark_price_klines(symbol, interval, startTime=None, endTime=None, limit=None):
+    def mark_price_klines(symbol,
+                          interval,
+                          startTime=None,
+                          endTime=None,
+                          limit=None):
         """
         Gets mark price klines/candlesticks for a symbol.
 
@@ -374,7 +419,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/futures/data/openInterestHist')
-    def open_interest_history(symbol, period, limit=None, startTime=None, endTime=None):
+    def open_interest_history(symbol,
+                              period,
+                              limit=None,
+                              startTime=None,
+                              endTime=None):
         """
         Gets open interest history for a specific symbol.
 
@@ -397,8 +446,14 @@ class Market(LinkEndpointsMixin):
             limit (default: 30, max: 500)
         """
 
-    @endpoints.add('GET', '/futures/data/topLongShortAccountRatio', add_api_key=True)
-    def top_long_short_account_ratio(symbol, period, limit=None, startTime=None, endTime=None):
+    @endpoints.add('GET',
+                   '/futures/data/topLongShortAccountRatio',
+                   add_api_key=True)
+    def top_long_short_account_ratio(symbol,
+                                     period,
+                                     limit=None,
+                                     startTime=None,
+                                     endTime=None):
         """
         Gets top trader long/short account ratio for a specific symbol.
 
@@ -422,7 +477,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/futures/data/topLongShortPositionRatio')
-    def top_long_short_position_ratio(symbol, period, limit=None, startTime=None, endTime=None):
+    def top_long_short_position_ratio(symbol,
+                                      period,
+                                      limit=None,
+                                      startTime=None,
+                                      endTime=None):
         """
         Gets top trader long/short position ratio  a specific symbol.
 
@@ -446,7 +505,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/futures/data/globalLongShortAccountRatio')
-    def global_long_short_account_ratio(symbol, period, limit=None, startTime=None, endTime=None):
+    def global_long_short_account_ratio(symbol,
+                                        period,
+                                        limit=None,
+                                        startTime=None,
+                                        endTime=None):
         """
         Gets global long/short account ratio  a specific symbol.
 
@@ -470,7 +533,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/futures/data/takerlongshortRatio')
-    def taker_long_short_ratio(symbol, period, limit=None, startTime=None, endTime=None):
+    def taker_long_short_ratio(symbol,
+                               period,
+                               limit=None,
+                               startTime=None,
+                               endTime=None):
         """
         Gets taker long/short ratio  a specific symbol.
 
@@ -531,4 +598,3 @@ class Market(LinkEndpointsMixin):
         symbol : str
             symbol
         """
-        

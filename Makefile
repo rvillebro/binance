@@ -32,7 +32,7 @@ dev: install_test install_doc
 
 test: install_test
 	@echo "=== running test ==="
-	$(VENV)/bin/pytest -v src/tests
+	$(VENV)/bin/pytest -v src
 
 
 html latex latexpdf: install_doc
