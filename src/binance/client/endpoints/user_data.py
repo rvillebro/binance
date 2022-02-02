@@ -6,6 +6,7 @@ https://binance-docs.github.io/apidocs/futures/en/#user-data-streams
 """
 from .base import Endpoints, LinkEndpointsMixin
 
+
 class UserData(LinkEndpointsMixin):
     endpoints = Endpoints()
 
@@ -20,8 +21,8 @@ class UserData(LinkEndpointsMixin):
         --------
         To get a listen key call:
 
-            >>> client.user_data_streams.get_listen_key()
-            {'status_code': 200, 'response': {'listenKey': ...}}
+            >>> client.user_data.get_listen_key()
+            Response(status=200, data={'listenKey': ...})
         """
 
     @endpoints.add('PUT', '/fapi/v1/listenKey', add_api_key=True)
@@ -35,8 +36,8 @@ class UserData(LinkEndpointsMixin):
         --------
         To keep current user data streams listen key alive call:
 
-            >>> client.user_data_streams.keep_listen_key_alive()
-            {'status_code': 200, 'response': {}}
+            >>> client.user_data.keep_listen_key_alive()
+            Response(status=200, data={})
         """
 
     @endpoints.add('DELETE', '/fapi/v1/listenKey', add_api_key=True)
@@ -48,8 +49,13 @@ class UserData(LinkEndpointsMixin):
 
         Examples
         --------
-        To keep current listen key alive call:
+        Get a listen key:
 
-            >>> client.user_data_streams.close_list_key()
-            {'status_code': 200, 'response': {}}
+            >>> client.user_data.get_listen_key()
+            Response(status=200, data={'listenKey': ...})
+        
+        To close a listen key call:
+
+            >>> client.user_data.close_list_key()
+            Response(status=200, data={})
         """

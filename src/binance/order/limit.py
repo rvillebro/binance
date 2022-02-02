@@ -30,16 +30,16 @@ class Limit(BaseModel, Order):
     reponseType :class:`~binance.enum.binance.ResponseType`
         "ACK" or "RESULT", default "ACK"
     """
-    symbol : str
-    side : binance.OrderSide
-    quantity : float
-    price : float
-    timenInForce : binance.TimeInForce
-    positionSide : Optional[binance.PositionSide] = None
-    reduceOnly : Optional[str] = None
-    clientOrderId : Optional[str] = None
-    responseType : Optional[binance.ResponseType] = None
-    type : Literal[binance.OrderType.LIMIT] = binance.OrderType.LIMIT
+    symbol: str
+    side: binance.OrderSide
+    quantity: float
+    price: float
+    timeInForce: binance.TimeInForce
+    positionSide: Optional[binance.PositionSide] = None
+    reduceOnly: Optional[str] = None
+    clientOrderId: Optional[str] = None
+    responseType: Optional[binance.ResponseType] = None
+    type: Literal[binance.OrderType.LIMIT] = binance.OrderType.LIMIT
 
     class Config:
         use_enum_values = True

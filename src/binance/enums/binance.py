@@ -5,6 +5,7 @@ https://binance-docs.github.io/apidocs/futures/en/#public-endpoints-info
 """
 from .base import StrEnum
 
+
 class SymbolType(StrEnum):
     FUTURE = 'FUTURE'
 
@@ -94,8 +95,8 @@ class KlineInterval(StrEnum):
 
 
 class RateLimiter(StrEnum):
-    REQUEST_WEIGHT = 'REQUEST_WEIGHT'
-    ORDERS = 'ORDERS'
+    REQUEST_WEIGHT = 'X-MBX-USED-WEIGHT-'
+    ORDERS = 'X-MBX-ORDER-COUNT-'
 
 
 class RateLimitInterval(StrEnum):
