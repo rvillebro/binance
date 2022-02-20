@@ -161,14 +161,17 @@
 <span class="sd">.. automodule:: binance.client.endpoints.market</span>
 <span class="sd">    :members:</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Endpoints</span><span class="p">,</span> <span class="n">LinkEndpointsMixin</span>
+
+<span class="kn">from</span> <span class="nn">binance.client.response</span> <span class="kn">import</span> <span class="n">Response</span>
 
 
 <div class="viewcode-block" id="Market"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market">[docs]</a><span class="k">class</span> <span class="nc">Market</span><span class="p">(</span><span class="n">LinkEndpointsMixin</span><span class="p">):</span>
     <span class="n">endpoints</span> <span class="o">=</span> <span class="n">Endpoints</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Market.ping"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.ping">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ping&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">ping</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">ping</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Pings server to test connectivity</span>
 
@@ -185,7 +188,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.server_time"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.server_time">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/time&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">server_time</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">server_time</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets current server time</span>
 
@@ -203,7 +206,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.exchange_info"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.exchange_info">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/exchangeInfo&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">exchange_info</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">exchange_info</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets current exchange trading rules and symbol information</span>
 
@@ -220,7 +223,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.order_book"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.order_book">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/depth&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">order_book</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets order book for a symbol.</span>
 
@@ -252,7 +255,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.recent_trades"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.recent_trades">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/trades&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">recent_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets most recent trades for a symbol.</span>
 
@@ -284,7 +287,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.historical_trades"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.historical_trades">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/historicalTrades&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">historical_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">historical_trades</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets historical trades for a symbol. (*MARKET_DATA*)</span>
 
@@ -332,7 +335,7 @@
                           <span class="n">fromId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                          <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                          <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets aggregate trades list for a symbol.</span>
 
@@ -356,7 +359,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.klines"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.klines">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/klines&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+               <span class="n">interval</span><span class="p">,</span>
+               <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets klines/candlesticks  for a symbol.</span>
 
@@ -386,7 +393,7 @@
                                   <span class="n">interval</span><span class="p">,</span>
                                   <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                   <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                  <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                                  <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets continues contract klines/candlesticks for a pair.</span>
 
@@ -417,7 +424,7 @@
                            <span class="n">interval</span><span class="p">,</span>
                            <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                            <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                           <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets index price klines/candlesticks for a pair.</span>
 
@@ -447,7 +454,7 @@
                           <span class="n">interval</span><span class="p">,</span>
                           <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                          <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                          <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets mark price klines/candlesticks for a symbol.</span>
 
@@ -474,7 +481,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.mark_price"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.mark_price">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/premiumIndex&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">mark_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">mark_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets mark price for a symbol or all symbols.</span>
 <span class="sd">        weight=1</span>
@@ -488,7 +495,10 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.funding_rate_history"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.funding_rate_history">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/fundingRate&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">funding_rate_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">funding_rate_history</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                             <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                             <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                             <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets funding rate history.</span>
 
@@ -513,7 +523,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.ticker_price_change_statistics"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.ticker_price_change_statistics">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/24hr&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">ticker_price_change_statistics</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ticker_price_change_statistics</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the 24 hour rolling window price change statistics for symbol or all symbols.</span>
 
@@ -528,7 +538,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.ticker_price"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.ticker_price">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/price&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">ticker_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ticker_price</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the latest price for a symbol or all symbols.</span>
 
@@ -543,7 +553,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.ticker_order_book"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.ticker_order_book">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/ticker/bookTicker&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">ticker_order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ticker_order_book</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets best price/quantity on the order book for a symbol or all symbols.</span>
 
@@ -558,7 +568,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.open_interest"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.open_interest">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/openInterest&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">open_interest</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">open_interest</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets present open interest for a specific symbol.</span>
 
@@ -575,7 +585,7 @@
                               <span class="n">period</span><span class="p">,</span>
                               <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                               <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                              <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                              <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets open interest history for a specific symbol.</span>
 
@@ -605,7 +615,7 @@
                                      <span class="n">period</span><span class="p">,</span>
                                      <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                      <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                     <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                                     <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets top trader long/short account ratio for a specific symbol.</span>
 
@@ -633,7 +643,7 @@
                                       <span class="n">period</span><span class="p">,</span>
                                       <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                       <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                      <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                                      <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets top trader long/short position ratio  a specific symbol.</span>
 
@@ -661,7 +671,7 @@
                                         <span class="n">period</span><span class="p">,</span>
                                         <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                         <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                        <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                                        <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets global long/short account ratio  a specific symbol.</span>
 
@@ -689,7 +699,7 @@
                                <span class="n">period</span><span class="p">,</span>
                                <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                               <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                               <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets taker long/short ratio  a specific symbol.</span>
 
@@ -713,7 +723,11 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.lvt_klines"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.lvt_klines">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/lvtKlines&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">lvt_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">lvt_klines</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span>
+                   <span class="n">interval</span><span class="p">,</span>
+                   <span class="n">startTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">endTime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets historical BLVT NAV klines/candlesticks for a symbol.</span>
 
@@ -738,7 +752,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Market.composite_index_info"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Market.composite_index_info">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/indexInfo&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">composite_index_info</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">composite_index_info</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets mark price for a symbol or all symbols.</span>
 <span class="sd">        * Only for composite index symbols</span>
