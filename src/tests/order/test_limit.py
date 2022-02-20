@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 import pytest
-
-import binance.client
+from typing import TYPE_CHECKING
 from binance.order.limit import Limit
-from binance.enums import binance
+
+if TYPE_CHECKING:
+    from binance.client import Client
 
 
-def test_limit(client):
+def test_limit(client: 'Client'):
     """
     """
     pytest.skip()
     o = Limit(symbol='BTCUSDT',
               side='BUY',
               quantity=0.1,
-              price=36000,
+              price=1,
               timeInForce='GTC')
 
     client.trade.new_order(order=o)

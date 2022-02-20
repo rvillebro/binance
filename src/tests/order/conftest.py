@@ -2,8 +2,9 @@
 import pytest
 from binance.client import Client
 
+
 @pytest.fixture(scope='module')
-def client():
+def client() -> Client:
     c = Client()
     yield c
     c.close()

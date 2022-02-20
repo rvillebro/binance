@@ -12,9 +12,11 @@ import functools
 
 from pydantic import validate_arguments
 from urllib.parse import urlencode
+from typing import TYPE_CHECKING
 
 from binance.enums import http
 from binance.order.base import Order
+from binance.client.response import Response
 
 
 class _Parameters:

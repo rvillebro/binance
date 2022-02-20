@@ -2,12 +2,14 @@ import requests
 import logging
 
 from binance.enums import http
-from binance.client.base import BaseClient, Response
+from binance.client.base import BaseClient
+from binance.client.response import Response
 
 log = logging.getLogger(__file__)
 
 
 class Client(BaseClient):
+    """Binance client"""
     ASYNCHRONOUS = False
 
     def __init__(self, *args, **kwargs):
@@ -31,7 +33,7 @@ class Client(BaseClient):
               params=None,
               headers=None,
               add_api_key=False,
-              add_signature=False) -> None:
+              add_signature=False) -> Response:
         """
         Returns
         -------
@@ -49,7 +51,6 @@ class Client(BaseClient):
                                headers=headers)
 
         req = self.session.prepare_request(req)
-        log.debug(f'Sending request: {req}')
         response = self.session.send(req)
 
         return Response.from_requests_response(response)

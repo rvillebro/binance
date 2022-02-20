@@ -9,14 +9,17 @@ https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
 .. automodule:: binance.client.endpoints.market
     :members:
 """
+from typing import TYPE_CHECKING
 from .base import Endpoints, LinkEndpointsMixin
+
+from binance.client.response import Response
 
 
 class Market(LinkEndpointsMixin):
     endpoints = Endpoints()
 
     @endpoints.add('GET', '/fapi/v1/ping')
-    def ping():
+    def ping() -> Response:
         """
         Pings server to test connectivity
 
@@ -33,7 +36,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/time')
-    def server_time():
+    def server_time() -> Response:
         """
         Gets current server time
 
@@ -51,7 +54,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/exchangeInfo')
-    def exchange_info():
+    def exchange_info() -> Response:
         """
         Gets current exchange trading rules and symbol information
 
@@ -68,7 +71,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/depth')
-    def order_book(symbol, limit: int = None):
+    def order_book(symbol, limit: int = None) -> Response:
         """
         Gets order book for a symbol.
 
@@ -100,7 +103,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/trades')
-    def recent_trades(symbol, limit=None):
+    def recent_trades(symbol, limit=None) -> Response:
         """
         Gets most recent trades for a symbol.
 
@@ -132,7 +135,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/historicalTrades', add_api_key=True)
-    def historical_trades(symbol, limit=None, fromId=None):
+    def historical_trades(symbol, limit=None, fromId=None) -> Response:
         """
         Gets historical trades for a symbol. (*MARKET_DATA*)
 
@@ -180,7 +183,7 @@ class Market(LinkEndpointsMixin):
                           fromId=None,
                           startTime=None,
                           endTime=None,
-                          limit=None):
+                          limit=None) -> Response:
         """
         Gets aggregate trades list for a symbol.
 
@@ -204,7 +207,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/klines')
-    def klines(symbol, interval, startTime=None, endTime=None, limit=None):
+    def klines(symbol,
+               interval,
+               startTime=None,
+               endTime=None,
+               limit=None) -> Response:
         """
         Gets klines/candlesticks  for a symbol.
 
@@ -234,7 +241,7 @@ class Market(LinkEndpointsMixin):
                                   interval,
                                   startTime=None,
                                   endTime=None,
-                                  limit=None):
+                                  limit=None) -> Response:
         """
         Gets continues contract klines/candlesticks for a pair.
 
@@ -265,7 +272,7 @@ class Market(LinkEndpointsMixin):
                            interval,
                            startTime=None,
                            endTime=None,
-                           limit=None):
+                           limit=None) -> Response:
         """
         Gets index price klines/candlesticks for a pair.
 
@@ -295,7 +302,7 @@ class Market(LinkEndpointsMixin):
                           interval,
                           startTime=None,
                           endTime=None,
-                          limit=None):
+                          limit=None) -> Response:
         """
         Gets mark price klines/candlesticks for a symbol.
 
@@ -322,7 +329,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/premiumIndex')
-    def mark_price(symbol=None):
+    def mark_price(symbol=None) -> Response:
         """
         Gets mark price for a symbol or all symbols.
         weight=1
@@ -336,7 +343,10 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/fundingRate')
-    def funding_rate_history(symbol, startTime=None, endTime=None, limit=None):
+    def funding_rate_history(symbol,
+                             startTime=None,
+                             endTime=None,
+                             limit=None) -> Response:
         """
         Gets funding rate history.
 
@@ -361,7 +371,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/ticker/24hr')
-    def ticker_price_change_statistics(symbol=None):
+    def ticker_price_change_statistics(symbol=None) -> Response:
         """
         Gets the 24 hour rolling window price change statistics for symbol or all symbols.
 
@@ -376,7 +386,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/ticker/price')
-    def ticker_price(symbol=None):
+    def ticker_price(symbol=None) -> Response:
         """
         Gets the latest price for a symbol or all symbols.
 
@@ -391,7 +401,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/ticker/bookTicker')
-    def ticker_order_book(symbol=None):
+    def ticker_order_book(symbol=None) -> Response:
         """
         Gets best price/quantity on the order book for a symbol or all symbols.
 
@@ -406,7 +416,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/openInterest')
-    def open_interest(symbol):
+    def open_interest(symbol) -> Response:
         """
         Gets present open interest for a specific symbol.
 
@@ -423,7 +433,7 @@ class Market(LinkEndpointsMixin):
                               period,
                               limit=None,
                               startTime=None,
-                              endTime=None):
+                              endTime=None) -> Response:
         """
         Gets open interest history for a specific symbol.
 
@@ -453,7 +463,7 @@ class Market(LinkEndpointsMixin):
                                      period,
                                      limit=None,
                                      startTime=None,
-                                     endTime=None):
+                                     endTime=None) -> Response:
         """
         Gets top trader long/short account ratio for a specific symbol.
 
@@ -481,7 +491,7 @@ class Market(LinkEndpointsMixin):
                                       period,
                                       limit=None,
                                       startTime=None,
-                                      endTime=None):
+                                      endTime=None) -> Response:
         """
         Gets top trader long/short position ratio  a specific symbol.
 
@@ -509,7 +519,7 @@ class Market(LinkEndpointsMixin):
                                         period,
                                         limit=None,
                                         startTime=None,
-                                        endTime=None):
+                                        endTime=None) -> Response:
         """
         Gets global long/short account ratio  a specific symbol.
 
@@ -537,7 +547,7 @@ class Market(LinkEndpointsMixin):
                                period,
                                limit=None,
                                startTime=None,
-                               endTime=None):
+                               endTime=None) -> Response:
         """
         Gets taker long/short ratio  a specific symbol.
 
@@ -561,7 +571,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/lvtKlines')
-    def lvt_klines(symbol, interval, startTime=None, endTime=None, limit=None):
+    def lvt_klines(symbol,
+                   interval,
+                   startTime=None,
+                   endTime=None,
+                   limit=None) -> Response:
         """
         Gets historical BLVT NAV klines/candlesticks for a symbol.
 
@@ -586,7 +600,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/indexInfo')
-    def composite_index_info(symbol=None):
+    def composite_index_info(symbol=None) -> Response:
         """
         Gets mark price for a symbol or all symbols.
         * Only for composite index symbols
