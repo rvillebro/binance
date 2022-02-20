@@ -1,8 +1,11 @@
-from typing import Optional, Literal
+from typing import TYPE_CHECKING, Optional, Literal, overload
 from pydantic import BaseModel, ValidationError, constr, validator
 
 from binance.order.base import Order
 from binance.enums import binance
+
+if TYPE_CHECKING:
+    from binance.client import Client, AIOClient
 
 
 class Limit(BaseModel, Order):
@@ -58,6 +61,43 @@ class Limit(BaseModel, Order):
         if 'in_hedgemode':
             raise ValidationError('reduceOnly cannot be set in hedgemode')
         return v
+
+    @overload
+    async def validate(self, client: 'AIOClient'):
+        """
+        Validates order against client
+
+        Parameters
+        ----------
+        client : binance.client.AIOClient
+            Binance client
+        """
+        client.trade.get_position_mode()
+
+        if self.positionSide:
+            pass
+
+        return True
+
+    def validate(self, client: 'Client'):
+        """
+        Validates order against client
+
+        Parameters
+        ----------
+        client : binance.client.AIOClient
+            Binance client
+        """
+        dual_pos = client.trade.get_position_mode().data["dualSidePosition"]
+
+        if dual_pos:
+            if self.positionSide is None:
+                raise ValidationError('positionSide must be set in hedgemode')
+
+            if self.reduceOnly:
+                raise ValidationError('reduceOnly cannot be set in hedgemode')
+
+        return True
 
     class Config:
         use_enum_values = True

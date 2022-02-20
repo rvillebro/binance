@@ -6,10 +6,12 @@ import json
 import aiohttp
 
 from binance.enums import http
-from binance.client.base import BaseClient, Response
+from binance.client.base import BaseClient
+from binance.client.response import Response
 
 
 class AIOClient(BaseClient):
+    """Asynchronous Binance client"""
     ASYNCHRONOUS = True
 
     def __init__(self, *args, **kwargs):
@@ -33,7 +35,7 @@ class AIOClient(BaseClient):
                     params=None,
                     headers=None,
                     add_api_key=False,
-                    add_signature=False):
+                    add_signature=False) -> Response:
         """
         Returns
         -------
