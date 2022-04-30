@@ -162,19 +162,20 @@ class Market(LinkEndpointsMixin):
         
         You can limit the number of results:
 
-            >>> r = client.market.historical_trades(symbol='BTCUSDT', limit=1)
+            >>> r = client.market.historical_trades(symbol='BTCUSDT', limit=2)
             >>> r.status
             200
             >>> len(r.data)
-            1
+            2
 
         And set from which ID to pull from:
 
+            >>> exp_id = r.data[1]['id']
             >>> from_id = r.data[0]['id']
             >>> r = client.market.historical_trades(symbol='BTCUSDT', fromId=from_id)
             >>> r.status
             200
-            >>> from_id == r.data[0]['id']
+            >>> exp_id == r.data[0]['id']
             True
         """
 
