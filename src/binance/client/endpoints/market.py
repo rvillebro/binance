@@ -170,12 +170,11 @@ class Market(LinkEndpointsMixin):
 
         And set from which ID to pull from:
 
-            >>> exp_id = r.data[1]['id']
             >>> from_id = r.data[0]['id']
             >>> r = client.market.historical_trades(symbol='BTCUSDT', fromId=from_id)
             >>> r.status
             200
-            >>> exp_id == r.data[0]['id']
+            >>> r.data[0]['id'] == from_id
             True
         """
 

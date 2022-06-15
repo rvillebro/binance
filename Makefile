@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-PYTHON	?= python3.9
+PYTHON	?= python3.10
 VENV	?= .venv
 
 .PHONY: install_binance install_test install_doc dev test html latex latexpdf
