@@ -67,6 +67,7 @@ class BinanceStream(asyncio.Protocol):
             self._connector = None
 
     def disconnect(self):
+        pass
         
     def stop_trying(self):
         if self._call_handle:
@@ -80,14 +81,15 @@ class BinanceStream(asyncio.Protocol):
 
 
 class BinanceStreams:
-    factory = 
+    factory = None
 
     def __init__(self, loop=None):
         if loop is None:
             loop = asyncio.get_event_loop()
         self.loop = loop
 
-    def connect(self, )
+    def connect(self):
+        pass
     
     async def connect(self, url, callbacks):
         transport, protocol = self.loop.create_connection(self.factory, url, 8888)
