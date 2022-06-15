@@ -6,6 +6,39 @@ from pydantic import ValidationError
 if TYPE_CHECKING:
     from binance.client import Client
 
+def test_ping(client: 'Client'):
+    assert client.market.ping().status == 200
+
+def test_server_time(client: 'Client'):
+    assert client.market.server_time().status == 200
+
+def test_exchange_info(client: 'Client'):
+    assert client.market.exchange_info().status == 200
+
+def test_order_book(client: 'Client'):
+    assert client.market.order_book(symbol='BTCUSDT').status == 200
+    
+    r = client.market.order_book(symbol='BTCUSDT', limit=5)
+    assert r.status == 200 and len(r.data['bids']) == 5
+
+def test_recent_trades(client: 'Client'):
+    assert client.market.recent_trades(symbol='BTCUSDT').status == 200
+
+    r = client.market.recent_trades(symbol='BTCUSDT', limit=69)  # nice
+    assert r.status == 200 and len(r.data) == 69  # nice
+
+def test_historical_trades(client: 'Client'):
+    if client._api_key is None:
+        pytest.skip("Requires API key!")
+
+    assert client.market.historical_trades(symbol='BTCUSDT').status == 200
+
+    r = client.market.historical_trades(symbol='BTCUSDT', limit=2)
+    assert r.status == 200 and len(r.data) == 2
+
+    from_id = r.data[0]['id']
+    r = client.market.historical_trades(symbol='BTCUSDT', limit=2, fromId=from_id)
+    assert r.status == 200 and r.data[0]['id'] == from_id
 
 def test_aggregated_trades(client: 'Client'):
     func = client.market.aggregated_trades
