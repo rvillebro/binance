@@ -35,9 +35,8 @@ class _Parameters:
 
     def __setitem__(self, key, val):
         if val is not None:
-            if callable(val):
-                val = val()
-            self.params[key] = str(val)
+            val = val() if callable(val) else str(val)
+            self.params[key] = val
 
     def __getitem__(self, key):
         return self.params[key]
@@ -115,19 +114,16 @@ class _Endpoint:
             Coroutine which prepares params and uses client to make a http call.
         """
         if client.ASYNCHRONOUS:
-
             @validate_arguments(config=dict(arbitrary_types_allowed=True))
             @functools.wraps(self.func)
             async def wrapper(*args, **kwargs):
                 return await client._call(self.http_method,
                                           self.route,
-                                          params=self._get_params(
-                                              args, kwargs),
+                                          params=self._get_params(args, kwargs),
                                           headers=self.headers,
                                           add_api_key=self.add_api_key,
                                           add_signature=self.add_signature)
         else:
-
             @validate_arguments(config=dict(arbitrary_types_allowed=True))
             @functools.wraps(self.func)
             def wrapper(*args, **kwargs):
