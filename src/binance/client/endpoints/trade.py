@@ -1,6 +1,6 @@
 """
-Trade endpoints
-===============
+Trade
+=====
 
 https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints
 """

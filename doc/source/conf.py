@@ -58,6 +58,7 @@ html_theme_options = {
         },
     ],
     "use_edit_page_button": True,
+    "show_nav_level": 3,
 }
 
 html_context = {

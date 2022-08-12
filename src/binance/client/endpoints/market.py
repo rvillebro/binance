@@ -1,13 +1,11 @@
 """
-Market endpoints
-================
+Market
+======
 
 All market data endpoints are collected here.
 
 https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
 
-.. automodule:: binance.client.endpoints.market
-    :members:
 """
 from typing import Optional
 
@@ -28,7 +26,7 @@ class Market(APIEndpointsLinkerMixin):
 
         Returns
         -------
-        :class:`binance.client.response.Response`
+        :class:`~binance.client.response.Response`
             Response from API call
 
         Examples

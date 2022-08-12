@@ -1,6 +1,6 @@
 """
-User Data Stream endpoints
-==========================
+User Data Stream
+================
 
 https://binance-docs.github.io/apidocs/futures/en/#user-data-streams
 """
