@@ -168,18 +168,18 @@
                 
   <h1>Source code for binance.client.endpoints.user_data</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">User Data Stream endpoints</span>
-<span class="sd">==========================</span>
+<span class="sd">User Data Stream</span>
+<span class="sd">================</span>
 
 <span class="sd">https://binance-docs.github.io/apidocs/futures/en/#user-data-streams</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">binance.client.endpoints.base</span> <span class="kn">import</span> <span class="n">APIEndpoints</span><span class="p">,</span> <span class="n">APIEndpointsLinkerMixin</span>
 
 
-<div class="viewcode-block" id="UserData"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.UserData">[docs]</a><span class="k">class</span> <span class="nc">UserData</span><span class="p">(</span><span class="n">APIEndpointsLinkerMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="UserData"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.user_data.UserData">[docs]</a><span class="k">class</span> <span class="nc">UserData</span><span class="p">(</span><span class="n">APIEndpointsLinkerMixin</span><span class="p">):</span>
     <span class="n">endpoints</span> <span class="o">=</span> <span class="n">APIEndpoints</span><span class="p">()</span>
 
-<div class="viewcode-block" id="UserData.get_listen_key"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.UserData.get_listen_key">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/listenKey&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UserData.get_listen_key"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.user_data.UserData.get_listen_key">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/listenKey&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_listen_key</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets a listen key for user data streams (USER_STREAM).</span>
@@ -194,7 +194,7 @@
 <span class="sd">            Response(status=200, data={&#39;listenKey&#39;: ...})</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="UserData.keep_listen_key_alive"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.UserData.keep_listen_key_alive">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/listenKey&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UserData.keep_listen_key_alive"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.user_data.UserData.keep_listen_key_alive">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/listenKey&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">keep_listen_key_alive</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Keeps current listen key alive (USER_STREAM).</span>
@@ -209,7 +209,7 @@
 <span class="sd">            Response(status=200, data={})</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="UserData.close_list_key"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.UserData.close_list_key">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;DELETE&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/listenKey&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UserData.close_list_key"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.user_data.UserData.close_list_key">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;DELETE&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/listenKey&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">close_list_key</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Closes current user data streams listen key (USER_STREAM).</span>
