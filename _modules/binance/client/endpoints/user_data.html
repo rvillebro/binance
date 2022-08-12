@@ -173,11 +173,11 @@
 
 <span class="sd">https://binance-docs.github.io/apidocs/futures/en/#user-data-streams</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Endpoints</span><span class="p">,</span> <span class="n">LinkEndpointsMixin</span>
+<span class="kn">from</span> <span class="nn">binance.client.endpoints.base</span> <span class="kn">import</span> <span class="n">APIEndpoints</span><span class="p">,</span> <span class="n">APIEndpointsLinkerMixin</span>
 
 
-<div class="viewcode-block" id="UserData"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.UserData">[docs]</a><span class="k">class</span> <span class="nc">UserData</span><span class="p">(</span><span class="n">LinkEndpointsMixin</span><span class="p">):</span>
-    <span class="n">endpoints</span> <span class="o">=</span> <span class="n">Endpoints</span><span class="p">()</span>
+<div class="viewcode-block" id="UserData"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.UserData">[docs]</a><span class="k">class</span> <span class="nc">UserData</span><span class="p">(</span><span class="n">APIEndpointsLinkerMixin</span><span class="p">):</span>
+    <span class="n">endpoints</span> <span class="o">=</span> <span class="n">APIEndpoints</span><span class="p">()</span>
 
 <div class="viewcode-block" id="UserData.get_listen_key"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.UserData.get_listen_key">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/listenKey&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_listen_key</span><span class="p">():</span>
@@ -228,6 +228,11 @@
 <span class="sd">            &gt;&gt;&gt; client.user_data.close_list_key()</span>
 <span class="sd">            Response(status=200, data={})</span>
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">from</span> <span class="nn">binance.client</span> <span class="kn">import</span> <span class="n">Client</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">globs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">Client</span><span class="p">()),</span> <span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">ELLIPSIS</span><span class="p">)</span>
 </pre></div>
 
               </article>
@@ -254,7 +259,7 @@
   
   <div class="footer-item">
     <p class="copyright">
-    &copy; Copyright 2021, Rasmus Villebro.<br>
+    &copy; Copyright 2022, Rasmus Villebro.<br>
 </p>
   </div>
   

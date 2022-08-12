@@ -1,7 +1,7 @@
 Enums
 =====
 
-.. contents::
+.. contents:: Contents
 
-.. automodule:: binance.client
+.. automodule:: binance.enums
     :members:

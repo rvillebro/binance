@@ -173,24 +173,24 @@
 
 <span class="sd">https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">binance.utils</span> <span class="k">as</span> <span class="nn">utils</span>
-<span class="kn">from</span> <span class="nn">binance.order.base</span> <span class="kn">import</span> <span class="n">Order</span>
-<span class="kn">from</span> <span class="nn">binance.client.response</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">import</span> <span class="nn">binance.client.endpoints.helpers</span> <span class="k">as</span> <span class="nn">helpers</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Endpoints</span><span class="p">,</span> <span class="n">LinkEndpointsMixin</span>
+<span class="kn">from</span> <span class="nn">binance.client.endpoints.base</span> <span class="kn">import</span> <span class="n">APIEndpoints</span><span class="p">,</span> <span class="n">APIEndpointsLinkerMixin</span>
+<span class="kn">from</span> <span class="nn">binance.order.base</span> <span class="kn">import</span> <span class="n">BatchOrder</span><span class="p">,</span> <span class="n">OrderType</span>  <span class="c1"># must be imported directly as pydantic validate_arguments cant handle TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">binance.client.response</span> <span class="kn">import</span> <span class="n">Response</span>  <span class="c1"># must be imported directly as pydantic validate_arguments cant handle TYPE_CHECKING</span>
 
 
-<div class="viewcode-block" id="Trade"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Trade">[docs]</a><span class="k">class</span> <span class="nc">Trade</span><span class="p">(</span><span class="n">LinkEndpointsMixin</span><span class="p">):</span>
-    <span class="n">endpoints</span> <span class="o">=</span> <span class="n">Endpoints</span><span class="p">()</span>
+<div class="viewcode-block" id="Trade"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Trade">[docs]</a><span class="k">class</span> <span class="nc">Trade</span><span class="p">(</span><span class="n">APIEndpointsLinkerMixin</span><span class="p">):</span>
+    <span class="n">endpoints</span> <span class="o">=</span> <span class="n">APIEndpoints</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Trade.set_position_mode"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Trade.set_position_mode">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span>
                    <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">set_position_mode</span><span class="p">(</span><span class="n">dualSidePosition</span><span class="p">,</span>
-                          <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
+                          <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
                           <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the user&#39;s position mode on every position: hedge mode or one-way mode (*TRADE*)</span>
@@ -211,8 +211,8 @@
                    <span class="s1">&#39;/fapi/v1/positionSide/dual&#39;</span><span class="p">,</span>
                    <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_position_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
-                          <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_position_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
+                          <span class="n">recvWindow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the user&#39;s position mode on every position: hedge mode or one-way mode (*USER_DATA*)</span>
 
@@ -231,8 +231,8 @@
                    <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">set_multiasset_mode</span><span class="p">(</span><span class="n">multiAssetsMargin</span><span class="p">,</span>
-                            <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
-                            <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+                            <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
+                            <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the user&#39;s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*TRADE*)</span>
 
@@ -249,8 +249,8 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Trade.get_multiasset_mode"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Trade.get_multiasset_mode">[docs]</a>    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/fapi/v1/multiAssetsMargin&#39;</span><span class="p">,</span> <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_multiasset_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
-                            <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_multiasset_mode</span><span class="p">(</span><span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
+                            <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the user&#39;s Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*USER DATA*)</span>
 
@@ -268,9 +268,9 @@
                    <span class="s1">&#39;/fapi/v1/order&#39;</span><span class="p">,</span>
                    <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">new_order</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="n">Order</span><span class="p">,</span>
-                  <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
-                  <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">new_order</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="n">OrderType</span><span class="p">,</span>
+                  <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
+                  <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send in a new order (*TRADE*).</span>
 
@@ -286,9 +286,14 @@
 <span class="sd">            receive window</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="Trade.batch_order"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Trade.batch_order">[docs]</a>    <span class="k">def</span> <span class="nf">batch_order</span><span class="p">(</span><span class="n">orders</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Order</span><span class="p">],</span>
-                    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
-                    <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<div class="viewcode-block" id="Trade.batch_order"><a class="viewcode-back" href="../../../../api/endpoints/index.html#binance.client.endpoints.Trade.batch_order">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@endpoints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;/fapi/v1/batchOrders&#39;</span><span class="p">,</span>
+                   <span class="n">add_api_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">add_signature</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">batch_order</span><span class="p">(</span><span class="n">orders</span><span class="p">:</span> <span class="n">BatchOrder</span><span class="p">,</span>
+                    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
+                    <span class="n">recvWindow</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send in a batch of orders (*TRADE*).</span>
 
@@ -296,13 +301,18 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        orders : list[binance.order.Order]</span>
-<span class="sd">            list of binance.order.Order objects</span>
-<span class="sd">        timestamp : int</span>
+<span class="sd">        orders: :class:`binance.order.BatchOrder`</span>
+<span class="sd">            Batch order to send</span>
+<span class="sd">        timestamp: int</span>
 <span class="sd">            timestamp</span>
-<span class="sd">        recvWindow : int</span>
+<span class="sd">        recvWindow: int</span>
 <span class="sd">            receive window</span>
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">from</span> <span class="nn">binance.client</span> <span class="kn">import</span> <span class="n">Client</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">globs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">Client</span><span class="p">()),</span> <span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">ELLIPSIS</span><span class="p">)</span>
 </pre></div>
 
               </article>
@@ -329,7 +339,7 @@
   
   <div class="footer-item">
     <p class="copyright">
-    &copy; Copyright 2021, Rasmus Villebro.<br>
+    &copy; Copyright 2022, Rasmus Villebro.<br>
 </p>
   </div>
   
