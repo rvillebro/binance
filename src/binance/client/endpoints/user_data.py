@@ -4,11 +4,11 @@ User Data Stream endpoints
 
 https://binance-docs.github.io/apidocs/futures/en/#user-data-streams
 """
-from .base import Endpoints, LinkEndpointsMixin
+from binance.client.endpoints.base import APIEndpoints, APIEndpointsLinkerMixin
 
 
-class UserData(LinkEndpointsMixin):
-    endpoints = Endpoints()
+class UserData(APIEndpointsLinkerMixin):
+    endpoints = APIEndpoints()
 
     @endpoints.add('POST', '/fapi/v1/listenKey', add_api_key=True)
     def get_listen_key():
@@ -59,3 +59,8 @@ class UserData(LinkEndpointsMixin):
             >>> client.user_data.close_list_key()
             Response(status=200, data={})
         """
+
+if __name__ == '__main__':
+    import doctest
+    from binance.client import Client
+    doctest.testmod(globs=dict(client=Client()), optionflags=doctest.ELLIPSIS)

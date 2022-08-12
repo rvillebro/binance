@@ -7,6 +7,20 @@ if TYPE_CHECKING:
 
 
 class ResponseException(Exception):
+    """
+    Response exception
+
+    Parameters
+    ----------
+    status: int
+        Status of response
+    reason: str
+        Reason of response
+    data: dict
+        Data of response 
+    raw: object
+        Raw sponse object
+    """
 
     def __init__(self, status: int, reason: str, data: dict, raw: object):
         self.status = status
@@ -19,19 +33,48 @@ class ResponseException(Exception):
 
 
 class Response:
-    """Binance response"""
+    """
+    Binance client response
+
+    Parameters
+    ----------
+    data: dict
+        Response data (JSON converted to a dcitionary)
+    status: int
+        Response status code
+    limits: dict
+        API limits from response
+    raw: object
+        Raw response object 
+    """
     REQUEST_WEIGHT = re.compile(r'X-MBX-USED-WEIGHT-.*')
     ORDERS = re.compile(r'X-MBX-ORDER-COUNT-.*')
 
     def __init__(self, data: dict, status: int, limits: dict,
-                 raw: object) -> 'Response':
+                 raw: object):
         self.data = data
         self.status = status
         self.limits = limits
         self.raw = raw
+    
+    def __repr__(self) -> str:
+        return f"Response(status={self.status}, data={self.data})"
 
     @staticmethod
-    def get_limits(headers):
+    def get_limits(headers) -> dict:
+        """
+        Gets limits from headers
+
+        Parameters
+        ----------
+        headers: dict[str, str]
+            Headers of response
+        
+        Returns
+        -------
+        dict
+            Limits of extracted from response
+        """
         limits = dict()
         for key, val in headers.items():
             if key.startswith('X-MBX-USED-WEIGHT-') or key.startswith(
@@ -40,7 +83,20 @@ class Response:
         return limits
 
     @classmethod
-    async def from_aiohttp_response(cls, response: 'AIOHTTPResponse'):
+    async def from_aiohttp_response(cls, response: 'AIOHTTPResponse') -> 'Response':
+        """
+        Creates binance response from aiohttp response object
+
+        Parameters
+        ----------
+        response: :class:`aiohttp.ClientResponse`
+            aiohttp reponse object
+        
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Binance client response
+        """
         if not response.ok:
             raise ResponseException(status=response.status,
                                     reason=response.reason,
@@ -55,7 +111,20 @@ class Response:
                    raw=response)
 
     @classmethod
-    def from_requests_response(cls, response: 'RequestsResponse'):
+    def from_requests_response(cls, response: 'RequestsResponse') -> 'Response':
+        """
+        Creates binance response from requests response object
+
+        Parameters
+        ----------
+        response: :class:`requests.Response`
+            requests reponse object
+        
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Binance client response
+        """
         if not response.ok:
             raise ResponseException(status=response.status_code,
                                     reason=response.reason,
@@ -68,6 +137,3 @@ class Response:
                    status=response.status_code,
                    limits=limits,
                    raw=response)
-
-    def __repr__(self):
-        return f"Response(status={self.status}, data={self.data})"

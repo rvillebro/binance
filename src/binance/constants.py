@@ -4,11 +4,11 @@ from types import SimpleNamespace
 
 NETWORK = SimpleNamespace(
     REAL = {
-        'REST': 'https://fapi.binance.com',
+        'API': 'https://fapi.binance.com',
         'WEBSOCKET': 'wss://fstream.binance.com',
     },
     TEST = {
-        'REST': 'https://testnet.binancefuture.com',
+        'API': 'https://testnet.binancefuture.com',
         'WEBSOCKET': 'wss://stream.binancefuture.com',
     },
 )

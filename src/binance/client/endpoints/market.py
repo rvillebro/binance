@@ -9,14 +9,15 @@ https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
 .. automodule:: binance.client.endpoints.market
     :members:
 """
-from typing import TYPE_CHECKING
-from .base import Endpoints, LinkEndpointsMixin
+from typing import Optional
 
-from binance.client.response import Response
+from binance.client.endpoints.base import APIEndpoints, APIEndpointsLinkerMixin
+from binance.client.response import Response  # must be imported directly as pydantic validate_arguments cant handle TYPE_CHECKING
+from binance.enums.binance import KlineInterval, ContractType, Period  # must be imported directly as pydantic validate_arguments cant handle TYPE_CHECKING
 
 
-class Market(LinkEndpointsMixin):
-    endpoints = Endpoints()
+class Market(APIEndpointsLinkerMixin):
+    endpoints = APIEndpoints()
 
     @endpoints.add('GET', '/fapi/v1/ping')
     def ping() -> Response:
@@ -25,10 +26,14 @@ class Market(LinkEndpointsMixin):
 
         https://binance-docs.github.io/apidocs/futures/en/#test-connectivity
 
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
+
         Examples
         --------
         To ping binance servers call:
-
             >>> client.market.ping()
             Response(status=200, data={})
 
@@ -42,15 +47,20 @@ class Market(LinkEndpointsMixin):
 
         https://binance-docs.github.io/apidocs/futures/en/#check-server-time
 
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
+
         Examples
         --------
         To get binance server time call:
 
             >>> client.market.server_time()
-            Response(status=200, data={'serverTime':...})
+            Response(status=200, data={'serverTime': ...})
         
         Your host time and Binance server time may vary.
-        Remeber that Binance uses UTC — Coordinated Universal Time.
+        Remember that Binance uses UTC — Coordinated Universal Time.
         """
 
     @endpoints.add('GET', '/fapi/v1/exchangeInfo')
@@ -59,6 +69,11 @@ class Market(LinkEndpointsMixin):
         Gets current exchange trading rules and symbol information
 
         https://binance-docs.github.io/apidocs/futures/en/#exchange-information
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
 
         Examples
         --------
@@ -70,8 +85,9 @@ class Market(LinkEndpointsMixin):
         Keep up to date with the exchange information in order to get the proper symbols etc.
         """
 
+    @staticmethod
     @endpoints.add('GET', '/fapi/v1/depth')
-    def order_book(symbol, limit: int = None) -> Response:
+    def order_book(symbol: str, limit: Optional[int] = None) -> Response:
         """
         Gets order book for a symbol.
 
@@ -81,8 +97,13 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to pull order book for
-        limit : int
+        limit : int, optional, optional
             limit the number of bids to return (default=500, valid limits:[5, 10, 20, 50, 100, 500, 1000])
+        
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
 
         Examples
         --------
@@ -103,7 +124,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/trades')
-    def recent_trades(symbol, limit=None) -> Response:
+    def recent_trades(symbol: str, limit: Optional[int] = None) -> Response:
         """
         Gets most recent trades for a symbol.
 
@@ -113,8 +134,13 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to pull recent trades for
-        limit : int
+        limit : int, optional, optional
             limit (default=500, max=1000)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
 
         Examples
         --------
@@ -135,7 +161,7 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/historicalTrades', add_api_key=True)
-    def historical_trades(symbol, limit=None, fromId=None) -> Response:
+    def historical_trades(symbol: str, limit: Optional[int] = None, fromId: Optional[int] = None) -> Response:
         """
         Gets historical trades for a symbol. (*MARKET_DATA*)
 
@@ -148,11 +174,16 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to pull order book for.
-        limit : int, str
+        limit : int, optional, optional
             limit (default=500, max=1000)
-        fromId : int, str
+        fromId : int, optional
             TradeId to fetch from. (default: most recent trades)
         
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
+
         Examples
         --------
         To get historical trades call:
@@ -179,11 +210,11 @@ class Market(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/aggTrades')
-    def aggregated_trades(symbol,
-                          fromId=None,
-                          startTime=None,
-                          endTime=None,
-                          limit=None) -> Response:
+    def aggregated_trades(symbol: str,
+                          fromId: Optional[int] = None,
+                          startTime: Optional[int] = None,
+                          endTime: Optional[int] = None,
+                          limit: Optional[int] = None) -> Response:
         """
         Gets aggregate trades list for a symbol.
 
@@ -196,22 +227,27 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to pull aggregated trades for
-        fromId : int, str
+        fromId : int, optional
             from id
-        startTime : int, str
+        startTime : int, optional, optional
             start time in seconds
-        endTime : int, str
+        endTime : int, optional, optional
             end time in seconds
-        limit : int, str
+        limit : int, optional, optional
             limit (default=500, max=1000)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/klines')
-    def klines(symbol,
-               interval,
-               startTime=None,
-               endTime=None,
-               limit=None) -> Response:
+    def klines(symbol: str,
+               interval: KlineInterval,
+               startTime: Optional[int] = None,
+               endTime: Optional[int] = None,
+               limit: Optional[int] = None) -> Response:
         """
         Gets klines/candlesticks  for a symbol.
 
@@ -225,23 +261,28 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to pull klines/candlesticks for
-        interval : binance.enums.binance.KlinesInterval
+        interval : :class:`binance.enums.binance.KlineInterval`, optional
             klines interval
-        startTime:
+        startTime : int, optional, optional
             start time in seconds
-        endTime : int, str
+        endTime : int, optional, optional
             end time in seconds
-        limit : int, str
+        limit : int, optional, optional
             limit (default=500, max=1500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/continuousKlines')
-    def continues_contract_klines(pair,
-                                  contractType,
-                                  interval,
-                                  startTime=None,
-                                  endTime=None,
-                                  limit=None) -> Response:
+    def continues_contract_klines(pair: str,
+                                  contractType: ContractType,
+                                  interval: KlineInterval,
+                                  startTime: Optional[int] = None,
+                                  endTime: Optional[int] = None,
+                                  limit: Optional[int] = None) -> Response:
         """
         Gets continues contract klines/candlesticks for a pair.
 
@@ -255,24 +296,29 @@ class Market(LinkEndpointsMixin):
         ----------
         pair : str
             pair to pull continues klines/candlestick for
-        contractType : binance.enums.binance.ContractTypes
+        contractType : :class:`binance.enums.binance.ContractType`
             contract type
-        interval : binance.enums.binance.KlinesInterval
+        interval : :class:`binance.enums.binance.KlineInterval`
             interval
-        startTime : int
+        startTime : int, optional, optional
             start time
-        endTime : int 
+        endTime : int, optional, optional
             end time
-        limit : int
+        limit : int, optional, optional
             limit (default=500, max=1500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/indexPriceKlines')
-    def index_price_klines(pair,
-                           interval,
-                           startTime=None,
-                           endTime=None,
-                           limit=None) -> Response:
+    def index_price_klines(pair: str,
+                           interval: KlineInterval,
+                           startTime: Optional[int] = None,
+                           endTime: Optional[int] = None,
+                           limit: Optional[int] = None) -> Response:
         """
         Gets index price klines/candlesticks for a pair.
 
@@ -285,24 +331,28 @@ class Market(LinkEndpointsMixin):
         ----------
         pair : str
             pair to pull continues klines/candlestick for
-        contractType : binance.enums.binance.ContractTypes
-            contract type
-        interval : binance.enums.binance.KlinesInterval
+        interval : :class:`binance.enums.binance.KlineInterval`
             interval
-        startTime : int
+        startTime : int, optional, optional
             start time
-        endTime : int 
+        endTime : int, optional, optional
             end time
-        limit : int
+        limit : int, optional, optional
             limit (default=500, max=1500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
+
     @endpoints.add('GET', '/fapi/v1/markPriceKlines')
-    def mark_price_klines(symbol,
-                          interval,
-                          startTime=None,
-                          endTime=None,
-                          limit=None) -> Response:
+    def mark_price_klines(symbol: str,
+                          interval: KlineInterval,
+                          startTime: Optional[int] = None,
+                          endTime: Optional[int] = None,
+                          limit: Optional[int] = None) -> Response:
         """
         Gets mark price klines/candlesticks for a symbol.
 
@@ -316,20 +366,23 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to pull continues klines/candlestick for
-        contractType : binance.enums.binance.ContractTypes
-            contract type
-        interval : binance.enums.binance.KlinesInterval
+        interval : :class:`binance.enums.binance.KlineInterval`
             interval
-        startTime : int
+        startTime : int, optional, optional
             start time
-        endTime : int 
+        endTime : int, optional, optional
             end time
-        limit : int
+        limit : int, optional, optional
             limit (default=500, max=1500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/premiumIndex')
-    def mark_price(symbol=None) -> Response:
+    def mark_price(symbol: Optional[str] = None) -> Response:
         """
         Gets mark price for a symbol or all symbols.
         weight=1
@@ -338,15 +391,20 @@ class Market(LinkEndpointsMixin):
 
         Parameters
         ----------
-        symbol : str
+        symbol : str, optional
             symbol
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/fundingRate')
-    def funding_rate_history(symbol,
-                             startTime=None,
-                             endTime=None,
-                             limit=None) -> Response:
+    def funding_rate_history(symbol: str,
+                             startTime: Optional[int] = None,
+                             endTime: Optional[int] = None,
+                             limit: Optional[int] = None) -> Response:
         """
         Gets funding rate history.
 
@@ -362,16 +420,21 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to get funding rate history for
-        startTime : int
+        startTime : int, optional, optional
             start time
-        endTime : int
+        endTime : int, optional, optional
             end time
-        limit : int
+        limit : int, optional, optional
             limit (default: 100, max: 1000)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/ticker/24hr')
-    def ticker_price_change_statistics(symbol=None) -> Response:
+    def ticker_price_change_statistics(symbol: Optional[str] = None) -> Response:
         """
         Gets the 24 hour rolling window price change statistics for symbol or all symbols.
 
@@ -381,12 +444,17 @@ class Market(LinkEndpointsMixin):
 
         Parameters
         ----------
-        symbol : str
+        symbol : str, optional
             symbol to get 24 hour rolling window price change statistics for
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/ticker/price')
-    def ticker_price(symbol=None) -> Response:
+    def ticker_price(symbol: Optional[str] = None) -> Response:
         """
         Gets the latest price for a symbol or all symbols.
 
@@ -396,12 +464,12 @@ class Market(LinkEndpointsMixin):
 
         Parameters
         ----------
-        symbol : str
+        symbol : str, optional
             symbol
         """
 
     @endpoints.add('GET', '/fapi/v1/ticker/bookTicker')
-    def ticker_order_book(symbol=None) -> Response:
+    def ticker_order_book(symbol: Optional[str] = None) -> Response:
         """
         Gets best price/quantity on the order book for a symbol or all symbols.
 
@@ -411,12 +479,17 @@ class Market(LinkEndpointsMixin):
 
         Parameters
         ----------
-        symbol : str
+        symbol : str, optional
             symbol
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/openInterest')
-    def open_interest(symbol) -> Response:
+    def open_interest(symbol: str) -> Response:
         """
         Gets present open interest for a specific symbol.
 
@@ -426,14 +499,19 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to present open interest for
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/futures/data/openInterestHist')
-    def open_interest_history(symbol,
-                              period,
-                              limit=None,
-                              startTime=None,
-                              endTime=None) -> Response:
+    def open_interest_history(symbol: str,
+                              period: Period,
+                              limit: Optional[int] = None,
+                              startTime: Optional[int] = None,
+                              endTime: Optional[int] = None) -> Response:
         """
         Gets open interest history for a specific symbol.
 
@@ -446,24 +524,29 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to get funding rate history for
-        period : binance.enums.binance.Period
+        period : :class:`binance.enums.binance.Period`
             period
-        startTime : int
+        startTime : int, optional
             start time
-        endTime : int
+        endTime : int, optional
             end time
-        limit : int
+        limit : int, optional
             limit (default: 30, max: 500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET',
                    '/futures/data/topLongShortAccountRatio',
                    add_api_key=True)
-    def top_long_short_account_ratio(symbol,
-                                     period,
-                                     limit=None,
-                                     startTime=None,
-                                     endTime=None) -> Response:
+    def top_long_short_account_ratio(symbol: str,
+                                     period: Period,
+                                     limit: Optional[int] = None,
+                                     startTime: Optional[int] = None,
+                                     endTime: Optional[int] = None) -> Response:
         """
         Gets top trader long/short account ratio for a specific symbol.
 
@@ -476,22 +559,27 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to get funding rate history for
-        period : binance.enums.binance.Period
+        period : :class:`binance.enums.binance.Period`
             period
-        startTime : int
+        startTime : int, optional
             start time
-        endTime : int
+        endTime : int, optional
             end time
-        limit : int
+        limit : int, optional
             limit (default: 30, max: 500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/futures/data/topLongShortPositionRatio')
-    def top_long_short_position_ratio(symbol,
-                                      period,
-                                      limit=None,
-                                      startTime=None,
-                                      endTime=None) -> Response:
+    def top_long_short_position_ratio(symbol: str,
+                                      period: Period,
+                                      limit: Optional[int] = None,
+                                      startTime: Optional[int] = None,
+                                      endTime: Optional[int] = None) -> Response:
         """
         Gets top trader long/short position ratio  a specific symbol.
 
@@ -504,22 +592,27 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to get funding rate history for
-        period : binance.enums.binance.Period
+        period : :class:`binance.enums.binance.Period`
             period
-        startTime : int
+        startTime : int, optional
             start time
-        endTime : int
+        endTime : int, optional
             end time
-        limit : int
+        limit : int, optional
             limit (default: 30, max: 500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/futures/data/globalLongShortAccountRatio')
-    def global_long_short_account_ratio(symbol,
-                                        period,
-                                        limit=None,
-                                        startTime=None,
-                                        endTime=None) -> Response:
+    def global_long_short_account_ratio(symbol: str,
+                                        period: Period,
+                                        limit: Optional[int] = None,
+                                        startTime: Optional[int] = None,
+                                        endTime: Optional[int] = None) -> Response:
         """
         Gets global long/short account ratio  a specific symbol.
 
@@ -532,22 +625,27 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to get funding rate history for
-        period : binance.enums.binance.Period
+        period : :class:`binance.enums.binance.Period`
             period
-        startTime : int
+        startTime : int, optional
             start time
-        endTime : int
+        endTime : int, optional
             end time
-        limit : int
+        limit : int, optional
             limit (default: 30, max: 500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/futures/data/takerlongshortRatio')
-    def taker_long_short_ratio(symbol,
-                               period,
-                               limit=None,
-                               startTime=None,
-                               endTime=None) -> Response:
+    def taker_long_short_ratio(symbol: str,
+                               period: Period,
+                               limit: Optional[int] = None,
+                               startTime: Optional[int] = None,
+                               endTime: Optional[int] = None) -> Response:
         """
         Gets taker long/short ratio  a specific symbol.
 
@@ -560,22 +658,27 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to get funding rate history for
-        period : binance.enums.binance.Period
+        period : :class:`binance.enums.binance.Period`
             period
-        startTime : int
+        startTime : int, optional
             start time
-        endTime : int
+        endTime : int, optional
             end time
-        limit : int
+        limit : int, optional
             limit (default: 30, max: 500)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/lvtKlines')
-    def lvt_klines(symbol,
-                   interval,
-                   startTime=None,
-                   endTime=None,
-                   limit=None) -> Response:
+    def lvt_klines(symbol: str,
+                   interval: KlineInterval,
+                   startTime: Optional[int] = None,
+                   endTime: Optional[int] = None,
+                   limit: Optional[int] = None) -> Response:
         """
         Gets historical BLVT NAV klines/candlesticks for a symbol.
 
@@ -589,18 +692,23 @@ class Market(LinkEndpointsMixin):
         ----------
         symbol : str
             symbol to pull historical BLVT NAV klines/candlesticks for
-        interval : binance.enums.binance.KlinesInterval
+        interval : :class:`binance.enums.binance.KlineInterval`
             klines interval
-        startTime:
+        startTime : int, optional
             start time in seconds
-        endTime : int, str
+        endTime : int, optional
             end time in seconds
-        limit : int, str
+        limit : int, optional
             limit (default=500, max=1000)
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
 
     @endpoints.add('GET', '/fapi/v1/indexInfo')
-    def composite_index_info(symbol=None) -> Response:
+    def composite_index_info(symbol: Optional[str] = None) -> Response:
         """
         Gets mark price for a symbol or all symbols.
         * Only for composite index symbols
@@ -609,6 +717,16 @@ class Market(LinkEndpointsMixin):
 
         Parameters
         ----------
-        symbol : str
+        symbol : str, optional
             symbol
+
+        Returns
+        -------
+        :class:`binance.client.response.Response`
+            Response from API call
         """
+
+if __name__ == '__main__':
+    import doctest
+    from binance.client import Client
+    doctest.testmod(globs=dict(client=Client()), optionflags=doctest.ELLIPSIS)

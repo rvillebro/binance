@@ -5,33 +5,44 @@ Endpoint base classes
 - _Parameters
 - _Endpoint
 - Endpoints
+- LinkEndpointsMixin
 """
-from __future__ import annotations
 import inspect
 import functools
+import logging
 
-from pydantic import validate_arguments
 from urllib.parse import urlencode
-from typing import TYPE_CHECKING
+from pydantic import validate_arguments, BaseModel
+from typing import Callable, Type, TypeVar, TYPE_CHECKING, Iterator
+
 
 from binance.enums import http
 from binance.order.base import Order
-from binance.client.response import Response
+
+if TYPE_CHECKING:
+    from binance.client.base import BaseClient
+
+log = logging.getLogger(__name__)
 
 
-class _Parameters:
+class APIParameters:
     """
-    Class for containing API parameters and encoding them.
+    API parameters container and encoder.
+
+    Parameters
+    ----------
+    params: dict[str, ...]
+        Parameters to contain
     """
-    __slot__ = ['params']
+    __slots__ = ['params']
 
     def __init__(self, params):
         self.params = dict()
         for key, val in params.items():
             self[key] = val
 
-    def __repr__(self):
-        return f'Parameters({self.params})'
+    def __repr__(self) -> str:
+        return f'APIParameters({self.params})'
 
     def __setitem__(self, key, val):
         if val is not None:
@@ -41,63 +52,90 @@ class _Parameters:
     def __getitem__(self, key):
         return self.params[key]
 
-    def urlencode(self):
+    def urlencode(self) -> str:
         """
-        Url encodes parameters.
+        Url encode parameters.
 
         Returns
+        -------
         str
             Url encoded string of parameters
         """
         return urlencode(self.params)
 
 
-class _Endpoint:
+class APIEndpoint:
     """
-    Class for containing an API endpoint.
+    API Endpoint container and wrapper.
+
+    Parameters
+    ----------
+    http_method: :class:`binance.enums.http.Method`
+        HTTP method to use.
+    route: str
+        Route of endpoint
+    headers: dict[str, str]
+        Headers to include in API call
+    add_api_key: bool
+        Boolean indicating whether to add API key
+    add_signature: bool
+        Boolean indicating whether to add API signature
     """
     __slots__ = [
-        'http_method', 'route', 'headers', 'add_api_key', 'add_signature',
-        'func', 'func_sig'
+        'http_method',
+        'route',
+        'headers',
+        'add_api_key',
+        'add_signature',
+        'func',
+        'func_signature'
     ]
 
     def __init__(self,
                  http_method: http.Method,
                  route: str,
-                 func: object,
+                 func: Callable,
                  /,
                  headers: dict = None,
                  add_api_key: bool = False,
                  add_signature: bool = False):
-        self.http_method = http.Method(http_method)
+        self.http_method: http.Method = http.Method(http_method)
         self.route = route
         self.headers = headers
         self.add_api_key = add_api_key
         self.add_signature = add_signature
         self.func = func
-        self.func_sig = inspect.signature(self.func)
+        self.func_signature = inspect.signature(self.func)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'Endpoint(http_call={self.http_call}, route={self.route}, func={self.func}, headers={self.headers}, api_key={self.api_key}, add_signature={self.sign})'
 
-    @staticmethod
-    def unpack_orders(arguments, parameters):
-        kwargs = dict(exclude_none=True)
-        for key, param in parameters.items():
-            if param.annotation == Order:
-                arg = arguments.pop(key)
-                arguments.update(arg.dict(**kwargs))
-            elif param.annotation == list[Order]:
-                arguments[key] = [o.dict() for o in val]
+    def __get_params(self, args, kwargs) -> APIParameters:
+        """
+        Creates APIParameters object from args and kwargs
 
-    def _get_params(self, args, kwargs):
-        ba = self.func_sig.bind(*args, **kwargs)
+        Parameters
+        ----------
+        args: list
+            args to extract parameters from
+        kwargs: dict
+            kwargs to extract parameters from
+        
+        Returns
+        -------
+        :class:`APIParameters`
+            APIParameters object with parameters extracted from args and kwargs
+        """
+        ba = self.func_signature.bind(*args, **kwargs)
         ba.apply_defaults()
+        
+        # unpack pydantic basemodels into parameters
+        for key, param in ba.signature.parameters.items():
+            if param.annotation is BaseModel:
+                arg = ba.arguments.pop(key)
+                ba.arguments.update(arg.dict(exclude_none=True))
 
-        self.unpack_orders(ba.arguments, self.func_sig.parameters)
-
-        params = _Parameters(ba.arguments)
-        return params
+        return APIParameters(ba.arguments)
 
     def wrap(self, client, /):
         """
@@ -119,7 +157,7 @@ class _Endpoint:
             async def wrapper(*args, **kwargs):
                 return await client._call(self.http_method,
                                           self.route,
-                                          params=self._get_params(args, kwargs),
+                                          params=self.__get_params(args, kwargs),
                                           headers=self.headers,
                                           add_api_key=self.add_api_key,
                                           add_signature=self.add_signature)
@@ -129,62 +167,91 @@ class _Endpoint:
             def wrapper(*args, **kwargs):
                 return client._call(self.http_method,
                                     self.route,
-                                    params=self._get_params(args, kwargs),
+                                    params=self.__get_params(args, kwargs),
                                     headers=self.headers,
                                     add_api_key=self.add_api_key,
                                     add_signature=self.add_signature)
-
         return wrapper
 
 
-class Endpoints:
+class APIEndpoints:
     """
-    Class for containing API endpoints.
+    API endpoints container and decorator.
     """
-    __endpoints = list()
+    __slots__ = ['__endpoints']
+
+    def __init__(self):
+        self.__endpoints = list()
+
+    def __iter__(self) -> Iterator[APIEndpoint]:
+        return iter(self.__endpoints)
 
     def __repr__(self):
         return f'Endpoints({str(self.__endpoints)})'
 
-    @classmethod
-    def add(cls,
-            http_method,
-            route,
+    def add(self,
+            http_method: http.Method,
+            route: str,
             /,
-            headers=None,
-            add_api_key=False,
-            add_signature=False):
+            headers: dict[str, str]=None,
+            add_api_key: bool=False,
+            add_signature: bool=False):
+        """
+        Decorator for adding endpoint to container.
 
+        Parameters
+        ----------
+        http_method: :class:`binance.enums.http.Method`
+            HTTP method to use.
+        route: str
+            Route of endpoint
+        headers: dict[str, str]
+            Dictionary of headers
+        add_api_key: bool
+            Boolean indicating whether to add API key
+        add_signature: bool
+            Boolean indicating whether to add API signature
+        
+        Returns
+        -------
+        Callable
+            Original callable on which decoratorwas called
+        """
+        log.debug("adding %s endpoint")
         def decorator(func):
-            ep = _Endpoint(http_method,
+            ep = APIEndpoint(http_method,
                            route,
                            func,
                            headers=headers,
                            add_api_key=add_api_key,
                            add_signature=add_signature)
-            cls.__endpoints.append(ep)
+            self.__endpoints.append(ep)
             return func
-
         return decorator
 
-    def __iter__(self):
-        return iter(self.__endpoints)
 
+APIEndpointsType = TypeVar('APIEndpointsType', bound='APIEndpointsLinkerMixin')
 
-class LinkEndpointsMixin:
+class APIEndpointsLinkerMixin:
     """
-    Mixin used to add link API endspoints method.
+    API endpoints linker mixin used to link API endspoints to a binance client.
     """
+    endpoints: APIEndpoints
 
     @classmethod
-    def link(cls, client: 'BaseClient'):
+    def link(cls: Type[APIEndpointsType], client: 'BaseClient') -> APIEndpointsType:
         """
-        Links endpoints to parsed client.
+        Links API endpoints to parsed client.
 
         Parameters
         ----------
-        client : BaseClient
-            client to link endpoints to
+        client: :class:`binance.client.base.BaseClient`
+            Binance client to link endpoints to
+        
+        Returns
+        -------
+        :class:`APIEndpointsType`
+            Subclass instance with API endpoints wrapped with parsed binance client
         """
         self = cls()
         for e in cls.endpoints:

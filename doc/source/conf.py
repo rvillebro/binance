@@ -11,7 +11,7 @@ import binance
 # -- Project information -----------------------------------------------------
 
 project = 'binance'
-copyright = '2021, Rasmus Villebro'
+copyright = '2022, Rasmus Villebro'
 author = 'Rasmus Villebro'
 
 # The full version, including alpha/beta/rc tags

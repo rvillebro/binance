@@ -4,24 +4,24 @@ Trade endpoints
 
 https://binance-docs.github.io/apidocs/futures/en/#account-trades-endpoints
 """
-from typing import TYPE_CHECKING, Optional
+from typing import Optional
 
-import binance.utils as utils
-from binance.order.base import Order
-from binance.client.response import Response
+import binance.client.endpoints.helpers as helpers
 
-from .base import Endpoints, LinkEndpointsMixin
+from binance.client.endpoints.base import APIEndpoints, APIEndpointsLinkerMixin
+from binance.order.base import BatchOrder, OrderType  # must be imported directly as pydantic validate_arguments cant handle TYPE_CHECKING
+from binance.client.response import Response  # must be imported directly as pydantic validate_arguments cant handle TYPE_CHECKING
 
 
-class Trade(LinkEndpointsMixin):
-    endpoints = Endpoints()
+class Trade(APIEndpointsLinkerMixin):
+    endpoints = APIEndpoints()
 
     @endpoints.add('POST',
                    '/fapi/v1/positionSide/dual',
                    add_api_key=True,
                    add_signature=True)
     def set_position_mode(dualSidePosition,
-                          timestamp: int = utils.get_timestamp,
+                          timestamp: int = helpers.get_timestamp,
                           recvWindow: Optional[int] = None) -> Response:
         """
         Sets the user's position mode on every position: hedge mode or one-way mode (*TRADE*)
@@ -42,8 +42,8 @@ class Trade(LinkEndpointsMixin):
                    '/fapi/v1/positionSide/dual',
                    add_api_key=True,
                    add_signature=True)
-    def get_position_mode(timestamp: int = utils.get_timestamp,
-                          recvWindow: Optional[int] = None) -> Response:
+    def get_position_mode(timestamp: int = helpers.get_timestamp,
+                          recvWindow: Optional[int] = None)-> Response:
         """
         Gets the user's position mode on every position: hedge mode or one-way mode (*USER_DATA*)
 
@@ -62,8 +62,8 @@ class Trade(LinkEndpointsMixin):
                    add_api_key=True,
                    add_signature=True)
     def set_multiasset_mode(multiAssetsMargin,
-                            timestamp: int = utils.get_timestamp,
-                            recvWindow: int = None) -> Response:
+                            timestamp: int = helpers.get_timestamp,
+                            recvWindow: int = None)-> Response:
         """
         Sets the user's Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*TRADE*)
 
@@ -80,8 +80,8 @@ class Trade(LinkEndpointsMixin):
         """
 
     @endpoints.add('GET', '/fapi/v1/multiAssetsMargin', add_api_key=True)
-    def get_multiasset_mode(timestamp: int = utils.get_timestamp,
-                            recvWindow: int = None) -> Response:
+    def get_multiasset_mode(timestamp: int = helpers.get_timestamp,
+                            recvWindow: int = None)-> Response:
         """
         Gets the user's Multi-Assets mode (Multi-Assets Mode or Single-Asset Mode) on Every symbol (*USER DATA*)
 
@@ -99,9 +99,9 @@ class Trade(LinkEndpointsMixin):
                    '/fapi/v1/order',
                    add_api_key=True,
                    add_signature=True)
-    def new_order(order: Order,
-                  timestamp: int = utils.get_timestamp,
-                  recvWindow: int = None) -> Response:
+    def new_order(order: OrderType,
+                  timestamp: int = helpers.get_timestamp,
+                  recvWindow: int = None)-> Response:
         """
         Send in a new order (*TRADE*).
 
@@ -117,9 +117,14 @@ class Trade(LinkEndpointsMixin):
             receive window
         """
 
-    def batch_order(orders: list[Order],
-                    timestamp: int = utils.get_timestamp,
-                    recvWindow: int = None) -> Response:
+    @staticmethod
+    @endpoints.add('POST',
+                   '/fapi/v1/batchOrders',
+                   add_api_key=True,
+                   add_signature=True)
+    def batch_order(orders: BatchOrder,
+                    timestamp: int = helpers.get_timestamp,
+                    recvWindow: int = None)-> Response:
         """
         Send in a batch of orders (*TRADE*).
 
@@ -127,10 +132,15 @@ class Trade(LinkEndpointsMixin):
 
         Parameters
         ----------
-        orders : list[binance.order.Order]
-            list of binance.order.Order objects
-        timestamp : int
+        orders: :class:`binance.order.BatchOrder`
+            Batch order to send
+        timestamp: int
             timestamp
-        recvWindow : int
+        recvWindow: int
             receive window
         """
+
+if __name__ == '__main__':
+    import doctest
+    from binance.client import Client
+    doctest.testmod(globs=dict(client=Client()), optionflags=doctest.ELLIPSIS)

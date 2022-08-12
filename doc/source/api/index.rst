@@ -9,3 +9,4 @@ API
    :caption: Contents:
 
    *
+   endpoints/index

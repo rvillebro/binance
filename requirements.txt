@@ -1,5 +1,4 @@
 requests
 aiohttp[speedups]
-autobahn[twisted]
 python-dotenv
 pydantic

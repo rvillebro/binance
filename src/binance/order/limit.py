@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING, Optional, Literal, overload
-from pydantic import BaseModel, ValidationError, constr, validator
+from pydantic import ValidationError, constr, validator
 
 from binance.order.base import Order
 from binance.enums import binance
@@ -8,35 +8,35 @@ if TYPE_CHECKING:
     from binance.client import Client, AIOClient
 
 
-class Limit(BaseModel, Order):
+class Limit(Order):
     """
     Initialize limit order object.
 
     Parameters
     ----------
-    symbol : str
+    symbol: str
         symbol
-    side : :class:`~binance.enum.binance.OrderSide`
+    side: :class:`~binance.enum.binance.OrderSide`
         BUY or SELL
-    positionSide : :class:`~binance.enum.binance.PositionSide`
+    positionSide: :class:`~binance.enum.binance.PositionSide`
         BOTH, LONG or SHORT.
         Default BOTH for One-way Mode; LONG or SHORT for Hedge Mode.
         It must be sent in Hedge Mode.
-    timeInForce : :class:`~binance.enum.binance.TimeInForce`
+    timeInForce: :class:`~binance.enum.binance.TimeInForce`
         GTC (good till cancel), IOC (Immediate or Cancel), FOK (Fill or Kill) or GTX (Good Till Crossing, Post Only)
-    quantity : float
+    quantity: float, optional
         Cannot be sent with closePosition=true (Close-All)
-    reduceOnly : str
+    reduceOnly: str, optional
         "true" or "false".
         Default "false".
         Cannot be sent in Hedge Mode; cannot be sent with closePosition=true
-    price : float
+    price: float, optional
         Price 
-    newClientOrderId : str
+    newClientOrderId: str, optional
         A unique id among open binances.
         Automatically generated if not sent.
         Can only be string following the rule: ^[a-zA-Z0-9-_]{1,36}$
-    reponseType :class:`~binance.enum.binance.ResponseType`
+    reponseType: :class:`~binance.enum.binance.ResponseType`, optional
         "ACK" or "RESULT", default "ACK"
     """
     symbol: str
@@ -50,6 +50,7 @@ class Limit(BaseModel, Order):
     responseType: Optional[binance.ResponseType] = None
     type: Literal[binance.OrderType.LIMIT] = binance.OrderType.LIMIT
 
+'''
     @validator('positionSide', always=True)
     def hedgemode_mandatory(cls, v):
         if 'in_hedgemode' and v is None:
@@ -98,6 +99,4 @@ class Limit(BaseModel, Order):
                 raise ValidationError('reduceOnly cannot be set in hedgemode')
 
         return True
-
-    class Config:
-        use_enum_values = True
+'''
