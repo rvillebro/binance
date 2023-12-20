@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "binance"
+version = "0.1.0"
+description = "Python Binance API package"
+authors = ["Rasmus Villebro <rasmus-villebro@hotmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+aiohttp = {version="^3.9.1", extras=["speedups"]}
+python-dotenv = "^1.0.0"
+pydantic = "^2.5.2"
+strenum = {version = "^0.4.15", python = "<3.11"}
+ruff = {version = "^0.1.3", optional = true}
+pytest = {version = "^7.4.2", optional = true}
+sphinx = {version = "^7.2.6", optional = true}
+furo = {version = "^2023.9.10", optional = true}
+
+
+[tool.poetry.extras]
+dev = ["ruff", "pytest", "sphinx", "furo"]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+addopts = "-v --doctest-modules"
+doctest_optionflags = "NORMALIZE_WHITESPACE IGNORE_EXCEPTION_DETAIL ELLIPSIS"
+testpaths = ["tests", "binance"]
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  "SIM",
+  # isort
+  "I",
+]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
